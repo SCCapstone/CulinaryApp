@@ -25,5 +25,6 @@ TODO in section 492
 
 ## Authors
 Ralph J. Gleaton - ralphg@email.sc.edu
+
 Lukacs Ablonczy - lukacsa@email.sc.edu
 
