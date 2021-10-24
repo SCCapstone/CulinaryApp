@@ -4,6 +4,7 @@ wiki/
 #not covered yet
 *.gradle
 *.properties
+gradle/
 
 # Built application files
 *.apk
