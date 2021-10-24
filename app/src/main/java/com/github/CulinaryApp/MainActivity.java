@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         String correctPhone = "8438675309";
         String correctPass = "capstone";
 
+        //RJs contribution to prove I can
+        for(int i = 0; i < 10; i++){
+            continue;
+        }
+
         Button login = findViewById(R.id.loginButton);
         login.setOnClickListener(view -> {
             boolean numRight = numInputField.getText().toString().equals(correctPhone);
