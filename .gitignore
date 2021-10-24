@@ -5,6 +5,10 @@ wiki/
 *.gradle
 *.properties
 gradle/
+.idea/
+gradlew
+gradlew.bat
+
 
 # Built application files
 *.apk
