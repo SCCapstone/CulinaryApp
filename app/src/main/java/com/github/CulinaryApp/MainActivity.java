@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
         TextView passInputField = findViewById(R.id.passInput);
 
         String correctPhone = "8438675309";
-        final String correctPass = "capstone";
+        String correctPass = "capstone";
 
         Button login = findViewById(R.id.loginButton);
         login.setOnClickListener(view -> {
-            boolean numRight = numInputField.toString().equals(correctPhone);
-            boolean passRight = passInputField.toString().equals(correctPass);
+            boolean numRight = numInputField.getText().toString().equals(correctPhone);
+            boolean passRight = passInputField.getText().toString().equals(correctPass);
 
             if (numRight && passRight)
                 output("Login Success", "Welcome, Chef Cocky!");
