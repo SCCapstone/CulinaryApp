@@ -1,6 +1,10 @@
 # Images for the Wiki
 wiki/
 
+#not covered yet
+*.gradle
+*.properties
+
 # Built application files
 *.apk
 *.aar
