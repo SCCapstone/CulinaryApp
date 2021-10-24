@@ -9,10 +9,10 @@ Android Studio
 After cloning, repo must be imported into Android Studio as a project. Android Studio emulators or a physical Android Device, with proper developer mode settings (debugging mode turned on), required
 
 ## Running
-TODO
+Select the emluator or physical device being tested with Android Studio, and press either the run or debug button for the project
 
 ## Deployment
-TODO
+Use Android Studio menus (Build->Build Bundle/APK) to build and App Bundle or an APK. App Bundle is preferred for current versions of Android Studio. Follow instructions provided. Signing is included within the dialogs. Uploading on Google Drive requires an existing developer's account/license, but all instructions are provided at https://play.google.com/console/about/
 
 ## Testing
 TODO in section 492, not necessary at present
