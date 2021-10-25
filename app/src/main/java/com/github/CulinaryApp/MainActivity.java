@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < 10; i++){
             continue;
         }
+        //Michaels contribution to show I can push
+        for(int 1; j<savedInstanceState.size(); j++){
+            continue;
+        }
 
         Button login = findViewById(R.id.loginButton);
         login.setOnClickListener(view -> {
