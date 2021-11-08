@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,23 +21,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView numInputField = findViewById(R.id.numInput);
+        TextView numInputField = findViewById(R.id.numInput);
         TextView passInputField = findViewById(R.id.passInput);
 
-        String correctPhone = "8438675309";
-        String correctPass = "capstone";
+       
 
-        //RJs contribution to prove I can
-        for(int i = 0; i < 10; i++){
-            continue;
-        }
-        //Michaels contribution to show I can push
-        for(int 1; j<savedInstanceState.size(); j++){
-            continue;
-        }
 
         Button login = findViewById(R.id.loginButton);
         login.setOnClickListener(view -> {
+           
             boolean numRight = numInputField.getText().toString().equals(correctPhone);
             boolean passRight = passInputField.getText().toString().equals(correctPass);
 
@@ -46,8 +39,23 @@ public class MainActivity extends AppCompatActivity {
                 output("Login Failed", "Check Phone Number or Password. (Phone: 8438675309, Pass: capstone)");
 
         });
+       
+            
+            if (userExists(numInputField,passInputField))
+                navigateToCategoriesPage();
+            
     }
-
+    private void userExists(TextView number, TextView password) {
+        
+        // if (user account is authenticated by firebase instance
+        return true;
+       
+    }
+    
+    public void navigateToCategoriesPage() {
+        Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
+        startActivity(intentToStartCategoriesPage);
+    }
     private void output(String title, String msg){
         AlertDialog.Builder alertBox = new AlertDialog.Builder(this);
         alertBox.setTitle(title);
