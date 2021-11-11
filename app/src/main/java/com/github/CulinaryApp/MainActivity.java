@@ -24,14 +24,17 @@ public class MainActivity extends AppCompatActivity {
         TextView numInputField = findViewById(R.id.numInput);
         TextView passInputField = findViewById(R.id.passInput);
 
-       
+
 
 
         Button login = findViewById(R.id.loginButton);
         login.setOnClickListener(view -> {
-           
-            boolean numRight = numInputField.getText().toString().equals(correctPhone);
-            boolean passRight = passInputField.getText().toString().equals(correctPass);
+
+//            boolean numRight = numInputField.getText().toString().equals(correctPhone);
+//            boolean passRight = passInputField.getText().toString().equals(correctPass);
+
+            boolean numRight = true;
+            boolean passRight = true;
 
             if (numRight && passRight)
                 output("Login Success", "Welcome, Chef Cocky!");
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 navigateToCategoriesPage();
             
     }
-    private void userExists(TextView number, TextView password) {
+    private boolean userExists(TextView number, TextView password) {
         
         // if (user account is authenticated by firebase instance
         return true;
