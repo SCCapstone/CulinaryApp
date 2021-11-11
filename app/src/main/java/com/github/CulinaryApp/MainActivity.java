@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button login = findViewById(R.id.loginButton);
-        login.setOnClickListener(view -> {
+        /*       login.setOnClickListener(view -> {
 
-//            boolean numRight = numInputField.getText().toString().equals(correctPhone);
-//            boolean passRight = passInputField.getText().toString().equals(correctPass);
+           boolean numRight = numInputField.getText().toString().equals(correctPhone);
+           boolean passRight = passInputField.getText().toString().equals(correctPass);
 
             boolean numRight = true;
             boolean passRight = true;
@@ -42,19 +42,22 @@ public class MainActivity extends AppCompatActivity {
                 output("Login Failed", "Check Phone Number or Password. (Phone: 8438675309, Pass: capstone)");
 
         });
+
+ */
        
-            
+        /*
             if (userExists(numInputField,passInputField))
                 navigateToCategoriesPage();
-            
+         */
     }
+    /*
     private boolean userExists(TextView number, TextView password) {
         
         // if (user account is authenticated by firebase instance
         return true;
        
     }
-    
+
     public void navigateToCategoriesPage() {
         Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
         startActivity(intentToStartCategoriesPage);
@@ -68,4 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         alertBox.show();
     }
+    */
+
 }
