@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:453772724489:android:a8ebaf236963073cfdebd8",
         "android_client_info": {
-          "package_name": "com.github.culinaryapp"
+          "package_name": "$CAPSTONE_ROOT"
         }
       },
       "oauth_client": [
