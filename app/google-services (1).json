@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "323482856623",
+    "firebase_url": "https://iamchef-c2446-default-rtdb.firebaseio.com",
+    "project_id": "iamchef-c2446",
+    "storage_bucket": "iamchef-c2446.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323482856623:android:1297e935db42e0255bb85a",
+        "android_client_info": {
+          "package_name": "com.example.iamchef"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU5iYLpUiuxf9-3T655Iy77eOhj0lj2xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323482856623:android:2fc6344a7b8adf495bb85a",
+        "android_client_info": {
+          "package_name": "com.example.loginproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323482856623-a9akfau2j5icamresvpocrte223o90sr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.loginproject",
+            "certificate_hash": "53558a6e7a8f9aeefef6b3b72ed4f6b544209f80"
+          }
+        },
+        {
+          "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU5iYLpUiuxf9-3T655Iy77eOhj0lj2xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323482856623:android:a5659a0a73eba2c65bb85a",
+        "android_client_info": {
+          "package_name": "com.github.culinaryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU5iYLpUiuxf9-3T655Iy77eOhj0lj2xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323482856623-sc5o1671hd2loidmgctkl48g5r21eqni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
