@@ -20,8 +20,7 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_categories);
 
-        final TextView numInputField = findViewById(R.id.numInput);
-        TextView passInputField = findViewById(R.id.passInput);
+        final TextView numInputField = findViewById(R.id.);
 
         String searchWord = "";
     }
