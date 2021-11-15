@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button login = findViewById(R.id.loginButton);
+        // Configure sign-in to request the user's ID, email address, and basic
+// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                // this is the backend server's  OAuth 2.0 client ID
+                .requestIdToken("453772724489-hcig30pfqiddt4af1i8ucu2766kuiikh.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
         /*       login.setOnClickListener(view -> {
 
            boolean numRight = numInputField.getText().toString().equals(correctPhone);
