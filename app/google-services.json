@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "453772724489-3sq4ocibsvvr8v8r2fuc65v2n9418gbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.CulinaryApp",
+            "certificate_hash": "53558a6e7a8f9aeefef6b3b72ed4f6b544209f80"
+          }
+        },
+        {
           "client_id": "453772724489-hcig30pfqiddt4af1i8ucu2766kuiikh.apps.googleusercontent.com",
           "client_type": 3
         }
