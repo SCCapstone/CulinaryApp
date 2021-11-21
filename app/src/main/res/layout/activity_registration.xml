@@ -8,6 +8,7 @@
     tools:context=".RegistrationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -28,22 +29,85 @@
             android:id="@+id/EmailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
+            android:layout_marginTop="104dp"
             android:ems="10"
             android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="@+id/Registration"
-            app:layout_constraintStart_toStartOf="@+id/Registration"
+            app:layout_constraintEnd_toEndOf="@+id/emailPrompt"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/emailPrompt"
             app:layout_constraintTop_toBottomOf="@+id/Registration" />
 
         <EditText
             android:id="@+id/Password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/passwordPrompt"
+            app:layout_constraintHorizontal_bias="0.008"
+            app:layout_constraintStart_toStartOf="@+id/passwordPrompt"
+            app:layout_constraintTop_toBottomOf="@+id/passwordPrompt" />
+
+        <TextView
+            android:id="@+id/emailPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="Email:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/Registration"
+            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintStart_toStartOf="@+id/Registration"
+            app:layout_constraintTop_toBottomOf="@+id/Registration" />
+
+        <TextView
+            android:id="@+id/passwordPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Password:"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/EmailAddress"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/EmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/EmailAddress" />
+
+        <TextView
+            android:id="@+id/confPasswordPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password:"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="447dp" />
+
+        <EditText
+            android:id="@+id/ConfPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/confPasswordPrompt"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="@+id/confPasswordPrompt"
+            app:layout_constraintTop_toBottomOf="@+id/confPasswordPrompt" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="104dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="64dp"
+            android:background="#FF9800"
+            android:text="Next >"
+            android:textAlignment="center"
+            android:textColor="#6E6E6E"
+            android:textSize="20sp"
+            android:typeface="normal"
+            android:radius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/ConfPassword"
+            app:layout_constraintStart_toStartOf="@+id/ConfPassword"
+            app:layout_constraintTop_toBottomOf="@+id/ConfPassword" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
