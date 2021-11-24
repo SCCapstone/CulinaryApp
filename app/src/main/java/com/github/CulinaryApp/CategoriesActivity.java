@@ -18,11 +18,11 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_categories);
+        setContentView(R.layout.activity_categories);
 
-        final TextView numInputField = findViewById(R.id.);
+        final TextView numInputField = findViewById(R.id.searchInput);
 
-        String searchWord = "";
+        //String searchWord = "";
     }
 
 }
