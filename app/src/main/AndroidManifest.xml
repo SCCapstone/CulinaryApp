@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.github.CulinaryApp.LoginActivity"
+            android:name="com.github.CulinaryApp.views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
             tools:ignore="MissingClass">
