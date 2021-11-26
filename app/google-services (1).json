@@ -7,49 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453772724489:android:3877a78d4a2b65b9fdebd8",
+        "mobilesdk_app_id": "1:453772724489:android:23f5cc8caa24e32afdebd8",
         "android_client_info": {
           "package_name": "com.github.CulinaryApp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "453772724489-3sq4ocibsvvr8v8r2fuc65v2n9418gbb.apps.googleusercontent.com",
+          "client_id": "453772724489-9hav5ecc3ppelcl0p3u1ri3e7jg6jks7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.github.CulinaryApp",
             "certificate_hash": "53558a6e7a8f9aeefef6b3b72ed4f6b544209f80"
           }
         },
-        {
-          "client_id": "453772724489-hcig30pfqiddt4af1i8ucu2766kuiikh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD-qlvOypZl8iU_GHDM1vgtZgxP_nl-zRU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "453772724489-hcig30pfqiddt4af1i8ucu2766kuiikh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:453772724489:android:a8ebaf236963073cfdebd8",
-        "android_client_info": {
-          "package_name": "com.github.culinaryapp"
-        }
-      },
-      "oauth_client": [
         {
           "client_id": "453772724489-hcig30pfqiddt4af1i8ucu2766kuiikh.apps.googleusercontent.com",
           "client_type": 3
