@@ -22,7 +22,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/xmlId_usersEmail"
+        android:autofillHints="@string/strEmailHint"
+        android:hint="@string/strEmailHint"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlId_appTitle" />
 
+    <EditText
+        android:id="@+id/xmlId_usersPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:autofillHints="@string/strPasswordHint"
+        android:hint="@string/strPasswordHint"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlId_usersEmail"
+        app:layout_constraintVertical_bias="0.039" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
