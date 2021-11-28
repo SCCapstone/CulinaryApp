@@ -14,4 +14,12 @@
     <string name="strEmailHint"> Email Address </string>
     <string name="strPasswordHint">Password</string>
 
+    <!-- Strings for Search bar -->
+    <string name = "searchHint">Search Categories</string>
+
+    <!-- Strings for Categories Activity -->
+    <string name ="back">back</string>
+    <string name = "Vegetarian">Vegetarian</string>
+    <string name = "pasta">Pasta</string>
+
 </resources>
