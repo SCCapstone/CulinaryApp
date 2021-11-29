@@ -22,7 +22,7 @@
         android:id="@+id/search_bar"
         android:layout_width="321dp"
         android:layout_height="48dp"
-        android:background="#ff8000"
+        android:backgroundTint="@color/purple"
         android:hint="@string/searchHint"
         app:layout_constraintBottom_toBottomOf="@id/search_bar"
         app:layout_constraintStart_toEndOf="@id/BackButton">

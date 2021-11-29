@@ -4,51 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/FirebaseUI"
     tools:context=".views.LoginActivity">
+
 
     <TextView
         android:id="@+id/xmlId_appTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="179dp"
-        android:text="@string/app_name"
-        android:textColor="#3F51B5"
+        android:layout_width="175dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="112dp"
+        android:text="@string/strAppName"
+        android:textColor="@color/purple"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/xmlId_usersEmail"
+        android:layout_width="262dp"
+        android:layout_height="58dp"
         android:autofillHints="@string/strEmailHint"
-        android:hint="@string/strEmailHint"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
         android:ems="10"
+        android:hint="@string/strEmailHint"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/xmlId_appTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/xmlId_appTitle"
+        app:layout_constraintVertical_bias="0.107" />
 
     <EditText
         android:id="@+id/xmlId_usersPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:ems="10"
+        android:layout_width="253dp"
+        android:layout_height="56dp"
         android:autofillHints="@string/strPasswordHint"
+        android:ems="10"
         android:hint="@string/strPasswordHint"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/xmlId_usersEmail"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintVertical_bias="0.163" />
 
+    <Button
+        android:id="@+id/xmlId_loginButton"
+        android:label="@+id/strLogin"
+        android:layout_width="125dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/purple"
+        android:onClick="navigateToCategoriesPage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlId_usersPassword"
+        app:layout_constraintVertical_bias="0.16" />
+
+    <Button
+        android:layout_width="@dimen/fui_auth_method_button_width"
+        android:layout_height="@dimen/fui_min_height_target"
+        android:theme="@style/FirebaseUI.Button.AccountChooser.EmailButton"
+        android:label="@string/fui_sign_in_with_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xmlId_loginButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
