@@ -14,4 +14,7 @@
     <string name="strEmailHint"> Email Address </string>
     <string name="strPasswordHint">Password</string>
 
+    <!--Strings used for registration pages -->
+    <string name="title_activity_reg_page2">Registration Page 2</string>
+
 </resources>
