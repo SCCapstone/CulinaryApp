@@ -1,9 +1,15 @@
 package com.github.CulinaryApp.views;
 
+import static com.github.CulinaryApp.R.id.login_button;
+
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+
+import android.text.TextUtils;
+// import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
+// import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,15 +19,21 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.auth.FirebaseUser;
 import android.content.Intent;
 import android.view.View;
 
+
+
 public class LoginActivity extends AppCompatActivity {
 
+
     private FirebaseAuth mAuth;
-    private static final String TAG = "EmailPassword";
-    public boolean loginSuccessful = true;
+
+    public void navigateToCategoriesPage(View view) {
+            Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
+            startActivity(intentToStartCategoriesPage);
+    }
 
 
     @Override
@@ -31,47 +43,56 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            // reload();
-        }
-    }
-    public int signIn(String email, String password) {
-        int retVal = 1;
-        // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //if (task.isSuccessful()) {
-                            // Sign in success? update UI accordingly
-                         if (loginSuccessful) {
 
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                           // navigateToCategoriesPage();
+        EditText email = (findViewById(R.id.email));
+        EditText password = (findViewById(R.id.password));
+        Button loginButton = (findViewById(login_button));
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        //    updateUI(null);
-                        }
-                    }
-                });
-        // [END sign_in_with_email]
-        return retVal;
-    }
-    public void navigateToCategoriesPage(View view) {
-        if (loginSuccessful) {
-            Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
-            startActivity(intentToStartCategoriesPage);
-        }
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String useremail = email.getText().toString();
+                String userpassword = password.getText().toString();
+
+                if (TextUtils.isEmpty(useremail)) {
+                    Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(userpassword)) {
+                    Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //progressBar.setVisibility(View.VISIBLE);
+
+                //login user
+                mAuth.signInWithEmailAndPassword(useremail,userpassword)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                //progressBar.setVisibility(View.GONE);
+
+                                if (!task.isSuccessful()) {
+
+                                    if (userpassword.length() < 6) {
+                                        password.setError(LoginActivity.this.getString(R.string.minimum_password));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, LoginActivity.this.getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } else {
+                                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, CategoriesActivity.class));
+                                    LoginActivity.this.finish();
+                                }
+                            }
+                        });
+
+            }
+        });
+
+
     }
 }
+
+
