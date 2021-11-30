@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true" />
+        <activity
             android:name=".RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
@@ -20,22 +27,21 @@
             android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name="com.github.CulinaryApp.views.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".views.LoginActivity"
             android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="MissingClass">
-
             <intent-filter>
-                <action android:name="android.intent.action.Categories"/>
-                <action android:name="com.package.CulinaryApp."/>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.package.CulinaryApp." />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.github.CulinaryApp.CategoriesActivity"
+            android:name=".CategoriesActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>
