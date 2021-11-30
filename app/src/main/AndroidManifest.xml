@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.github.CulinaryApp">
 
+    <!-- normal permissions (granted at install time) needed to perform network operations -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:fullBackupOnly="true"
@@ -49,7 +52,7 @@
 
         <activity
             android:name=".views.CategoriesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!--android:label="@string/title_activity_main" -->
 
 <!--
