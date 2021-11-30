@@ -38,23 +38,24 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         mAuth = FirebaseAuth.getInstance();
 
-        nButton = (Button)findViewById(R.id.button);
+        nButton = (Button)findViewById(R.id.reg1NButton);
         emailAddress = (EditText)findViewById(R.id.EmailAddress);
         password = (EditText)findViewById(R.id.Password);
         confPassword = (EditText)findViewById(R.id.ConfPassword);
         progBar = (ProgressBar)findViewById(R.id.progressBar);
+        progBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button:
+            case R.id.reg1NButton:
 
                 String email = emailAddress.getText().toString().trim();
                 String pass = password.getText().toString().trim();
 
                 //If email address doesn't match standard email format throw error
-                if(Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     emailAddress.setError("Please enter a valid email address!");
                     emailAddress.requestFocus();
                     return;
@@ -72,11 +73,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         || confPassword.getText().toString().isEmpty())
                 {
                     Toast.makeText(RegistrationActivity.this, "One or more fields is empty", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 //Check to make sure both password fields match
                 else if(!pass.matches(confPassword.getText().toString())){
                     Toast.makeText(RegistrationActivity.this, "Please make sure both passwords match", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 //TODO Check to make sure email is unique
