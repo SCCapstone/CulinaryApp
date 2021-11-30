@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
 
 import android.os.Bundle;
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText email = (findViewById(R.id.email));
         EditText password = (findViewById(R.id.password));
         Button loginButton = (findViewById(login_button));
+        Button signUpButton = (findViewById(btn_signup));
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+
 
                 //progressBar.setVisibility(View.VISIBLE);
 
@@ -93,6 +97,13 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
+            }
+        });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToCategoriesPage(v);
             }
         });
 
