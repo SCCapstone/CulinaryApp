@@ -4,15 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-<<<<<<< Updated upstream
-        layout = "@layout/appbar"
-        >
-    </include>
-=======
-        layout = "@layout/appbar" />
 
-<!--
+    <include layout="@layout/appbar" />
+
+    <!--
     <Button
         android:id="@+id/BackButton"
         android:layout_width="wrap_content"
@@ -25,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_bar"
         android:layout_width="321dp"
@@ -41,7 +36,6 @@
             android:layout_height="47dp" />
     </com.google.android.material.textfield.TextInputLayout>
  -->
->>>>>>> Stashed changes
     <TextView
         android:id="@+id/vegetarianSection"
         android:layout_width="wrap_content"
@@ -58,20 +52,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666" />
-
-    <ImageView
-        android:id="@+id/vegetarianImageOne"
-        android:layout_width="145sp"
-        android:layout_height="110sp"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="138dp"
-        android:layout_marginEnd="226dp"
-        android:layout_marginBottom="476dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/vegetarianImageTwo"
@@ -143,5 +123,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/creolePasta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="164dp"
+        android:onClick="sendMessage"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

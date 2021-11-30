@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.CulinaryApp.R;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -32,6 +34,12 @@ public class CategoriesActivity extends AppCompatActivity {
         //displays home button
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    //This method is what should send to recipes page
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, Recipe.java.class);
+        startActivity(intent);
     }
 
     @Override
