@@ -17,13 +17,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_bar"
         android:layout_width="321dp"
         android:layout_height="48dp"
-        android:background="#ff8000"
-        android:hint="Search"
+        android:backgroundTint="@color/purple"
+        android:hint="@string/searchHint"
         app:layout_constraintBottom_toBottomOf="@id/search_bar"
         app:layout_constraintStart_toEndOf="@id/BackButton">
 
@@ -41,7 +41,7 @@
         android:layout_marginTop="76dp"
         android:layout_marginEnd="273dp"
         android:layout_marginBottom="628dp"
-        android:text="Vegetarian"
+        android:text="@string/Vegetarian"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
         android:layout_marginTop="416dp"
         android:layout_marginEnd="313dp"
         android:layout_marginBottom="288dp"
-        android:text="Pasta"
+        android:text="@string/pasta"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

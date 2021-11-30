@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">I Am Chef</string>
+    <string name="strAppName">IAm Chef</string>
     <string name="title_activity_main">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -10,9 +10,23 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <!-- Strings used for login page -->
+    <!-- Strings used for Login Activity -->
     <string name="strEmailHint"> Email Address </string>
     <string name="strPasswordHint">Password</string>
+    <string name="strLogin">Login</string>
+    <string name="strRegister">Register</string>
+
+    <!-- Strings for Search bar -->
+    <string name = "searchHint">Search Categories</string>
+
+    <!-- Strings for Categories Activity -->
+    <string name ="back">back</string>
+    <string name = "Vegetarian">Vegetarian</string>
+    <string name = "pasta">Pasta</string>
+
+    <!-- Not sure what the values of these strings need to be -->
+    <string name="action_settings">Name of this String Resource is "action_settings"</string>
+    <string name="large_text">Name of this String Resource is "large_text"</string>
 
     <!--Strings used for registration pages -->
     <string name="title_activity_reg_page2">Registration Page 2</string>

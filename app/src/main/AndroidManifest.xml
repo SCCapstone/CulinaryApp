@@ -11,31 +11,58 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <activity
+            android:name=".views.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            @string/title_activity_reg_page2 is missing
+            so this activity is commented out until we figure this one out
         <activity
             android:name=".RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
             android:theme="@style/AppTheme.NoActionBar" />
+
+         -->
+
         <activity
             android:name=".RegistrationActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.github.CulinaryApp.views.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
-            tools:ignore="MissingClass">
-
+            >
             <intent-filter>
                 <action android:name="android.intent.action.Categories"/>
                 <action android:name="com.package.CulinaryApp."/>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.github.CulinaryApp.CategoriesActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
 
+
+        <activity
+            android:name=".views.CategoriesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--android:label="@string/title_activity_main" -->
+
+<!--
+
+        <activity android:name="com.github.CulinaryApp.SearchableActivity"
+            <android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+-->
     </application>
 
 </manifest>
