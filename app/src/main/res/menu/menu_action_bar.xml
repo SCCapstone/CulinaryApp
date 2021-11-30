@@ -16,7 +16,11 @@
         />
     <item
         android:title = "Share"
+<<<<<<< Updated upstream
         android:icon="@drawable/share_app"
+=======
+        android:icon="@drawable/share_image"
+>>>>>>> Stashed changes
         android:id="@+id/share"
         app:showAsAction="ifRoom"/>
 
