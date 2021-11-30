@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     // FirebaseUI
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     // Facebook SDK for future integration
    // implementation 'com.facebook.android:facebook-sdk:8.x'
 
