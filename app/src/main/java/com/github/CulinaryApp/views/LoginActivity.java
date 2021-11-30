@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToCategoriesPage(v);
+                navigateToRegistrationPage(v);
             }
         });
 
