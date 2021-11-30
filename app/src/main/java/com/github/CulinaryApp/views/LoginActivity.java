@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.RegistrationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,6 +34,10 @@ public class LoginActivity extends AppCompatActivity {
     public void navigateToCategoriesPage(View view) {
             Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
             startActivity(intentToStartCategoriesPage);
+    }
+    public void navigateToRegistrationPage(View view) {
+        Intent intentToStartRegistrationPage  = new Intent(this, RegistrationActivity.class);
+        startActivity(intentToStartRegistrationPage);
     }
 
 
