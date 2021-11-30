@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -22,12 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!--
+            @string/title_activity_reg_page2 is missing
+            so this activity is commented out until we figure this one out
         <activity
             android:name=".RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
             android:theme="@style/AppTheme.NoActionBar" />
+
          -->
 
         <activity
@@ -41,8 +46,9 @@
             </intent-filter>
         </activity>
 
+
         <activity
-            android:name="com.github.CulinaryApp.views.CategoriesActivity"
+            android:name=".views.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--android:label="@string/title_activity_main" -->
 
