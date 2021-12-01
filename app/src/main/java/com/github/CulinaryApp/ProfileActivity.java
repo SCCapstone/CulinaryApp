@@ -2,6 +2,8 @@ package com.github.CulinaryApp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -29,6 +31,13 @@ public class ProfileActivity extends AppCompatActivity {
         changingBgImg = false;
         changingProfPic = false;
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.clipboardFragmentHolder, ClipboardFragment.class, null)
+                    .commit();
+        }
+
     }
 
     @Override
@@ -43,6 +52,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button bgChangeButton = findViewById(R.id.editBGImg);
         bgChangeButton.setOnClickListener(bgImgChanger);
+
+        FragmentContainerView clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
+        clipboardContainer.setOnFocusChangeListener((container, hasFocus) -> {
+            if(!hasFocus)
+                container.setVisibility(View.INVISIBLE);
+        });
+
+        Button clipboardButton = findViewById(R.id.toolbarClip);
+        clipboardButton.setOnClickListener(v -> {
+            clipboardContainer.setVisibility(View.VISIBLE);
+            clipboardContainer.requestFocus();
+        });
     }
 
     View.OnClickListener profImgChanger = view -> {
