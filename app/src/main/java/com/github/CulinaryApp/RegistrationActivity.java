@@ -102,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                if(task.isSuccessful()){
-                                                    Toast.makeText(RegistrationActivity.this, "User successfully registered", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegistrationActivity.this, "User successfully registered", Toast.LENGTH_LONG).show();
                                                     progBar.setVisibility(View.GONE);
 
                                                     //TODO Send user to profile page or categories page (or reg page 2 but that's given)
