@@ -21,6 +21,7 @@
     <string name ="back">back</string>
     <string name = "Vegetarian">Vegetarian</string>
     <string name = "pasta">Pasta</string>
+    <string name = "creole">Creole</string>
 
 <!--    Added by luke -->
     <string name = "title_activity_reg_page2">placeholder value</string>

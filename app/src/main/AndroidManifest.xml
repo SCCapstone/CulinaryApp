@@ -31,8 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.github.CulinaryApp.views.CategoriesActivity"
+            android:name=".views.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true">
         </activity>

@@ -3,48 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".views.CategoriesActivity">
     <include layout="@layout/appbar" />
 
-    <!--
-    <Button
-        android:id="@+id/BackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="324dp"
-        android:layout_marginBottom="683dp"
-        android:background="#CCCACA"
-        android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_bar"
-        android:layout_width="321dp"
-        android:layout_height="48dp"
-        android:backgroundTint="@color/purple"
-        android:hint="@string/searchHint"
-        app:layout_constraintBottom_toBottomOf="@id/search_bar"
-        app:layout_constraintStart_toEndOf="@id/BackButton">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchInput"
-            android:layout_width="334dp"
-            android:layout_height="47dp" />
-    </com.google.android.material.textfield.TextInputLayout>
- -->
     <TextView
-        android:id="@+id/vegetarianSection"
+        android:id="@+id/creoleSection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
         android:layout_marginTop="76dp"
         android:layout_marginEnd="273dp"
         android:layout_marginBottom="628dp"
-        android:text="@string/Vegetarian"
+        android:text="@string/creole"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,77 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666" />
 
-    <ImageView
-        android:id="@+id/vegetarianImageTwo"
-        android:layout_width="145sp"
-        android:layout_height="110sp"
-        android:layout_marginStart="226dp"
-        android:layout_marginTop="138dp"
-        android:layout_marginEnd="41dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/vegetarianImageThree"
-        android:layout_width="145sp"
-        android:layout_height="110sp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="277dp"
-        android:layout_marginBottom="337dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/VegetarianImageFour"
-        android:layout_width="145dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="279dp"
-        android:layout_marginEnd="46dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/pastaSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="416dp"
-        android:layout_marginEnd="313dp"
-        android:layout_marginBottom="288dp"
-        android:text="@string/pasta"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375" />
-
-    <ImageView
-        android:id="@+id/pastaImageOne"
-        android:layout_width="145sp"
-        android:layout_height="110sp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="483dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/pastaImageTwo"
-        android:layout_width="145sp"
-        android:layout_height="110sp"
-        android:layout_marginTop="482dp"
-        android:layout_marginEnd="33dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <Button
         android:id="@+id/creolePasta"
         android:layout_width="wrap_content"
@@ -131,7 +31,7 @@
         android:layout_marginStart="67dp"
         android:layout_marginTop="164dp"
         android:onClick="sendMessage"
-        android:text="Button"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
