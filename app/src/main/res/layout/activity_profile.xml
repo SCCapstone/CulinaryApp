@@ -189,21 +189,25 @@
             <Button
                 android:id="@+id/toolbarClip"
                 style="@style/ToolbarButton"
+                android:drawableTop="@drawable/clipboard"
                 android:text="Clipboard" />
 
             <Button
                 android:id="@+id/toolbarSearch"
                 style="@style/ToolbarButton"
+                android:drawableTop="@drawable/search"
                 android:text="Search" />
 
             <Button
                 android:id="@+id/toolbarTrending"
                 style="@style/ToolbarButton"
+                android:drawableTop="@drawable/trending"
                 android:text="Trending" />
 
             <Button
                 android:id="@+id/toolbarProfile"
                 style="@style/ToolbarButton"
+                android:drawableTop="@drawable/profile"
                 android:text="Profile" />
 
 
