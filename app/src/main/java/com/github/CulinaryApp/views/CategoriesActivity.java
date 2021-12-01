@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +39,13 @@ public class CategoriesActivity extends AppCompatActivity {
 
     //This method is what should send to recipes page
     public void sendMessage(View view) {
-        Intent intent = new Intent(this, Recipe.java.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, Recipe.java.class);
+        //startActivity(intent);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_action_bar,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_action_bar, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint("Search");
@@ -54,6 +55,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
 
