@@ -3,26 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< Updated upstream
-        <entry key="app/src/main/res/layout/activity_categories.xml" value="0.19759964838875663" />
-=======
+
         <entry key="app/src/main/res/layout/activity_categories.xml" value="0.21257658621579859" />
->>>>>>> Stashed changes
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_reg_page2.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.25" />
-<<<<<<< Updated upstream
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.10572916666666667" />
         <entry key="app/src/main/res/layout/appbar.xml" value="0.10572916666666667" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.10572916666666667" />
         <entry key="app/src/main/res/menu/menu_action_bar.xml" value="0.3117794861067948" />
-=======
-        <entry key="app/src/main/res/layout/appbar.xml" value="0.21467391304347827" />
-        <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.21829710144927536" />
-        <entry key="app/src/main/res/menu/menu_action_bar.xml" value="0.23802083333333332" />
->>>>>>> Stashed changes
         <entry key="app/src/main/res/xml/searchable.xml" value="0.109375" />
       </map>
     </option>
