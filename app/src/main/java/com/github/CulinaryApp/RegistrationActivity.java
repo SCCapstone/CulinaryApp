@@ -62,14 +62,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 //Firebase doesn't accept passwords less than 6 characters
-                if(pass.length() < 6){
+                else if(pass.length() < 6){
                     password.setError("Password must be at least 6 characters long!");
                     password.requestFocus();
                     return;
                 }
 
                 //If any field is empty throw error
-                if(email.isEmpty()|| pass.isEmpty()
+                else if(email.isEmpty()|| pass.isEmpty()
                         || confPassword.getText().toString().isEmpty())
                 {
                     Toast.makeText(RegistrationActivity.this, "One or more fields is empty", Toast.LENGTH_SHORT).show();
@@ -94,6 +94,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
+
                                         User user = new User(email);
 
                                         FirebaseDatabase.getInstance().getReference("Users")
@@ -113,6 +114,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                                }
                                             }
                                         });
+                                        Toast.makeText(RegistrationActivity.this, "User successfully registered", Toast.LENGTH_LONG).show();
+                                        progBar.setVisibility(View.GONE);
                                     }
                                     else{
                                         Toast.makeText(RegistrationActivity.this, "User failed to register", Toast.LENGTH_LONG).show();
@@ -121,7 +124,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                 }
                             });
 
-                    startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
+                    progBar.setVisibility(View.GONE);
+                    //startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
                     //setContentView(R.layout.activity_reg_page2);
                 }
                 break;
