@@ -38,8 +38,8 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     //This method is what should send to recipes page
-    public void sendMessage(View view) {
-        //Intent intent = new Intent(this, Recipe.java.class);
+    public void redirectToRecipe(View view) {
+        //Intent intent = new Intent(CategoriesActivity.this, Recipe.class);
         //startActivity(intent);
     }
 
