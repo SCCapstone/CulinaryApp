@@ -8,7 +8,7 @@
     tools:context=".RegistrationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nextButton"
+        android:id="@+id/constLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

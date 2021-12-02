@@ -125,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             });
 
                     progBar.setVisibility(View.GONE);
-                    //startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
+                    startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
                     //setContentView(R.layout.activity_reg_page2);
                 }
                 break;
