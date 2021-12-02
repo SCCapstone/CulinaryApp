@@ -25,15 +25,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666" />
 
-    <Button
-        android:id="@+id/creolePasta"
+    <ImageButton
+        android:id="@+id/creolePastaButton"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="218dp"
+        android:layout_marginBottom="444dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.227"
+        tools:srcCompat="@drawable/creolepasta" />
+
+    <ImageButton
+        android:id="@+id/buttonPlaceHolder"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="234dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="469dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@drawable/noimagefound" />
+
+    <ImageButton
+        android:id="@+id/buttonPlaceHolder2"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginEnd="269dp"
+        android:layout_marginBottom="300dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/noimagefound" />
+
+    <ImageButton
+        android:id="@+id/buttonPlaceHolder3"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="234dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="300dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/noimagefound" />
+
+    <TextView
+        android:id="@+id/creolePastaImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="164dp"
-        android:onClick="redirectToRecipe"
-        android:text=""
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="286dp"
+        android:layout_marginBottom="589dp"
+        android:text="@string/creolepasta"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
