@@ -1,34 +1,30 @@
 package com.github.CulinaryApp.views;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
-
-import com.github.CulinaryApp.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
-
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
+
+import com.github.CulinaryApp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
+    private static final String TAG = "CategoriesPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Activity Created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         mAuth = FirebaseAuth.getInstance();
@@ -44,7 +40,7 @@ public class CategoriesActivity extends AppCompatActivity {
     //This method is what should send to recipes page
     public void redirectToRecipe(View view) {
 
-        Intent intent = new Intent(CategoriesActivity.this,"Cajun", Recipe.class);
+       Intent intent = new Intent(CategoriesActivity.this, RecipesActivity.class);
         startActivity(intent);
     }
 

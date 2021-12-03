@@ -51,13 +51,25 @@
 
 
     <!-- Strings for Search bar -->
-    <string name = "searchHint">Search Categories</string>
+   <string name ="back">back</string>
+    <string name="searchHint">Search Categories</string>
 
     <!-- Strings for Categories Activity -->
-    <string name ="back">back</string>
-    <string name = "Vegetarian">Vegetarian</string>
-    <string name = "pasta">Pasta</string>
-    <string name = "creole">Creole</string>
+
+    <string name="back">back</string>
+    <string name="Vegetarian">Vegetarian</string>
+    <string name="pasta">Pasta</string>
+    <string name="creole">Creole</string>
+    <string name="creolepasta">Creole Pasta</string>
+
+    <!-- Strings for Recipe Page -->
+    <string name="prepTime">Prep Time</string>
+    <string name="cookTime">Cook Time</string>
+    <string name="Ingredients">Ingredients</string>
+    <string name="Directions">Directions</string>
+
+  
+  
     <string name = "creolepasta">Shrimp Alfredo</string>
     <string name = "chickenCreole">Chicken Creole</string>
     <string name = "creoleJambalaya">Jambalaya</string>
@@ -66,11 +78,18 @@
     <string name = "vegetarianPasta">Vegetarian Pasta</string>
 
 
-    <!-- Not sure what the values of these strings need to be -->
+
+    <!--    Added by luke -->
+    <string name="title_activity_reg_page2">placeholder value</string>
+    <string name="action_settings">placeholder value</string>
+    <string name="large_text">placeholder value</string>
+
+    <!-- Not sure what the values of these strings need to be
     <string name="action_settings">Name of this String Resource is "action_settings"</string>
     <string name="large_text">Name of this String Resource is "large_text"</string>
-
+      -->
     <!--Strings used for registration pages -->
-    <string name="title_activity_reg_page2">Registration Page 2</string>
+    <!--    <string name="title_activity_reg_page2">Registration Page 2</string> -->
+    <string name="title_activity_recipes">RecipesActivity</string>
 
 </resources>
