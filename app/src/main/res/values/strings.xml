@@ -71,5 +71,6 @@
 
     <!--Strings used for registration pages -->
     <string name="title_activity_reg_page2">Registration Page 2</string>
+    <string name="title_activity_recipes">RecipesActivity</string>
 
 </resources>

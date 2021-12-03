@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".views.RecipesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recipes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".views.RecipesViewAdapter"
             android:exported="false" />
         <activity

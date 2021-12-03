@@ -38,7 +38,7 @@ public class CategoriesActivity extends AppCompatActivity {
     //This method is what should send to recipes page
     public void redirectToRecipe(View view) {
 
-       Intent intent = new Intent(this, RecipesViewAdapter.class);
+       Intent intent = new Intent(this, RecipesActivity.class);
         startActivity(intent);
     }
 
