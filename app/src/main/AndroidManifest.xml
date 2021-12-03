@@ -85,6 +85,8 @@
             android:name=".views.CategoriesActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.Categories" />
                 <action android:name="com.package.CulinaryApp." />

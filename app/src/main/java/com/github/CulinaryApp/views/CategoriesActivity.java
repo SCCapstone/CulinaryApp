@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -7,14 +8,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.core.view.MenuItemCompat;
 
+import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,10 +55,21 @@ public class CategoriesActivity extends AppCompatActivity {
                 navigateToRecipePage();
             }
         });
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.actionBarProfile:
+                Intent goToProfile = new Intent(this, ProfileActivity.class);
+                startActivity(goToProfile);
 
+            default:
+                return super.onOptionsItemSelected(item);
 
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
