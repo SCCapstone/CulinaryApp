@@ -3,13 +3,10 @@ package com.github.CulinaryApp.views;
 import android.os.Bundle;
 
 import com.github.CulinaryApp.R;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -80,14 +77,14 @@ public class RecipesActivity extends AppCompatActivity {
         recipeImages.add(String.valueOf(R.drawable.creolepasta));
         recipeNames.add("AlfredoShrimpPasta");
 
-        recipeImages.add(String.valueOf(R.drawable.jambalaya));
+        recipeImages.add(String.valueOf(R.drawable.jambalayapng));
         recipeNames.add("Jambalaya");
 
         recipeImages.add(String.valueOf(R.drawable.homemade_creole_seasoning_recipe));
         recipeNames.add("Homemade Creole Seasoning Recipe");
 
         for (int i = 4; i < 20; ++i) {
-            recipeImages.add(String.valueOf(R.drawable.jambalaya));
+            recipeImages.add(String.valueOf(R.drawable.jambalayapng));
             recipeNames.add("Recipe " + i);
         }
 

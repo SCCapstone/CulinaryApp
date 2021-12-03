@@ -60,7 +60,7 @@
     <string name="Vegetarian">Vegetarian</string>
     <string name="pasta">Pasta</string>
     <string name="creole">Creole</string>
-    <string name="creolepasta">Creole Pasta</string>
+<!--    <string name="creolepasta">Creole Pasta</string>-->
 
     <!-- Strings for Recipe Page -->
     <string name="prepTime">Prep Time</string>
