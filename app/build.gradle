@@ -45,6 +45,7 @@ dependencies {
     // Libraries
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-firestore'
     /* When using the BoM, don't specify versions in Firebase dependencies...
      * ... but this is not working for everyone in group...
      * ... TODO figure out why & resolve issue */
