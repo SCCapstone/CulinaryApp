@@ -62,6 +62,8 @@
     <string name = "chickenCreole">Chicken Creole</string>
     <string name = "creoleJambalaya">Jambalaya</string>
     <string name = "creoleMerltion">Merliton</string>
+    <string name = "veggieBurgers">Veggie Burgers</string>
+    <string name = "vegetarianPasta">Vegetarian Pasta</string>
 
 <!--    Added by luke -->
     <string name = "title_activity_reg_page2">placeholder value</string>

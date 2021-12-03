@@ -75,6 +75,34 @@
         tools:srcCompat="@drawable/noimagefound" />
 
     <ImageButton
+        android:id="@+id/buttonPlaceHolder4"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="573dp"
+        android:layout_marginEnd="264dp"
+        android:layout_marginBottom="44dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/noimagefound" />
+
+    <ImageButton
+        android:id="@+id/buttonPlaceHolder5"
+        android:layout_width="101dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="573dp"
+        android:layout_marginBottom="44dp"
+        android:onClick="redirectToRecipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/noimagefound" />
+
+    <ImageButton
         android:id="@+id/buttonPlaceHolder3"
         android:layout_width="101dp"
         android:layout_height="114dp"
@@ -161,8 +189,45 @@
         android:id="@+id/vegeterianCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="483dp"
+        android:layout_marginEnd="221dp"
+        android:layout_marginBottom="205dp"
         android:text="@string/Vegetarian"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="483dp" />
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/veggieBurgers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="227dp"
+        android:layout_marginBottom="154dp"
+        android:text="@string/veggieBurgers"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/vegeterianPasta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="550dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="154dp"
+        android:text="@string/vegetarianPasta"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
