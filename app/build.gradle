@@ -45,7 +45,8 @@ dependencies {
     // Libraries
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-firestore'
+
+   // implementation 'com.google.firebase:firebase-firestore'
     /* When using the BoM, don't specify versions in Firebase dependencies...
      * ... but this is not working for everyone in group...
      * ... TODO figure out why & resolve issue */
@@ -58,6 +59,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    implementation 'com.google.firebase:firebase-database:20.0.3'
 
     /* Glide dependency - for retrieving img's from remote data store */
     implementation 'com.github.bumptech.glide:glide:4.12.0'

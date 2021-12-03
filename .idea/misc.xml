@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_chef_registration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_categories.xml" value="0.23802083333333332" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -19,6 +20,7 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>

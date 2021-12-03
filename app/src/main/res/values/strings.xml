@@ -51,9 +51,11 @@
 
 
     <!-- Strings for Search bar -->
+   <string name ="back">back</string>
     <string name="searchHint">Search Categories</string>
 
     <!-- Strings for Categories Activity -->
+
     <string name="back">back</string>
     <string name="Vegetarian">Vegetarian</string>
     <string name="pasta">Pasta</string>
@@ -65,6 +67,17 @@
     <string name="cookTime">Cook Time</string>
     <string name="Ingredients">Ingredients</string>
     <string name="Directions">Directions</string>
+
+  
+  
+    <string name = "creolepasta">Shrimp Alfredo</string>
+    <string name = "chickenCreole">Chicken Creole</string>
+    <string name = "creoleJambalaya">Jambalaya</string>
+    <string name = "creoleMerltion">Merliton</string>
+    <string name = "veggieBurgers">Veggie Burgers</string>
+    <string name = "vegetarianPasta">Vegetarian Pasta</string>
+
+
 
     <!--    Added by luke -->
     <string name="title_activity_reg_page2">placeholder value</string>

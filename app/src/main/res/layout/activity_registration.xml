@@ -8,7 +8,7 @@
     tools:context=".RegistrationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nextButton"
+        android:id="@+id/constLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -123,5 +123,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/chefRegFiller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="Are you a chef!?"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/Registration"
+            app:layout_constraintTop_toBottomOf="@+id/Registration" />
+
+        <TextView
+            android:id="@+id/chefRegClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="13dp"
+            android:onClick="onClick"
+            android:text="Chef Registration!"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/Registration"
+            app:layout_constraintStart_toEndOf="@+id/chefRegFiller"
+            app:layout_constraintTop_toBottomOf="@+id/Registration" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
