@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +23,20 @@ public class CategoriesActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
 
+    public void navigateToRecipePage() {
+        Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
+        startActivity(intentToStartCategoriesPage);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "Activity Created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         mAuth = FirebaseAuth.getInstance();
+        ImageButton imageButton = findViewById(R.id.creolePastaButton);
+
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
@@ -35,14 +44,17 @@ public class CategoriesActivity extends AppCompatActivity {
         //displays home button
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        //This method is what should send to recipes page
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToRecipePage();
+            }
+        });
     }
 
-    //This method is what should send to recipes page
-    public void redirectToRecipe(View view) {
 
-       Intent intent = new Intent(CategoriesActivity.this, RecipesActivity.class);
-        startActivity(intent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
