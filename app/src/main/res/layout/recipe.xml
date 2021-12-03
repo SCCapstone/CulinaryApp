@@ -7,13 +7,14 @@
 
     <!-- CircleImageView to make round the edges of images used -->
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/recipe_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/recipe_image" />
+        android:src="@mipmap/ic_launcher" />
 
     <!-- TextView for displaying recipe names associated w/ particular image -->
     <TextView
+        android:id="@+id/recipe_name"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/recipe_image"
