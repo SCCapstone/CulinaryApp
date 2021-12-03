@@ -22,15 +22,16 @@ import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
 import android.content.Intent;
 import android.view.View;
-
+import android.util.Log;
 
 
 public class LoginActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+    private static final String TAG = "Login Activity";
 
-    public void navigateToCategoriesPage(View view) {
+    public void navigateToCategoriesPage() {
             Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
             startActivity(intentToStartCategoriesPage);
     }
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.github.CulinaryApp.R.layout.activity_login);
 
+        Log.d(TAG, "LoginActivity: CREATED");
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -82,8 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    LoginActivity.this.startActivity(new Intent(LoginActivity.this, CategoriesActivity.class));
-                                    LoginActivity.this.finish();
+                                    Log.d(TAG, "LOGIN SUCCEEDED: REDIRECTED TO CATEGORIES NOW");
+                                    Toast.makeText(LoginActivity.this, "Authentication SUCCESS.", Toast.LENGTH_SHORT).show();
+                                  //  LoginActivity.this.startActivity(new Intent(LoginActivity.this, CategoriesActivity.class));
+                                   // LoginActivity.this.finish();
+                                    navigateToCategoriesPage();
                                 }
                             }
                         });
