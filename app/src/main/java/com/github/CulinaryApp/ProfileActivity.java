@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FragmentContainerView clipboardContainer;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
+    private Uri pfpURI, bgURI;
 
 
     @Override
@@ -41,6 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
         changingProfPic = false;
         bio = "No Bio yet...";
         displayName = "New User...";
+        pfpURI = null;
+        bgURI = null;
 
 //        if (savedInstanceState == null) {
 //            getSupportFragmentManager().beginTransaction()
@@ -87,8 +90,8 @@ public class ProfileActivity extends AppCompatActivity {
         return new String[] {displayName, bio};
     }
 
-    public ConstraintLayout getImages(){
-        return findViewById(R.id.images);
+    public Uri[] getUris(){
+        return new Uri[] {bgURI, pfpURI};
     }
 
     View.OnClickListener displayProfileFull = view ->{
@@ -204,19 +207,19 @@ public class ProfileActivity extends AppCompatActivity {
                 changingProfPic = false;
                 if (prof != null) {
                     //Image Uri will not be null for RESULT_OK
-                    Uri uri = data.getData();
+                    pfpURI = data.getData();
 
                     // Use Uri object instead of File to avoid storage permissions
-                    prof.setImageURI(uri);
+                    prof.setImageURI(pfpURI);
                 }
             } else if (changingBgImg) {
                 changingBgImg = false;
                 if (bgImg != null) {
                     //Image Uri will not be null for RESULT_OK
-                    Uri uri = data.getData();
+                    bgURI = data.getData();
 
                     // Use Uri object instead of File to avoid storage permissions
-                    bgImg.setImageURI(uri);
+                    bgImg.setImageURI(bgURI);
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
