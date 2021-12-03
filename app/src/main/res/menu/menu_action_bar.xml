@@ -26,11 +26,11 @@
         android:icon="@drawable/share_app"
         android:id="@+id/share"
         app:showAsAction="ifRoom"/>
-    <item
-        android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:id = "@+id/home"
-        app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:title="Home"-->
+<!--        android:icon="@drawable/ic_baseline_home_24"-->
+<!--        android:id = "@+id/home"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
 
 </menu>
