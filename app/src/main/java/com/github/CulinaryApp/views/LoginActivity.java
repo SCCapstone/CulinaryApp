@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.RegistrationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,6 +38,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intentToStartCategoriesPage);
     }
 
+    public void navigateToRegistrationPage() {
+        Intent intentToStartRegistrationPage = new Intent(this, RegistrationActivity.class);
+        startActivity(intentToStartRegistrationPage);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         EditText email = (findViewById(R.id.email));
         EditText password = (findViewById(R.id.password));
         Button loginButton = (findViewById(login_button));
+        Button registerButton = (findViewById(btn_signup));
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToRegistrationPage();
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
