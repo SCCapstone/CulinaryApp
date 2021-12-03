@@ -16,7 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.CulinaryApp.R;
-import com.github.CulinaryApp.RegistrationActivity;
+//import com.github.CulinaryApp.RegistrationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -19,7 +19,7 @@
     <string name="strRegister">Register</string>
     <string name="strForgotPassword">Forgot Password</string>
     <!-- https://github.com/shourov00/FireBaseAuth/blob/master/app/src/main/res/values/strings.xml -->
-    <string name="app_name">Firebase Auth</string>
+    <string name="app_name">I Am Chef</string>
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
