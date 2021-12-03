@@ -175,7 +175,7 @@
         android:layout_height="575dp"
         app:layout_constraintBottom_toTopOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="gone"
@@ -213,11 +213,15 @@
                 android:drawableTop="@drawable/clipboard"
                 android:text="Clipboard" />
 
-            <Button
-                android:id="@+id/toolbarSearch"
+<!--            <Button-->
+<!--                android:id="@+id/toolbarSearch"-->
+<!--                style="@style/ToolbarButton"-->
+<!--                android:drawableTop="@drawable/search"-->
+<!--                android:text="Search" />-->
+
+            <androidx.appcompat.widget.SearchView
                 style="@style/ToolbarButton"
-                android:drawableTop="@drawable/search"
-                android:text="Search" />
+                />
 
             <Button
                 android:id="@+id/toolbarTrending"
