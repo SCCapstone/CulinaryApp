@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.github.CulinaryApp.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -16,8 +17,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -65,6 +70,13 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void initBitmaps() {
+        FirebaseApp fbApp = FirebaseApp.getInstance();
+      //  FirebaseFirestore db = FirebaseFirestore.getInstance();
+       // CollectionReference categoriesCollection = db.collection("Categories");
+      //  String categoriesCollectionId = categoriesCollection.getId();
+        for (int i=0; i < 50; i++) {
+           // Log.d(TAG, "categories collection ID: " + categoriesCollectionId);
+        }
         recipeImages.add(String.valueOf(R.drawable.creolepasta));
         recipeNames.add("AlfredoShrimpPasta");
 

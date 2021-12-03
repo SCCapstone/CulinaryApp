@@ -4,8 +4,8 @@ import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.R;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -78,6 +78,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 // display pop up to app screen of recipe name whose img was clicked on
                 Toast.makeText(mContext,
                         mImageNames.get(position), Toast.LENGTH_SHORT).show();
+               // Intent intent = new Intent(RecyclerViewAdapter.this, RecipeInstructionsActivity.class);
+                Intent intent = new Intent(mContext, RecipeInstructionsActivity.class);
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra("Recipe Chosen:", mImageNames.get(position));
+                mContext.startActivity(intent);
             }
         });
     }

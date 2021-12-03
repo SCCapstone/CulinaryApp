@@ -60,6 +60,12 @@
     <string name="creole">Creole</string>
     <string name="creolepasta">Creole Pasta</string>
 
+    <!-- Strings for Recipe Page -->
+    <string name="prepTime">Prep Time</string>
+    <string name="cookTime">Cook Time</string>
+    <string name="Ingredients">Ingredients</string>
+    <string name="Directions">Directions</string>
+
     <!--    Added by luke -->
     <string name="title_activity_reg_page2">placeholder value</string>
     <string name="action_settings">placeholder value</string>
@@ -70,7 +76,7 @@
     <string name="large_text">Name of this String Resource is "large_text"</string>
       -->
     <!--Strings used for registration pages -->
-<!--    <string name="title_activity_reg_page2">Registration Page 2</string> -->
+    <!--    <string name="title_activity_reg_page2">Registration Page 2</string> -->
     <string name="title_activity_recipes">RecipesActivity</string>
 
 </resources>
