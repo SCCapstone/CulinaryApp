@@ -44,15 +44,15 @@ public class CategoriesActivity extends AppCompatActivity {
     //This method is what should send to recipes page
     public void redirectToRecipe(View view) {
 
-        Intent intent = new Intent(CategoriesActivity.this,"Cajun", Recipe.class);
-        startActivity(intent);
+        //Intent intent = new Intent(CategoriesActivity.this,"Cajun", Recipe.class);
+        //startActivity(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
