@@ -12,7 +12,7 @@
         android:layout_height="80dp"
         android:src="@mipmap/ic_launcher" />
 
-    <!-- TextView for displaying recipe names associated w/ particular image -->
+    <!-- TextView for displaying names associated w/ particular image -->
     <TextView
         android:id="@+id/recipe_name"
         android:layout_width="80dp"

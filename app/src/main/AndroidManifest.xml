@@ -36,10 +36,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="MissingClass">
             <intent-filter>
-                <action android:name="android.intent.action.Categories" />
-                <action android:name="com.package.CulinaryApp." />
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.package.CulinaryApp." />
             </intent-filter>
         </activity>
 
@@ -58,7 +57,7 @@
         <!-- Page 2: CategoriesActivity -->
         <activity
             android:name=".views.CategoriesActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.Categories" />
@@ -72,12 +71,12 @@
 
         <activity
             android:name=".views.RecipesActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_recipes"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.RecyclerViewAdapter"
-            android:exported="false" />
+            android:exported="true" />
 
         <!-- Page 4: RecipeActivity -->
 

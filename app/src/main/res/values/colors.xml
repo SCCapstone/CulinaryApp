@@ -7,7 +7,7 @@
     <color name="tan">#D2B48C</color>
     <color name="teal">#008080</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="black">#000000</color>
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>
     <color name="bg_main">#428bca</color>
