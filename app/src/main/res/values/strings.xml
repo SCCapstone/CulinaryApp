@@ -58,7 +58,10 @@
     <string name = "Vegetarian">Vegetarian</string>
     <string name = "pasta">Pasta</string>
     <string name = "creole">Creole</string>
-    <string name = "creolepasta">Creole Pasta</string>
+    <string name = "creolepasta">Shrimp Alfredo</string>
+    <string name = "chickenCreole">Chicken Creole</string>
+    <string name = "creoleJambalaya">Jambalaya</string>
+    <string name = "creoleMerltion">Merliton</string>
 
 <!--    Added by luke -->
     <string name = "title_activity_reg_page2">placeholder value</string>
