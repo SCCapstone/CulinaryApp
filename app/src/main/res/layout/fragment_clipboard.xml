@@ -22,29 +22,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:divider="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:showDividers="middle">
+        app:showDividers="end|middle|beginning">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="Clipboard"
+            android:textColor="#000000"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/recipeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:gravity=""
-            android:paddingStart="32dp"
-            android:text="Chicken Parmesan  35mins  Chef Andrews" />
+            style="@style/ClipboardEntry"
+            android:background="@android:color/transparent"
+            android:text="Chicken Parmesan  35mins\nChef Andrews" />
 
         <Button
             android:id="@+id/recipeButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:gravity=""
-            android:paddingStart="32dp"
-            android:text="Chicken Parmesan  35mins  Chef Andrews" />
+            style="@style/ClipboardEntry"
+            android:background="@android:color/transparent"
+            android:text="Authentic Croissant  2hr\nChef Jacques" />
+
+        <Button
+            android:id="@+id/recipeButton3"
+            style="@style/ClipboardEntry"
+            android:background="@android:color/transparent"
+            android:text="Carbonara  25mins\nChef Andrews" />
+
+        <Button
+            android:id="@+id/recipeButton4"
+            style="@style/ClipboardEntry"
+            android:background="@android:color/transparent"
+            android:text="Birthday Cake  3hrs\nChef Donatello" />
+
+        <Button
+            android:id="@+id/recipeButton5"
+            style="@style/ClipboardEntry"
+            android:background="@android:color/transparent"
+            android:text="Cupcakes 2hr\nChef Donatello" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
