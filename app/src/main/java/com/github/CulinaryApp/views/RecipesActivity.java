@@ -74,6 +74,9 @@ public class RecipesActivity extends AppCompatActivity {
         for (int i=0; i < 50; i++) {
            // Log.d(TAG, "categories collection ID: " + categoriesCollectionId);
         }
+//        recipeImages.add(String.valueOf(R.drawable.creolepasta));
+//        recipeNames.add("AlfredoShrimpPasta");
+
         recipeImages.add(String.valueOf(R.drawable.creolepasta));
         recipeNames.add("AlfredoShrimpPasta");
 
