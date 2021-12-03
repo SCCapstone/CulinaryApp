@@ -32,25 +32,38 @@ android {
 dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.2.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
 
-    // Add the dependency for the Firebase SDK for Google Analytics
-    // When using the BoM, don't specify versions in Firebase dependencies
+    /* Firebase Dependencies: */
+
+    // SDK
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
-    // Firebase Authentication Library
+    // Libraries
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-analytics'
+    /* When using the BoM, don't specify versions in Firebase dependencies...
+     * ... but this is not working for everyone in group...
+     * ... TODO figure out why & resolve issue */
 
-    // Add the dependencies for any other desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-    
-    // Facebook SDK for future integration w/ Firebase as a sign-in method
-   // implementation 'com.facebook.android:facebook-sdk:8.x'
+    /* Other dependencies for firebase products can be found here:
+     * https://firebase.google.com/docs/android/setup#available-libraries,
+     * include Facebook & Twitter SDK next semester so a user can sign in using their social media accounts */
 
+    /* RecyclerView Dependency - must match AppCompat version */
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    /* Glide dependency - for retrieving img's from remote data store */
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    /* CircleImageView dependency - for cropping img's retrieved into circle */
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
