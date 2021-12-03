@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.github.CulinaryApp.R;
 import android.os.Bundle;
 
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesViewAdapter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
