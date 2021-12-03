@@ -8,6 +8,7 @@ import android.content.Context;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,65 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecylcerViewAdapter";
 
     // Variables needed for RecyclerView
-    private ArrayList<String> recipeNames = new ArrayList<>();
-    private ArrayList<String> recipeImages = new ArrayList<>();
-    private Context contextRecipesAdapter;
+    private ArrayList<String> mImageNames = new ArrayList<>();
+    private ArrayList<String> mImages = new ArrayList<>();
+    private Context mContext;
+
+    /* Initialize the dataset of the Adapter */
+
+    /*
+    public RecyclerViewAdapter(ArrayList<String> imageNames, ArrayList<String> images, Context context) {
+        mImageNames = imageNames;
+        mImages = images;
+        mContext = context;
+    }
+    */
+
+    public RecyclerViewAdapter(RecipesActivity recipesActivity, ArrayList<String> recipeNames, ArrayList<String> recipeImages) {
+        mImageNames = recipeNames;
+        mImages = recipeImages;
+        mContext = recipesActivity;
+    }
+
+    /* Create new views (invoked by the layout manager) */
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        // this method "inflates" the View
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe, parent, false);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;  // this recycles the ViewHolder
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        // This method is gonna change based on what our layouts look like
+        Log.d(TAG, "onBindViewHolder: called"); // method is called everytime an item is added to list
+        // get images
+        Glide.with(mContext)
+                .asBitmap()
+                .load(mImages.get(position)) // load recipeImages of ViewHolder...
+                .into(holder.imageOfRecipe);
+        // set name of recipe for ViewHolder
+        holder.nameOfRecipe.setText(mImageNames.get(position));
+        // attach onClickListener to each item in list
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // log recipe name whose image was clicked on
+                Log.d(TAG, "onClick: clicked: " + mImages.get(position));
+                // display pop up to app screen of recipe name whose img was clicked on
+                Toast.makeText(mContext,
+                        mImageNames.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        // return value from size method call on array list
+        return mImageNames.size(); // tells adapter how many items are in list
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -58,52 +115,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-
-
-    /* Initialize the dataset of the Adapter */
-    public RecyclerViewAdapter(Context contextRecipesAdapter, ArrayList<String> recipeNames, ArrayList<String> recipeImages) {
-        contextRecipesAdapter = contextRecipesAdapter;
-        recipeNames = recipeNames;
-        recipeImages = recipeImages;
-    }
-
-    /* Create new views (invoked by the layout manager) */
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // this method "inflates" the View
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;  // this recycles the ViewHolder
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        // This method is gonna change based on what our layouts look like
-        Log.d(TAG, "onBindViewHolder: called"); // method is called everytime an item is added to list
-        // get images
-        Glide.with(contextRecipesAdapter)
-                .asBitmap()
-                .load(recipeImages.get(position)) // load recipeImages of ViewHolder...
-                .into(holder.imageOfRecipe);
-        // set name of recipe for ViewHolder
-        holder.nameOfRecipe.setText(recipeNames.get(position));
-        // attach onClickListener to each item in list
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // log recipe name whose image was clicked on
-                Log.d(TAG, "onClick: clicked: " + recipeImages.get(position));
-                // display pop up to app screen of recipe name whose img was clicked on
-                Toast.makeText(contextRecipesAdapter,
-                        recipeImages.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        // return value from size method call on array list
-        return recipeImages.size(); // tells adapter how many items are in list
-    }
 
 }

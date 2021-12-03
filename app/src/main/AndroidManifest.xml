@@ -14,8 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- The flow of our application is as follows (for our PoC - subject to change for next semester
+        <activity
+            android:name=".views.RecipeInstructionsActivity"
+            android:exported="false" />
+        <!--
+         The flow of our application is as follows (for our PoC - subject to change for next semester
                 if we find more effective flows):
                 1. user opens up, Login Page opens
                     - 2 cases
@@ -28,7 +31,6 @@
                 6. At any point they should be able to transition to Profile page (using navbar
                       on bottom) & pull up Clipboard (how do they do that?)
         -->
-
         <!-- Page 1: LoginActivity -->
         <activity
             android:name=".views.LoginActivity"
@@ -37,24 +39,20 @@
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="com.package.CulinaryApp." />
             </intent-filter>
-        </activity>
-
-        <!-- Page 1.1 a: RegistrationActivity (page 1 of 2) -->
+        </activity> <!-- Page 1.1 a: RegistrationActivity (page 1 of 2) -->
         <activity
             android:name=".RegistrationActivity"
-            android:exported="false" />
-
-        <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
+            android:exported="false" /> <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
         <activity
             android:name=".RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <!-- Page 2: CategoriesActivity -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Page 2: CategoriesActivity -->
         <activity
             android:name=".views.CategoriesActivity"
             android:exported="false"
@@ -65,10 +63,7 @@
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
-        </activity>
-
-        <!-- Page 3: RecipesActivity -->
-
+        </activity> <!-- Page 3: RecipesActivity -->
         <activity
             android:name=".views.RecipesActivity"
             android:exported="true"
@@ -77,9 +72,6 @@
         <activity
             android:name=".views.RecyclerViewAdapter"
             android:exported="true" />
-
-        <!-- Page 4: RecipeActivity -->
-
     </application>
 
 </manifest>

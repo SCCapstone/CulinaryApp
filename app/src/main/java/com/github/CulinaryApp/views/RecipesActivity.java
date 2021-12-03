@@ -16,7 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 
@@ -65,7 +66,7 @@ public class RecipesActivity extends AppCompatActivity {
 
     private void initBitmaps() {
         recipeImages.add(String.valueOf(R.drawable.creolepasta));
-        recipeNames.add("Alfredo Shrimp Pasta");
+        recipeNames.add("AlfredoShrimpPasta");
 
         recipeImages.add(String.valueOf(R.drawable.jambalaya));
         recipeNames.add("Jambalaya");
@@ -81,9 +82,10 @@ public class RecipesActivity extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: called");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter recipesAdapter =
+        RecyclerViewAdapter adapter =
                 new RecyclerViewAdapter(this, recipeNames, recipeImages);
-        recyclerView.setAdapter(recipesAdapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }
