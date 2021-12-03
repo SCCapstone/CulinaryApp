@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5DC"
+    android:id="@+id/bigLayout"
+    tools:context=".ProfileActivity">
+
+    <TextView
+        android:id="@+id/chefHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FF9036"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="I Am Chef"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/contentScroll"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:descendantFocusability="beforeDescendants"
+        app:layout_constraintTop_toBottomOf="@+id/chefHeading">
+
+        <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="#999999"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profPic"
+                    android:layout_height="180dp"
+                    android:layout_width="180dp"
+                    android:src="#BBBBBB"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/profBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout style="@style/ProfileLayout">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/ProfileHeading"
+                    android:text="Profile"/>
+
+                <Button
+                    android:id="@+id/editAvatar"
+                    style="@style/ProfileButton"
+                    android:text="Edit Avatar" />
+
+                <Button
+                    android:id="@+id/editBGImg"
+                    style="@style/ProfileButton"
+                    android:text="Edit Background Image" />
+
+                <Button
+                    android:id="@+id/editBio"
+                    style="@style/ProfileButton"
+                    android:text="Edit Bio" />
+
+                <Button
+                    android:id="@+id/editDispName"
+                    style="@style/ProfileButton"
+                    android:text="Edit Display Name" />
+
+                <Button
+                    android:id="@+id/howTheySee"
+                    style="@style/ProfileButton"
+                    android:text="Display What Others See" />
+
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/ProfileLayout">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/ProfileHeading"
+                    android:text="Preferences"/>
+
+                <Button
+                    android:id="@+id/setHealth"
+                    style="@style/ProfileButton"
+                    android:text="Health Settings" />
+
+                <Button
+                    android:id="@+id/setLifestyle"
+                    style="@style/ProfileButton"
+                    android:text="Lifestyle Settings" />
+
+                <Button
+                    android:id="@+id/setActivity"
+                    style="@style/ProfileButton"
+                    android:text="Activity Settings" />
+
+                <Button
+                    android:id="@+id/setPrivacy"
+                    style="@style/ProfileButton"
+                    android:text="Privacy Settings" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#A6A6A6"
+        android:gravity="top"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/clipboardFragmentHolder"
+        android:layout_width="325dp"
+        android:layout_height="575dp"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintTop_toBottomOf="@id/chefHeading" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/trendingFragmentHolder"
+        android:layout_width="325dp"
+        android:layout_height="575dp"
+        app:layout_constraintBottom_toTopOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintTop_toBottomOf="@id/chefHeading" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="#F8F8F8"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+
+        <!-- clipboard search trending profile -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/toolbarClip"
+                style="@style/ToolbarButton"
+                android:drawableTop="@drawable/clipboard"
+                android:text="Clipboard" />
+
+            <Button
+                android:id="@+id/toolbarSearch"
+                style="@style/ToolbarButton"
+                android:drawableTop="@drawable/search"
+                android:text="Search" />
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                style="@style/ToolbarButton"-->
+<!--                />-->
+
+            <Button
+                android:id="@+id/toolbarTrending"
+                style="@style/ToolbarButton"
+                android:drawableTop="@drawable/trending"
+                android:text="Trending" />
+
+            <Button
+                android:id="@+id/toolbarProfile"
+                style="@style/ToolbarButton"
+                android:drawableTop="@drawable/profile"
+                android:text="Profile" />
+
+
+        </LinearLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/profileDisplayContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chefHeading"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

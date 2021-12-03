@@ -22,6 +22,11 @@
             android:name=".views.ChefRegistration"
             android:exported="false" />
 
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true" />
+
 
         <activity
             android:name=".views.RecipeInstructionsActivity"
