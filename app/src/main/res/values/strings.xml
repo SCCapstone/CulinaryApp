@@ -51,7 +51,7 @@
 
 
     <!-- Strings for Search bar -->
-   <string name ="back">back</string>
+<!--   <string name ="back">back</string>-->
     <string name="searchHint">Search Categories</string>
 
     <!-- Strings for Categories Activity -->
@@ -80,9 +80,9 @@
 
 
     <!--    Added by luke -->
-    <string name="title_activity_reg_page2">placeholder value</string>
-    <string name="action_settings">placeholder value</string>
-    <string name="large_text">placeholder value</string>
+<!--    <string name="title_activity_reg_page2">placeholder value</string>-->
+<!--    <string name="action_settings">placeholder value</string>-->
+<!--    <string name="large_text">placeholder value</string>-->
 
     <!-- Not sure what the values of these strings need to be
     <string name="action_settings">Name of this String Resource is "action_settings"</string>
@@ -96,7 +96,7 @@
     <!-- App would not run without these placeholders -->
     <string name="title_activity_reg_page2">test value</string>
     <string name="action_settings">test value</string>
-    <string name="back">test value</string>
+<!--    <string name="back">test value</string>-->
     <string name="large_text">test value</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
