@@ -25,13 +25,13 @@ import android.widget.TextView;
 
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        mAuth = FirebaseAuth.getInstance();
+       // mAuth = FirebaseAuth.getInstance();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
