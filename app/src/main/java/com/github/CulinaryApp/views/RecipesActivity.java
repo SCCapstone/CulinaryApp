@@ -81,8 +81,8 @@ public class RecipesActivity extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: called");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecipesViewAdapter recipesAdapter =
-                new RecipesViewAdapter(this, recipeNames, recipeImages);
+        RecyclerViewAdapter recipesAdapter =
+                new RecyclerViewAdapter(this, recipeNames, recipeImages);
         recyclerView.setAdapter(recipesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

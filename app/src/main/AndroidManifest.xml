@@ -14,22 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".views.RecipesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_recipes"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".views.RecipesViewAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".RegPage2Activity"
-            android:exported="false"
-            android:label="@string/title_activity_reg_page2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".RegistrationActivity"
-            android:exported="false" />
+
+        <!-- The flow of our application is as follows (for our PoC - subject to change for next semester
+                if we find more effective flows):
+                1. user opens up, Login Page opens
+                    - 2 cases
+                        1. they login, redirect to CategoriesActivity
+                        2. they don't have account so they click register, redirect to RegistrationActivity
+                2. After both cases, they end up at CategoriesActivity
+                3. They click on a specific category, redirected to RecipesActivity
+                4. They click on a specific recipe in list, redirected to RecipeActivity
+                5. In RecipeActivity they read the recipe, they can "Favorite" that recipe if they choose
+                6. At any point they should be able to transition to Profile page (using navbar
+                      on bottom) & pull up Clipboard (how do they do that?)
+        -->
+
+        <!-- Page 1: LoginActivity -->
         <activity
             android:name=".views.LoginActivity"
             android:exported="true"
@@ -42,6 +42,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Page 1.1 a: RegistrationActivity (page 1 of 2) -->
+        <activity
+            android:name=".RegistrationActivity"
+            android:exported="false" />
+
+        <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
+        <activity
+            android:name=".RegPage2Activity"
+            android:exported="false"
+            android:label="@string/title_activity_reg_page2"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- Page 2: CategoriesActivity -->
         <activity
             android:name=".views.CategoriesActivity"
             android:exported="true"
@@ -53,6 +67,20 @@
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
+
+        <!-- Page 3: RecipesActivity -->
+
+        <activity
+            android:name=".views.RecipesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recipes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.RecyclerViewAdapter"
+            android:exported="false" />
+
+        <!-- Page 4: RecipeActivity -->
+
     </application>
 
 </manifest>
