@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -28,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
     private CircleImageView prof;
     private ImageView bgImg;
-    private FragmentContainerView clipboardContainer;
+    private FragmentContainerView clipboardContainer, trendingContainer;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
     private Uri pfpURI, bgURI;
@@ -45,13 +46,6 @@ public class ProfileActivity extends AppCompatActivity {
         pfpURI = null;
         bgURI = null;
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.profileDisplayContainer, ProfileDisplayFragment.class, null)
-//                    .commit();
-//        }
-
     }
 
     @Override
@@ -62,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         prof = findViewById(R.id.profPic);
 
         clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
-        LinearLayout content = findViewById(R.id.contentLayout);
+        trendingContainer = findViewById(R.id.trendingFragmentHolder);
 
         Button profChangeButton = findViewById(R.id.editAvatar);
         Button bgChangeButton = findViewById(R.id.editBGImg);
@@ -70,7 +64,14 @@ public class ProfileActivity extends AppCompatActivity {
         Button editBioButton = findViewById(R.id.editBio);
         Button editDisplayNameButton = findViewById(R.id.editDispName);
         Button profileDisplayButton = findViewById(R.id.howTheySee);
+
+        Button trendingButton = findViewById(R.id.toolbarTrending);
         Button searchButton = findViewById(R.id.toolbarSearch);
+
+        Button healthSettingsButton = findViewById(R.id.setHealth);
+        Button lifestyleSettingsButton = findViewById(R.id.setLifestyle);
+        Button activitySettingsButton = findViewById(R.id.setActivity);
+        Button privacySettingsButton = findViewById(R.id.setPrivacy);
 
         profChangeButton.setOnClickListener(profImgChanger);
         bgChangeButton.setOnClickListener(bgImgChanger);
@@ -79,6 +80,11 @@ public class ProfileActivity extends AppCompatActivity {
         editDisplayNameButton.setOnClickListener(displayNameEditor);
         profileDisplayButton.setOnClickListener(displayProfileFull);
 
+        healthSettingsButton.setOnClickListener(healthSettingsChanger);
+        lifestyleSettingsButton.setOnClickListener(lifestyleSettingsChanger);
+        activitySettingsButton.setOnClickListener(activitySettingsChanger);
+        privacySettingsButton.setOnClickListener(privacySettingsChanger);
+
         clipboardContainer.setOnFocusChangeListener(clipboardFocusListener);
 
         //todo delete or replace
@@ -86,13 +92,36 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public String[] getProfileStrings(){
-        return new String[] {displayName, bio};
-    }
+    View.OnClickListener healthSettingsChanger = view -> {
+        androidx.appcompat.widget.SwitchCompat glutenSwitch = new androidx.appcompat.widget.SwitchCompat(this);
+        glutenSwitch.setText("Gluten-free mode");
 
-    public Uri[] getUris(){
-        return new Uri[] {bgURI, pfpURI};
-    }
+        showGenericDialog("Health Settings", glutenSwitch);
+    };
+
+    View.OnClickListener lifestyleSettingsChanger = view -> {
+        //track calories switch
+        androidx.appcompat.widget.SwitchCompat caloriesSwitch = new androidx.appcompat.widget.SwitchCompat(this);
+        caloriesSwitch.setText("Track my Caloric intake");
+
+        showGenericDialog("Lifestyle Settings", caloriesSwitch);
+    };
+
+    View.OnClickListener activitySettingsChanger = view -> {
+        //track recipe history switch
+        androidx.appcompat.widget.SwitchCompat historySwitch = new androidx.appcompat.widget.SwitchCompat(this);
+        historySwitch.setText("Track my history");
+
+        showGenericDialog("Activity Settings", historySwitch);
+    };
+
+    View.OnClickListener privacySettingsChanger = view -> {
+        //private acct switch
+        androidx.appcompat.widget.SwitchCompat privateSwitch = new androidx.appcompat.widget.SwitchCompat(this);
+        privateSwitch.setText("Private Account");
+
+        showGenericDialog("Privacy Settings", privateSwitch);
+    };
 
     View.OnClickListener displayProfileFull = view ->{
 //        findViewById(R.id.clipboardFragmentHolder).setVisibility(View.VISIBLE);
@@ -105,40 +134,6 @@ public class ProfileActivity extends AppCompatActivity {
 //                .addSharedElement(prof, "prof")
                 .commit();
     };
-
-    private String textFromDialog(String title, String hint){
-        final String[] textRetrieved = {"Default Text"};
-
-        AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
-        textInputDialog.setTitle(title);
-
-        EditText newTextInput = new EditText(ProfileActivity.this);
-        newTextInput.setHint(hint);
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        int dpPaddingSides = 32;
-        float scale = getResources().getDisplayMetrics().density;
-        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
-        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
-
-        layout.addView(newTextInput);
-
-        textInputDialog.setView(layout);
-
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
-            textRetrieved[0] = newTextInput.getText().toString();
-        });
-
-        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
-            dialog.cancel();
-        });
-
-        textInputDialog.show();
-
-        return textRetrieved[0];
-    }
 
     View.OnClickListener displayNameEditor = view -> {
         displayName = textFromDialog("Edit Display Name", "New Display Name Here");
@@ -195,6 +190,74 @@ public class ProfileActivity extends AppCompatActivity {
                 .maxResultSize(1080, 1080)
                 .start();
     };
+
+    public String[] getProfileStrings(){
+        return new String[] {displayName, bio};
+    }
+
+    public Uri[] getUris(){
+        return new Uri[] {bgURI, pfpURI};
+    }
+
+    private String textFromDialog(String title, String hint){
+        final String[] textRetrieved = {"Default Text"};
+
+        AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
+        textInputDialog.setTitle(title);
+
+        EditText newTextInput = new EditText(ProfileActivity.this);
+        newTextInput.setHint(hint);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        int dpPaddingSides = 32;
+        float scale = getResources().getDisplayMetrics().density;
+        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
+        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
+
+        layout.addView(newTextInput);
+
+        textInputDialog.setView(layout);
+
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
+            textRetrieved[0] = newTextInput.getText().toString();
+        });
+
+        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
+            dialog.cancel();
+        });
+
+        textInputDialog.show();
+
+        return textRetrieved[0];
+    }
+
+    private void showGenericDialog(String title, View toAdd){
+        AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
+        textInputDialog.setTitle(title);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        int dpPaddingSides = 32;
+        float scale = getResources().getDisplayMetrics().density;
+        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
+        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
+        layout.addView(toAdd);
+
+        textInputDialog.setView(layout);
+
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
+            dialog.dismiss();
+        });
+
+        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
+            dialog.cancel();
+        });
+
+        textInputDialog.show();
+    }
 
 
 
