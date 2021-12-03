@@ -4,10 +4,13 @@
     <color name="orange">#ff8000</color>
     <color name="green">#69ff66</color>
 
+    <color name="tan">#D2B48C</color>
+    <color name="teal">#008080</color>
+    <color name="white">#FFFFFF</color>
+
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>
     <color name="bg_main">#428bca</color>
-    <color name="white">#ffffff</color>
     <color name="input_login">#222222</color>
     <color name="input_login_hint">#999999</color>
     <color name="input_register">#888888</color>

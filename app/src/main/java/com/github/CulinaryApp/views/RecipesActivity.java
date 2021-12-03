@@ -17,14 +17,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.CulinaryApp.databinding.ActivityRecipes2Binding;
 
 import java.util.ArrayList;
 
 public class RecipesActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityRecipes2Binding binding;
 
     // this activity recieves data from RecipesViewAdapter so it needs identical data structures
     private ArrayList<String> recipeNames = new ArrayList<>();

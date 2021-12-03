@@ -65,12 +65,12 @@
     <string name="action_settings">placeholder value</string>
     <string name="large_text">placeholder value</string>
 
-    <!-- Not sure what the values of these strings need to be -->
+    <!-- Not sure what the values of these strings need to be
     <string name="action_settings">Name of this String Resource is "action_settings"</string>
     <string name="large_text">Name of this String Resource is "large_text"</string>
-
+      -->
     <!--Strings used for registration pages -->
-    <string name="title_activity_reg_page2">Registration Page 2</string>
+<!--    <string name="title_activity_reg_page2">Registration Page 2</string> -->
     <string name="title_activity_recipes">RecipesActivity</string>
 
 </resources>
