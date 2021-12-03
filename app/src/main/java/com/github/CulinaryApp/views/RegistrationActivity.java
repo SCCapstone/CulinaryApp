@@ -1,6 +1,6 @@
 // Used this tutorial to attempt to get the firebase authentication working: https://www.youtube.com/watch?v=Z-RE1QuUWPg&t=347s
 
-package com.github.CulinaryApp;
+package com.github.CulinaryApp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

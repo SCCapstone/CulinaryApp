@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".RegPage2Activity"
+    tools:context=".views.RegPage2Activity"
     tools:showIn="@layout/activity_reg_page2">
 
     <TextView
