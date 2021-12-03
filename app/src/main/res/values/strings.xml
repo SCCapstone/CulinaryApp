@@ -58,7 +58,12 @@
     <string name = "Vegetarian">Vegetarian</string>
     <string name = "pasta">Pasta</string>
     <string name = "creole">Creole</string>
-    <string name = "creolepasta">Creole Pasta</string>
+    <string name = "creolepasta">Shrimp Alfredo</string>
+    <string name = "chickenCreole">Chicken Creole</string>
+    <string name = "creoleJambalaya">Jambalaya</string>
+    <string name = "creoleMerltion">Merliton</string>
+    <string name = "veggieBurgers">Veggie Burgers</string>
+    <string name = "vegetarianPasta">Vegetarian Pasta</string>
 
 
     <!-- Not sure what the values of these strings need to be -->
