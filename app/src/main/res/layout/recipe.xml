@@ -17,11 +17,11 @@
         android:id="@+id/recipe_name"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/recipe_image"
+        android:layout_toEndOf="@+id/recipe_image"
         android:textColor="#000"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:textSize="17dp"
+        android:layout_marginStart="30dp"
+        android:textSize="17sp"
         />
 
 
