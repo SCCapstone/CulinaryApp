@@ -20,6 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,6 +120,8 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(RegPage2Activity.this, "User info successfully updated", Toast.LENGTH_LONG).show();
+                                //TODO Add Redirect to home page
+                                //startActivity(new Intent(RegPage2Activity.this, .class));
                             }
                             else
                                 Toast.makeText(RegPage2Activity.this, "Failed to update user info", Toast.LENGTH_LONG).show();
@@ -146,22 +151,20 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
             //Uniform resource indicator
             Uri selectedImage = data.getData();
 
-            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference("Users");
-            DatabaseReference hopperRef = ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            final FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+            //Creates a pfp reference under the users UID
+            StorageReference pfpRef = storageRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            Map<String, Object> hopperUpdates = new HashMap<>();
-
-            hopperUpdates.put("Pfp", selectedImage);
-
-            hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+            pfpRef.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful())
                         Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-                    }
+
                     else
                         Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+
                 }
             });
 

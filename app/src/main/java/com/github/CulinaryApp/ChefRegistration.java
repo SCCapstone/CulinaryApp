@@ -121,6 +121,8 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                             }
                                         });
                                         Toast.makeText(ChefRegistration.this, "Chef successfully registered", Toast.LENGTH_LONG).show();
+                                        //TODO Add Redirect to home page
+                                        //startActivity(new Intent(RegPage2Activity.this, .class));
 
                                     }
                                     else{
