@@ -213,15 +213,15 @@
                 android:drawableTop="@drawable/clipboard"
                 android:text="Clipboard" />
 
-<!--            <Button-->
-<!--                android:id="@+id/toolbarSearch"-->
-<!--                style="@style/ToolbarButton"-->
-<!--                android:drawableTop="@drawable/search"-->
-<!--                android:text="Search" />-->
-
-            <androidx.appcompat.widget.SearchView
+            <Button
+                android:id="@+id/toolbarSearch"
                 style="@style/ToolbarButton"
-                />
+                android:drawableTop="@drawable/search"
+                android:text="Search" />
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                style="@style/ToolbarButton"-->
+<!--                />-->
 
             <Button
                 android:id="@+id/toolbarTrending"
