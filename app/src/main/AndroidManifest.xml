@@ -22,6 +22,10 @@
             android:name=".ChefRegistration"
             android:exported="false" />
 
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+
 
         <activity
             android:name=".views.RecipeInstructionsActivity"
