@@ -8,7 +8,7 @@
     tools:context=".RegistrationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nextButton"
+        android:id="@+id/constLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -98,19 +98,54 @@
             app:layout_constraintTop_toBottomOf="@+id/confPasswordPrompt" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/reg1NButton"
             android:layout_width="104dp"
             android:layout_height="63dp"
             android:layout_marginTop="64dp"
             android:background="#FF9800"
+            android:onClick="onClick"
+            android:radius="10dp"
             android:text="Next >"
             android:textAlignment="center"
             android:textColor="#6E6E6E"
             android:textSize="20sp"
             android:typeface="normal"
-            android:radius="10dp"
             app:layout_constraintEnd_toEndOf="@+id/ConfPassword"
             app:layout_constraintStart_toStartOf="@+id/ConfPassword"
             app:layout_constraintTop_toBottomOf="@+id/ConfPassword" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/chefRegFiller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="Are you a chef!?"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/Registration"
+            app:layout_constraintTop_toBottomOf="@+id/Registration" />
+
+        <TextView
+            android:id="@+id/chefRegClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="13dp"
+            android:onClick="onClick"
+            android:text="Chef Registration!"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/Registration"
+            app:layout_constraintStart_toEndOf="@+id/chefRegFiller"
+            app:layout_constraintTop_toBottomOf="@+id/Registration" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

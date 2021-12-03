@@ -8,7 +8,7 @@
     tools:context=".RegPage2Activity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nextButton"
+        android:id="@+id/constLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,5 +24,146 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/fistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/registration"
+            app:layout_constraintHorizontal_bias="0.479"
+            app:layout_constraintStart_toStartOf="@+id/registration"
+            app:layout_constraintTop_toBottomOf="@+id/registration" />
+
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/fistName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/fistName"
+            app:layout_constraintTop_toBottomOf="@+id/fistName" />
+
+        <Button
+            android:id="@+id/userRegButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:text="Register"
+            app:layout_constraintEnd_toEndOf="@+id/backgroundPhotoButton"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="@+id/backgroundPhotoButton"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundPhotoButton" />
+
+        <CheckBox
+            android:id="@+id/athleticLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Atheltic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.242"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lifestyleSettings" />
+
+        <TextView
+            android:id="@+id/lifestyleSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Lifestyle Settings: "
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/lastName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/lastName"
+            app:layout_constraintTop_toBottomOf="@+id/lastName" />
+
+        <CheckBox
+            android:id="@+id/veganLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Vegan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.391"
+            app:layout_constraintStart_toEndOf="@+id/athleticLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/lifestyleSettings" />
+
+        <CheckBox
+            android:id="@+id/vegetarianLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Vegetarian"
+            app:layout_constraintEnd_toEndOf="@+id/athleticLifestyle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/athleticLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/athleticLifestyle" />
+
+        <CheckBox
+            android:id="@+id/mediDietLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Mediterranean Diet"
+            app:layout_constraintEnd_toEndOf="@+id/veganLifestyle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/veganLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/veganLifestyle" />
+
+        <CheckBox
+            android:id="@+id/ketoDietLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Ketogenic Diet"
+            app:layout_constraintEnd_toEndOf="@+id/vegetarianLifestyle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/vegetarianLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/vegetarianLifestyle" />
+
+        <CheckBox
+            android:id="@+id/flexDietLifestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Flexitarian Diet"
+            app:layout_constraintEnd_toEndOf="@+id/mediDietLifestyle"
+            app:layout_constraintStart_toEndOf="@+id/ketoDietLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/mediDietLifestyle" />
+
+        <Button
+            android:id="@+id/pfpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:onClick="onClick"
+            android:text="Upload Profile Picture"
+            app:layout_constraintEnd_toEndOf="@+id/flexDietLifestyle"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ketoDietLifestyle"
+            app:layout_constraintTop_toBottomOf="@+id/ketoDietLifestyle" />
+
+        <Button
+            android:id="@+id/backgroundPhotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="onClick"
+            android:text="Upload Background Photo"
+            app:layout_constraintEnd_toEndOf="@+id/pfpButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/pfpButton"
+            app:layout_constraintTop_toBottomOf="@+id/pfpButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
