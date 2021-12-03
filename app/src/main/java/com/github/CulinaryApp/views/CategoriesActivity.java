@@ -41,9 +41,11 @@ public class CategoriesActivity extends AppCompatActivity {
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
+
         //displays home button
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         //This method is what should send to recipes page
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
