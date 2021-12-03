@@ -7,35 +7,84 @@
     tools:context=".views.RecipeInstructionsActivity">
 
     <!-- CircleImageView to make round the edges of images used -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
-        android:layout_width="250dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+
 
     <TextView
-        android:layout_width="142dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/directionstextViewID"
+        android:id="@+id/recipeName"
+        android:layout_width="290dp"
+        android:layout_height="41dp"
+        android:textColor="@color/purple"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.158" />
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="63dp"
+        android:textColor="@color/orange"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIngredients"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/directionstextViewID"
-        android:text="@+strings/Directions"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeName"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="98dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginBottom="21dp"
+        android:text="Ingredients"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewIngredients"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="122dp"
+        app:layout_constraintBottom_toTopOf="@+id/directionstextViewID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeName"
+        app:layout_constraintVertical_bias="0.535" />
+
+
+    <!--
+
+
+  <Button
+      android:id="@+id/button"
+      android:layout_width="149dp"
+      android:layout_height="32dp"
+      android:text="I Love This Recipe"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.923"
+      app:layout_constraintStart_toEndOf="@+id/textView2"
+      tools:layout_editor_absoluteY="221dp" />
+
+-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

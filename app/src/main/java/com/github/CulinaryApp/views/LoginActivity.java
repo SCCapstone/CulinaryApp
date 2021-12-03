@@ -31,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "Login Activity";
 
-    public void navigateToRecipesPage() {
-            Intent intentToStartRecipesPage = new Intent(this, RecipesActivity.class);
-            startActivity(intentToStartRecipesPage);
+    public void navigateToCategoriesPage() {
+            Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
+            startActivity(intentToStartCategoriesPage);
     }
 
 
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Authentication SUCCESS.", Toast.LENGTH_SHORT).show();
                                   //  LoginActivity.this.startActivity(new Intent(LoginActivity.this, CategoriesActivity.class));
                                    // LoginActivity.this.finish();
-                                    navigateToRecipesPage();
+                                    navigateToCategoriesPage();
                                 }
                             }
                         });

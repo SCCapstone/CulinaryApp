@@ -86,6 +86,11 @@ public class RecipesActivity extends AppCompatActivity {
         recipeImages.add(String.valueOf(R.drawable.homemade_creole_seasoning_recipe));
         recipeNames.add("Homemade Creole Seasoning Recipe");
 
+        for (int i = 4; i < 20; ++i) {
+            recipeImages.add(String.valueOf(R.drawable.jambalaya));
+            recipeNames.add("Recipe " + i);
+        }
+
         initRecyclerView();
     }
 
