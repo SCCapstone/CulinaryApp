@@ -51,19 +51,19 @@
 
 
     <!-- Strings for Search bar -->
-    <string name = "searchHint">Search Categories</string>
+    <string name="searchHint">Search Categories</string>
 
     <!-- Strings for Categories Activity -->
-    <string name ="back">back</string>
-    <string name = "Vegetarian">Vegetarian</string>
-    <string name = "pasta">Pasta</string>
-    <string name = "creole">Creole</string>
-    <string name = "creolepasta">Creole Pasta</string>
+    <string name="back">back</string>
+    <string name="Vegetarian">Vegetarian</string>
+    <string name="pasta">Pasta</string>
+    <string name="creole">Creole</string>
+    <string name="creolepasta">Creole Pasta</string>
 
-<!--    Added by luke -->
-    <string name = "title_activity_reg_page2">placeholder value</string>
-    <string name = "action_settings">placeholder value</string>
-    <string name = "large_text">placeholder value</string>
+    <!--    Added by luke -->
+    <string name="title_activity_reg_page2">placeholder value</string>
+    <string name="action_settings">placeholder value</string>
+    <string name="large_text">placeholder value</string>
 
     <!-- Not sure what the values of these strings need to be -->
     <string name="action_settings">Name of this String Resource is "action_settings"</string>

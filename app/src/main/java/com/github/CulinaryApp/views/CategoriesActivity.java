@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
@@ -44,7 +45,7 @@ public class CategoriesActivity extends AppCompatActivity {
     //This method is what should send to recipes page
     public void redirectToRecipe(View view) {
 
-        Intent intent = new Intent(CategoriesActivity.this,"Cajun", Recipe.class);
+       Intent intent = new Intent(this, RecipesActivity.class);
         startActivity(intent);
     }
 
