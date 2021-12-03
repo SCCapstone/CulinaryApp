@@ -1,4 +1,4 @@
-package com.github.CulinaryApp;
+package com.github.CulinaryApp.views;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.CulinaryApp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -41,6 +43,12 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
     private CheckBox FlexiL;
     private Button PfpB;
     private Button BackgroundB;
+
+    private Uri uri;
+    private StorageTask storageTask;
+    private StorageReference storagePfp;
+
+
 
     private static final int RESULT_LOAD_PFP = 1;
 
@@ -63,6 +71,8 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
         BackgroundB = (Button)findViewById(R.id.backgroundPhotoButton);
 
         rButton = (Button)findViewById(R.id.userRegButton);
+
+        storagePfp = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
     }
 
@@ -120,8 +130,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(RegPage2Activity.this, "User info successfully updated", Toast.LENGTH_LONG).show();
-                                //TODO Add Redirect to home page
-                                //startActivity(new Intent(RegPage2Activity.this, .class));
+                                startActivity(new Intent(RegPage2Activity.this, CategoriesActivity.class));
                             }
                             else
                                 Toast.makeText(RegPage2Activity.this, "Failed to update user info", Toast.LENGTH_LONG).show();

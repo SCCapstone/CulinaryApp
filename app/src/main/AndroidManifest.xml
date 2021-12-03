@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ChefRegistration"
+            android:name=".views.ChefRegistration"
             android:exported="false" />
 
 
@@ -48,10 +48,7 @@
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-            android:name=".RegPage2Activity"
-            android:exported="false"
-            android:label="@string/title_activity_reg_page2"
-            android:theme="@style/AppTheme.NoActionBar" />
+
               
                 <category android:name="android.intent.category.LAUNCHER" />
 
@@ -61,7 +58,7 @@
 
  <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".views.RegistrationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.Categories"/>
@@ -72,7 +69,7 @@
 
 
         <activity
-            android:name=".RegPage2Activity"
+            android:name=".views.RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
             android:theme="@style/AppTheme.NoActionBar" />

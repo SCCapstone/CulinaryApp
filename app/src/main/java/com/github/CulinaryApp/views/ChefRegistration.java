@@ -1,8 +1,9 @@
-package com.github.CulinaryApp;
+package com.github.CulinaryApp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.CulinaryApp.Chef;
+import com.github.CulinaryApp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -121,8 +124,7 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                             }
                                         });
                                         Toast.makeText(ChefRegistration.this, "Chef successfully registered", Toast.LENGTH_LONG).show();
-                                        //TODO Add Redirect to home page
-                                        //startActivity(new Intent(RegPage2Activity.this, .class));
+                                        startActivity(new Intent(ChefRegistration.this, CategoriesActivity.class));
 
                                     }
                                     else{

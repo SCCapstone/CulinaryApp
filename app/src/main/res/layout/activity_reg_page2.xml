@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".RegPage2Activity">
+    tools:context=".views.RegPage2Activity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constLayout"
