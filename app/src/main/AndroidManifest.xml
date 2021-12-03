@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.github.CulinaryApp">
-
     <!-- normal permissions (granted at install time) needed to perform network operations -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:fullBackupOnly="true"
@@ -16,15 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
+        <activity
+            android:name=".ChefRegistration"
+            android:exported="false" />
         <activity
             android:name=".views.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,35 +34,19 @@
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".RegistrationActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.Categories"/>
-                <action android:name="com.package.CulinaryApp."/>
+                <action android:name="android.intent.action.Categories" />
+                <action android:name="com.package.CulinaryApp." />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".views.CategoriesActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <!--android:label="@string/title_activity_main" -->
-
-<!--
-
-        <activity android:name="com.github.CulinaryApp.SearchableActivity"
-            <android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
-        </activity>
--->
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ChefRegistration">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chefConstLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ChefRegHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Chef Registration"
+            android:textColor="@color/orange"
+            android:textSize="44sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/chefEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/ChefRegHeader"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="@+id/ChefRegHeader"
+            app:layout_constraintTop_toBottomOf="@+id/ChefRegHeader" />
+
+        <EditText
+            android:id="@+id/chefPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/chefEmail"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/chefEmail"
+            app:layout_constraintTop_toBottomOf="@+id/chefEmail" />
+
+        <EditText
+            android:id="@+id/chefConfPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/chefPass"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/chefPass"
+            app:layout_constraintTop_toBottomOf="@+id/chefPass" />
+
+        <EditText
+            android:id="@+id/chefFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/chefConfPass"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/chefConfPass"
+            app:layout_constraintTop_toBottomOf="@+id/chefConfPass" />
+
+        <EditText
+            android:id="@+id/chefLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/chefFirstName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/chefFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/chefFirstName" />
+
+        <EditText
+            android:id="@+id/chefAffiliation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="Affiliation"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@+id/chefLastName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/chefLastName"
+            app:layout_constraintTop_toBottomOf="@+id/chefLastName" />
+
+        <Button
+            android:id="@+id/chefReg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:onClick="onClick"
+            android:text="Register"
+            app:layout_constraintEnd_toEndOf="@+id/chefAffiliation"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="@+id/chefAffiliation"
+            app:layout_constraintTop_toBottomOf="@+id/chefAffiliation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

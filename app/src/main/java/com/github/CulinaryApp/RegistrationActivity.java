@@ -129,6 +129,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     //setContentView(R.layout.activity_reg_page2);
                 }
                 break;
+
+            case R.id.chefRegClick:
+                startActivity(new Intent(RegistrationActivity.this, ChefRegistration.class));
+                break;
         }
     }
 }
