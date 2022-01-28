@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
+
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
 
@@ -38,6 +39,7 @@ public class CategoriesActivity extends AppCompatActivity {
         Log.d(TAG, "Activity Created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
