@@ -8,6 +8,13 @@
     android:theme ="@style/ThemeOverlay.AppCompat.Dark">
 
     <item
+        android:title="Profile"
+        android:id="@+id/actionBarProfile"
+        android:icon="@drawable/profile"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
         android:title="Search"
         android:icon="@drawable/search_image"
         android:id="@+id/search"
@@ -19,6 +26,11 @@
         android:icon="@drawable/share_app"
         android:id="@+id/share"
         app:showAsAction="ifRoom"/>
+<!--    <item-->
+<!--        android:title="Home"-->
+<!--        android:icon="@drawable/ic_baseline_home_24"-->
+<!--        android:id = "@+id/home"-->
+<!--        app:showAsAction="ifRoom"/>-->
 
 
 </menu>
