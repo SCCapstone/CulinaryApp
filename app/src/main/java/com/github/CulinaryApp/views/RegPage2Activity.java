@@ -46,7 +46,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
 
     private Uri uri;
     private StorageTask storageTask;
-    private StorageReference storagePfp;
+    //private StorageReference storagePfp;
 
 
 
@@ -72,7 +72,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
 
         rButton = (Button)findViewById(R.id.userRegButton);
 
-        storagePfp = FirebaseStorage.getInstance().getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //storagePfp = FirebaseStorage.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
     }
 
@@ -98,7 +98,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                 else{
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = database.getReference("Users");
-                    DatabaseReference hopperRef = ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    DatabaseReference hopperRef = ref.child(FirebaseAuth.getInstance().getUid());
 
                     //Create hashmap to store data in until upload
                     Map<String, Object> hopperUpdates = new HashMap<>();
