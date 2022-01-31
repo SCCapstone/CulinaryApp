@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
 //import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -21,12 +22,13 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 
-@RunWith(AndroidJUnit4.class)
+//@RunWith(AndroidJUnit4.class)
+@SmallTest
 public class ProfileActivityInstrumentedTest {
 
     @BeforeClass
     public static void setupClass(){
-        throw new RuntimeException("no tests");
+//        throw new RuntimeException("no tests");
     }
 
     @Rule
