@@ -34,7 +34,7 @@ public class BehaviorTests {
      * Simulate UI navigation using ActivityScenerioRule
      */
 
-    /* First test simulates Login interactions, given an existing user
+    /*First test simulates Login interactions, given an existing user
 
     @Rule
     ActivityScenerioRule rule = new ActivityScenerioRule<>(LoginActivity.class);
@@ -63,3 +63,42 @@ public class BehaviorTests {
 
 }
 */
+
+package com.github.CulinaryApp;
+
+import androidx.test.core.app.ActivityScenario;
+
+import com.github.CulinaryApp.views.LoginActivity;
+import static android.support.Espresso.onView;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
+
+public class BehaviorTests{
+
+    @Rule
+    ActivityScenario<LoginActivity> mActivityTestRule = ActivityScenario.launch(LoginActivity.class);
+
+    private String email = "default@email.com";
+    private String password = "default";
+
+    @Before
+    public void setUp() throws Exception{
+
+    }
+
+    @Test
+    public void testUnserInput(){
+
+    }
+
+    @After
+    public void tearDown() throws Exception{
+
+    }
+
+}
+
