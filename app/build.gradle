@@ -81,7 +81,7 @@ dependencies {
     androidTestImplementation 'ext:junit-ktx:1.1. 0'
 
     implementation 'com.google.code.gson:gson:2.8.9' //  json -> java
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0' // consume api
+    implementation  'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // provided 'org.glassfish:javax.annotation:10.0-b28' // to keep @Generated Annotation
