@@ -54,7 +54,7 @@ public class CategoriesActivity extends AppCompatActivity {
         Log.d(TAG, "Activity Created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-
+/*
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
@@ -74,6 +74,8 @@ public class CategoriesActivity extends AppCompatActivity {
                 navigateToRecipePage();
             }
         });
+
+ */
         OkHttpClient httpClient = new OkHttpClient();
         HttpUrl.Builder urlBuilder
                 = HttpUrl.parse(Categories.BASE_URL).newBuilder();
@@ -90,6 +92,7 @@ public class CategoriesActivity extends AppCompatActivity {
             Log.d(TAG, "CONNECTED");
         else
             Log.d(TAG, "NOT CONNECTED");
+        response.body().close();
        // Call call = CategoryResourceResponse.parseJson()
     }
 

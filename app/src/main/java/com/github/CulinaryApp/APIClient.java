@@ -1,5 +1,9 @@
 package com.github.CulinaryApp;
 
+import com.github.CulinaryApp.models.CategoryResourceResponse;
+
+import org.json.JSONArray;
+
 import java.io.*;
 import java.net.*;
 import java.io.BufferedReader;
@@ -27,52 +31,55 @@ public class APIClient {
      *   Step 8: build response
      *   Step 9: close connection
      */
-/*
+
     private static HttpURLConnection connectionToEndpoint;
 
     public static void main(String[] args) {
-
-
-        String apiEndpoint = "https://www.themealdb.com/api/json/v1/1/categories.php";
-        BufferedReader reader;
-        String line;
-        StringBuffer responseContent = new StringBuffer(); // appends each line read from buffer to build response
-
-        try {
-            URL url = new URL(apiEndpoint);
-            connectionToEndpoint = (HttpURLConnection) url.openConnection();
-
-            // Setup HTTP Request
-            connectionToEndpoint.setRequestMethod("GET");
-            connectionToEndpoint.setConnectTimeout(5000); // after 5000 ms - 5 secs, if conn hasn't succeeded, halt attempt
-            connectionToEndpoint.setReadTimeout(5000);
-
-            // get response codes...
-            // ... read response & build content based on response code
-            int status = connectionToEndpoint.getResponseCode();
-            if (status > 299) {
-                reader = new BufferedReader(new InputStreamReader(connectionToEndpoint.getErrorStream()));
-                while((line = reader.readLine()) != null) {
-                    responseContent.append(line);
-                }
-                reader.close();
-            } else {
-                reader = new BufferedReader(new InputStreamReader(connectionToEndpoint.getInputStream()));
-                while ((line = reader.readLine()) != null) {
-                    responseContent.append(line);
-                }
-                reader.close();
-            }
-            System.out.println(responseContent.toString());
-        } catch (MalformedURLException e) { // thrown when trying to connect to url but program can't parse url correctly
-            e.printStackTrace();
-            System.out.println("\nProgram cannot parse URL for some reason.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            connectionToEndpoint.disconnect();
-        }
+        String jsonString = getJSONResponse();
+        System.out.println(jsonString);
+        CategoryResourceResponse.parseJson(jsonString);
 
     }
-    */
+
+        public static String getJSONResponse() {
+            String apiEndpoint = "https://www.themealdb.com/api/json/v1/1/categories.php";
+            BufferedReader reader;
+            String line;
+            StringBuffer responseContent = new StringBuffer(); // appends each line read from buffer to build response
+            try {
+                URL url = new URL(apiEndpoint);
+                connectionToEndpoint = (HttpURLConnection) url.openConnection();
+
+                // Setup HTTP Request
+                connectionToEndpoint.setRequestMethod("GET");
+                connectionToEndpoint.setConnectTimeout(5000); // after 5000 ms - 5 secs, if conn hasn't succeeded, halt attempt
+                connectionToEndpoint.setReadTimeout(5000);
+
+                // get response codes...
+                // ... read response & build content based on response code
+                int status = connectionToEndpoint.getResponseCode();
+                if (status > 299) {
+                    reader = new BufferedReader(new InputStreamReader(connectionToEndpoint.getErrorStream()));
+                    while ((line = reader.readLine()) != null) {
+                        responseContent.append(line);
+                    }
+                    reader.close();
+                } else {
+                    reader = new BufferedReader(new InputStreamReader(connectionToEndpoint.getInputStream()));
+                    while ((line = reader.readLine()) != null) {
+                        responseContent.append(line);
+                    }
+                    reader.close();
+                }
+                return responseContent.toString();
+            } catch (MalformedURLException e) { // thrown when trying to connect to url but program can't parse url correctly
+                e.printStackTrace();
+                System.out.println("\nProgram cannot parse URL for some reason.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                connectionToEndpoint.disconnect();
+            }
+            return "wrong statement evaluated";
+        }
 }

@@ -16,10 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".services.MyService"
-            android:enabled="true"
-            android:exported="true"></service>
 
         <activity
             android:name=".views.ChefRegistration"
@@ -52,9 +48,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="MissingClass">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+               <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <action android:name="com.package.CulinaryApp." />
             </intent-filter>
@@ -80,10 +76,10 @@
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.Categories" />
+                <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.package.CulinaryApp." />
 
-                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Page 3: RecipesActivity -->
         <activity
