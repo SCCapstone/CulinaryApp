@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
+import okhttp3.OkHttpClient;
+
 public class CategoryResourceResponse {
     /**
      * This class maps the "categories" key of JSON response to a list of Category objects
@@ -22,6 +24,9 @@ public class CategoryResourceResponse {
     public static CategoryResourceResponse parseJson(String response) {
         Gson gsonBuilder = new GsonBuilder().create();
         CategoryResourceResponse responseObject = gsonBuilder.fromJson(response, CategoryResourceResponse.class);
+        System.out.println("\nArray List: " + responseObject);
         return responseObject;
     }
+
+
 }

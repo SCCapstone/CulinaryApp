@@ -10,6 +10,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.3.10'
         //hilt-android-gradlle-plugin used for dependency injection
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
+        classpath 'com.squareup.retrofit2:retrofit:2.9.0'
     }
 }
 

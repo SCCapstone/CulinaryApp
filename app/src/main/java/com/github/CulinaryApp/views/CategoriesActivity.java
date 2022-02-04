@@ -20,8 +20,23 @@ import androidx.core.view.MenuItemCompat;
 
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.models.CategoryResourceResponse;
+import com.github.CulinaryApp.services.GetCategories;
+import com.github.CulinaryApp.viewmodels.Categories;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.AndroidEntryPoint;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+
+//@AndroidEntryPoint
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
@@ -59,7 +74,23 @@ public class CategoriesActivity extends AppCompatActivity {
                 navigateToRecipePage();
             }
         });
+        OkHttpClient httpClient = new OkHttpClient();
+        HttpUrl.Builder urlBuilder
+                = HttpUrl.parse(Categories.BASE_URL).newBuilder();
+        String url = urlBuilder.build().toString();
 
+        Request aRequest = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = new Response.Builder()
+                .request(aRequest)
+                .build();
+        Boolean imConnected = response.isSuccessful();
+        if (imConnected)
+            Log.d(TAG, "CONNECTED");
+        else
+            Log.d(TAG, "NOT CONNECTED");
+       // Call call = CategoryResourceResponse.parseJson()
     }
 
     @Override

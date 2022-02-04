@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class APIClient {
-
+/*
 
     /* 2 WAYS TO SEND HTTP GET & PARSING JSON RESPONSE INTO JAVA OBJECT */
 
@@ -27,7 +27,7 @@ public class APIClient {
      *   Step 8: build response
      *   Step 9: close connection
      */
-
+/*
     private static HttpURLConnection connectionToEndpoint;
 
     public static void main(String[] args) {
@@ -74,4 +74,5 @@ public class APIClient {
         }
 
     }
+    */
 }

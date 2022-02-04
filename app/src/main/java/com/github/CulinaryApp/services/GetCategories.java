@@ -6,6 +6,6 @@ import com.github.CulinaryApp.models.CategoryResourceResponse;
 
 public interface GetCategories {
 
-    @GET("categories.php")
+    @GET("/categories.php")
     Call<CategoryResourceResponse> listCategories();
 }
