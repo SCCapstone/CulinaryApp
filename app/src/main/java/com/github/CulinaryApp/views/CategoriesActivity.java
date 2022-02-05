@@ -21,6 +21,14 @@ import androidx.core.view.MenuItemCompat;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -96,5 +104,9 @@ public class CategoriesActivity extends AppCompatActivity {
         });
         return true;
     }
-
+    /*
+    This is where the dynamic page loading functionality will go
+    //need a way to diferentiate between users
+    Query userSuggestion = databaseReference.child("recipes").child(User ID definer).orderByChild("Suggested");
+    */
 }
