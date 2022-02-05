@@ -4,6 +4,7 @@ package com.github.CulinaryApp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.PatternsCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -136,5 +137,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 startActivity(new Intent(RegistrationActivity.this, ChefRegistration.class));
                 break;
         }
+    }
+
+    public static boolean emailValidator(String email){
+        boolean value = PatternsCompat.EMAIL_ADDRESS.matcher(email.trim()).matches();
+        return value;
     }
 }

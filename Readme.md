@@ -17,7 +17,12 @@ In the AndroidStudio toolbar, select the emluator you created or physical device
 Use Android Studio menus (Build->Build Bundle/APK) to build an App Bundle or an APK. App Bundle is preferred for current versions of Android Studio. Follow instructions provided. Signing is included within the dialogs. Uploading on Google Drive requires an existing developer's account/license, but all instructions are provided at https://play.google.com/console/about/
 
 ## Testing
-TODO in section 492, not necessary at present
+All test files are located in [CullinaryApp/app/src/test/java/com/github/CullinaryApp/](https://github.com/SCCapstone/CulinaryApp/tree/main/app/src/test/java/com/github/CulinaryApp)
+
+To run a test one can either:
+
+1. Open the project in android studio and in the terminal type ``` .\gradlew test ```
+2. Open the project in android studio. Navigate to the test folder and open the desired test. Either run the whole test by clicking the green arrow icon next to the public class method, or run a specific test by clicking the green arrow next to the specific public void method (located underneath an "@Test" line).
 
 ## Testing Technology
 N/A
