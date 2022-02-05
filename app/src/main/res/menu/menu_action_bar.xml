@@ -21,11 +21,6 @@
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         />
-    <item
-        android:title = "Share"
-        android:icon="@drawable/share_app"
-        android:id="@+id/share"
-        app:showAsAction="ifRoom"/>
 <!--    <item-->
 <!--        android:title="Home"-->
 <!--        android:icon="@drawable/ic_baseline_home_24"-->
