@@ -212,13 +212,13 @@
                 style="@style/ToolbarButton"
                 android:drawableTop="@drawable/clipboard"
                 android:text="Clipboard" />
-
+        <!-- Removed because this page does not need search -Michael
             <Button
                 android:id="@+id/toolbarSearch"
                 style="@style/ToolbarButton"
                 android:drawableTop="@drawable/search"
                 android:text="Search" />
-
+    -->
 <!--            <androidx.appcompat.widget.SearchView-->
 <!--                style="@style/ToolbarButton"-->
 <!--                />-->

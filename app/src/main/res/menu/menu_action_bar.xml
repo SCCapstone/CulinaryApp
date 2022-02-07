@@ -6,14 +6,14 @@
     android:background="#ff8000"
     android:id="@+id/toolBar"
     android:theme ="@style/ThemeOverlay.AppCompat.Dark">
-
+<!--
     <item
         android:title="Profile"
         android:id="@+id/actionBarProfile"
         android:icon="@drawable/profile"
         app:showAsAction="ifRoom"
         />
-
+-->
     <item
         android:title="Search"
         android:icon="@drawable/search_image"
