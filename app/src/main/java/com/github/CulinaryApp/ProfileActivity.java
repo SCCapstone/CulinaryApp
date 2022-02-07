@@ -47,47 +47,65 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //global values, need these for other functions' uses
+        //non button related
         bgImg = findViewById(R.id.profBackground);
         prof = findViewById(R.id.profPic);
 
+        //fragment containers for navbar
         clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
         trendingContainer = findViewById(R.id.trendingFragmentHolder);
 
+        //buttons within settings
         Button profChangeButton = findViewById(R.id.editAvatar);
         Button bgChangeButton = findViewById(R.id.editBGImg);
         Button editBioButton = findViewById(R.id.editBio);
         Button editDisplayNameButton = findViewById(R.id.editDispName);
         Button profileDisplayButton = findViewById(R.id.howTheySee);
 
+        //buttons within navbar
         Button clipboardButton = findViewById(R.id.toolbarClip);
         Button trendingButton = findViewById(R.id.toolbarTrending);
 //        Button searchButton = findViewById(R.id.toolbarSearch);
+        Button profileButton = findViewById(R.id.toolbarProfile);
 
+        //buttons within preferences
         Button healthSettingsButton = findViewById(R.id.setHealth);
         Button lifestyleSettingsButton = findViewById(R.id.setLifestyle);
         Button activitySettingsButton = findViewById(R.id.setActivity);
         Button privacySettingsButton = findViewById(R.id.setPrivacy);
 
+        //navbar onclicks
         clipboardButton.setOnClickListener(toggleClipboard);
         trendingButton.setOnClickListener(toggleTrending);
+        profileButton.setOnClickListener(navToProf);
 //        searchButton.setOnClickListener(v -> System.out.println(this.getCurrentFocus()));
 
+        //settings onclicks
         profChangeButton.setOnClickListener(profImgChanger);
         bgChangeButton.setOnClickListener(bgImgChanger);
         editBioButton.setOnClickListener(bioEditor);
         editDisplayNameButton.setOnClickListener(displayNameEditor);
         profileDisplayButton.setOnClickListener(displayProfileFull);
 
+        //preferences onclicks
         healthSettingsButton.setOnClickListener(healthSettingsChanger);
         lifestyleSettingsButton.setOnClickListener(lifestyleSettingsChanger);
         activitySettingsButton.setOnClickListener(activitySettingsChanger);
         privacySettingsButton.setOnClickListener(privacySettingsChanger);
 
+        //these allow the "tap button -> popup appears -> tap outside of popup -> popup disappears" action
         clipboardContainer.setOnFocusChangeListener(toolbarFocusListener);
         trendingContainer.setOnFocusChangeListener(toolbarFocusListener);
-
-
     }
+
+    View.OnClickListener navToProf = view -> {
+        Intent goToProfile = new Intent(this, ProfileActivity.class);
+        startActivity(goToProfile);
+
+        //todo remove when toolbar is changed to a fragment, and then check the instance of the fragment parent to see if button needs to be non-functional if ur already on profile page
+        finish();
+    };
 
     View.OnFocusChangeListener toolbarFocusListener = (container, hasFocus) -> {
         if(!hasFocus)
