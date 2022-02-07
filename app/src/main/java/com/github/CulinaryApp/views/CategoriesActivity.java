@@ -73,9 +73,9 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.actionBarProfile:
-                Intent goToProfile = new Intent(this, ProfileActivity.class);
-                startActivity(goToProfile);
+//            case R.id.actionBarProfile:
+//                Intent goToProfile = new Intent(this, ProfileActivity.class);
+//                startActivity(goToProfile);
 
             default:
                 return super.onOptionsItemSelected(item);
