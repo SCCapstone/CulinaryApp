@@ -53,8 +53,9 @@ public class ProfileActivity extends AppCompatActivity {
         prof = findViewById(R.id.profPic);
 
         //fragment containers for navbar
-        clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
-        trendingContainer = findViewById(R.id.trendingFragmentHolder);
+//        clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
+//        trendingContainer = findViewById(R.id.trendingFragmentHolder);
+        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
         //buttons within settings
         Button profChangeButton = findViewById(R.id.editAvatar);
@@ -64,10 +65,10 @@ public class ProfileActivity extends AppCompatActivity {
         Button profileDisplayButton = findViewById(R.id.howTheySee);
 
         //buttons within navbar
-        Button clipboardButton = findViewById(R.id.toolbarClip);
-        Button trendingButton = findViewById(R.id.toolbarTrending);
-//        Button searchButton = findViewById(R.id.toolbarSearch);
-        Button profileButton = findViewById(R.id.toolbarProfile);
+//        Button clipboardButton = findViewById(R.id.toolbarClip);
+//        Button trendingButton = findViewById(R.id.toolbarTrending);
+////        Button searchButton = findViewById(R.id.toolbarSearch);
+//        Button profileButton = findViewById(R.id.toolbarProfile);
 
         //buttons within preferences
         Button healthSettingsButton = findViewById(R.id.setHealth);
@@ -76,9 +77,9 @@ public class ProfileActivity extends AppCompatActivity {
         Button privacySettingsButton = findViewById(R.id.setPrivacy);
 
         //navbar onclicks
-        clipboardButton.setOnClickListener(toggleClipboard);
-        trendingButton.setOnClickListener(toggleTrending);
-        profileButton.setOnClickListener(navToProf);
+//        clipboardButton.setOnClickListener(toggleClipboard);
+//        trendingButton.setOnClickListener(toggleTrending);
+//        profileButton.setOnClickListener(navToProf);
 //        searchButton.setOnClickListener(v -> System.out.println(this.getCurrentFocus()));
 
         //settings onclicks
@@ -95,24 +96,24 @@ public class ProfileActivity extends AppCompatActivity {
         privacySettingsButton.setOnClickListener(privacySettingsChanger);
 
         //these allow the "tap button -> popup appears -> tap outside of popup -> popup disappears" action
-        clipboardContainer.setOnFocusChangeListener(toolbarFocusListener);
-        trendingContainer.setOnFocusChangeListener(toolbarFocusListener);
+//        clipboardContainer.setOnFocusChangeListener(toolbarFocusListener);
+//        trendingContainer.setOnFocusChangeListener(toolbarFocusListener);
     }
 
-    View.OnClickListener navToProf = view -> {
+    /*View.OnClickListener navToProf = view -> {
         Intent goToProfile = new Intent(this, ProfileActivity.class);
         startActivity(goToProfile);
 
         //todo remove when toolbar is changed to a fragment, and then check the instance of the fragment parent to see if button needs to be non-functional if ur already on profile page
         finish();
-    };
+    };*/
 
     View.OnFocusChangeListener toolbarFocusListener = (container, hasFocus) -> {
         if(!hasFocus)
             container.setVisibility(View.GONE);
     };
 
-    View.OnClickListener toggleTrending = view -> {
+    /*View.OnClickListener toggleTrending = view -> {
         FragmentManager manager = getSupportFragmentManager();
         int visibility = trendingContainer.getVisibility();
 
@@ -131,9 +132,9 @@ public class ProfileActivity extends AppCompatActivity {
             trendingContainer.setVisibility(View.GONE);
 
         }
-    };
+    };*/
 
-    View.OnClickListener toggleClipboard = dummy -> {
+    /*View.OnClickListener toggleClipboard = dummy -> {
         FragmentManager manager = getSupportFragmentManager();
         int visibility = clipboardContainer.getVisibility();
 
@@ -152,7 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
             clipboardContainer.setVisibility(View.GONE);
 
         }
-    };
+    };*/
 
     View.OnClickListener healthSettingsChanger = view -> {
         androidx.appcompat.widget.SwitchCompat glutenSwitch = new androidx.appcompat.widget.SwitchCompat(this);
