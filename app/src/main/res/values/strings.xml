@@ -51,7 +51,7 @@
 
 
     <!-- Strings for Search bar -->
-<!--   <string name ="back">back</string>-->
+    <!--   <string name ="back">back</string>-->
     <string name="searchHint">Search Categories</string>
 
     <!-- Strings for Categories Activity -->
@@ -60,7 +60,7 @@
     <string name="Vegetarian">Vegetarian</string>
     <string name="pasta">Pasta</string>
     <string name="creole">Creole</string>
-<!--    <string name="creolepasta">Creole Pasta</string>-->
+    <!--    <string name="creolepasta">Creole Pasta</string>-->
 
     <!-- Strings for Recipe Page -->
     <string name="prepTime">Prep Time</string>
@@ -68,21 +68,19 @@
     <string name="Ingredients">Ingredients</string>
     <string name="Directions">Directions</string>
 
-  
-  
-    <string name = "creolepasta">Shrimp Alfredo</string>
-    <string name = "chickenCreole">Chicken Creole</string>
-    <string name = "creoleJambalaya">Jambalaya</string>
-    <string name = "creoleMerltion">Merliton</string>
-    <string name = "veggieBurgers">Veggie Burgers</string>
-    <string name = "vegetarianPasta">Vegetarian Pasta</string>
 
+    <string name="creolepasta">Shrimp Alfredo</string>
+    <string name="chickenCreole">Chicken Creole</string>
+    <string name="creoleJambalaya">Jambalaya</string>
+    <string name="creoleMerltion">Merliton</string>
+    <string name="veggieBurgers">Veggie Burgers</string>
+    <string name="vegetarianPasta">Vegetarian Pasta</string>
 
 
     <!--    Added by luke -->
-<!--    <string name="title_activity_reg_page2">placeholder value</string>-->
-<!--    <string name="action_settings">placeholder value</string>-->
-<!--    <string name="large_text">placeholder value</string>-->
+    <!--    <string name="title_activity_reg_page2">placeholder value</string>-->
+    <!--    <string name="action_settings">placeholder value</string>-->
+    <!--    <string name="large_text">placeholder value</string>-->
 
     <!-- Not sure what the values of these strings need to be
     <string name="action_settings">Name of this String Resource is "action_settings"</string>
@@ -96,7 +94,7 @@
     <!-- App would not run without these placeholders -->
     <string name="title_activity_reg_page2">test value</string>
     <string name="action_settings">test value</string>
-<!--    <string name="back">test value</string>-->
+    <!--    <string name="back">test value</string>-->
     <string name="large_text">test value</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
