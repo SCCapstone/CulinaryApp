@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -18,8 +19,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.core.view.MenuItemCompat;
 
+import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +32,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -50,6 +57,8 @@ public class CategoriesActivity extends AppCompatActivity {
          * gonna put the dynamic page loading functionality so I'm just gonna put this example query here for now
          * that logs all fields for each document our Firebase project's root collection
          */
+
+
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
         firestoreDB.collection("CATEGORIES/")
@@ -66,13 +75,16 @@ public class CategoriesActivity extends AppCompatActivity {
                     }
                 }
                 });
-        
-        super.onCreate(savedInstanceState);
+
+
+        super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
         setContentView(R.layout.activity_categories);
 
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
+        //insert navbar on activity load
+        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
