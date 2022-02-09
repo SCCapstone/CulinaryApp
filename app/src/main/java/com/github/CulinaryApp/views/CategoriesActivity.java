@@ -44,7 +44,29 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "Activity Created");
+        Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
+        /*
+         * Michael, not sure what you want the method definition to be like down below where you're
+         * gonna put the dynamic page loading functionality so I'm just gonna put this example query here for now
+         * that logs all fields for each document our Firebase project's root collection
+         */
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+        Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
+        firestoreDB.collection("CATEGORIES/")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
+                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData());
+                        }
+                    } else {
+                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                    }
+                }
+                });
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
