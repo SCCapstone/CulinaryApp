@@ -112,7 +112,6 @@
         </activity>
 
 <!--
-
         <activity android:name="com.github.CulinaryApp.SearchableActivity"
             <android:exported="true">
             <intent-filter>

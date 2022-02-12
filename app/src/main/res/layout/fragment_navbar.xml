@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".NavbarFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="#F8F8F8"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+
+        app:layout_constraintVertical_bias="1.0"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <!-- clipboard search trending profile -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/toolbarSearch"
+                style="@style/NavbarButton"
+                android:drawablePadding="-16dp"
+                android:drawableTop="@drawable/home_28"
+                android:text="Home" />
+
+            <Button
+                android:id="@+id/toolbarClip"
+                style="@style/NavbarButton"
+                android:drawableTop="@drawable/favorites"
+                android:text="Favorites" />
+
+            <Button
+                android:id="@+id/toolbarTrending"
+                style="@style/NavbarButton"
+                android:drawableTop="@drawable/trending"
+                android:text="Trending" />
+
+            <Button
+                android:id="@+id/toolbarProfile"
+                style="@style/NavbarButton"
+                android:drawableTop="@drawable/profile"
+                android:text="Profile" />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

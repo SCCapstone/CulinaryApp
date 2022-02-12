@@ -19,7 +19,7 @@
         <item name="background">@android:color/transparent</item>
     </style>
 
-    <style name="ToolbarButton">
+    <style name="NavbarButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
