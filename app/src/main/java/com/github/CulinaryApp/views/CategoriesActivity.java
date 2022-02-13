@@ -92,7 +92,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         //displays home button
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //This method is what should send to recipes page
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -143,4 +143,9 @@ public class CategoriesActivity extends AppCompatActivity {
     //need a way to diferentiate between users
     Query userSuggestion = databaseReference.child("recipes").child(User ID definer).orderByChild("Suggested");
     */
+
+    //TODO redirect to recipes pages
+    public void redirectToRecipe(View view){
+
+    }
 }

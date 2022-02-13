@@ -3,10 +3,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bigLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:layout_marginStart="0dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="0dp"
+    android:layout_marginRight="0dp"
+    android:layout_marginBottom="75dp"
     android:background="#F5F5DC"
-    android:id="@+id/bigLayout"
+    app:layout_marginBaseline="0dp"
     tools:context=".ProfileActivity">
 
     <TextView
@@ -27,15 +35,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-
     <ScrollView
+        android:id="@+id/contentScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/contentScroll"
+        android:layout_marginBottom="200dp"
+        android:descendantFocusability="beforeDescendants"
         app:layout_constraintBottom_toTopOf="@+id/Navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:descendantFocusability="beforeDescendants"
         app:layout_constraintTop_toBottomOf="@+id/chefHeading">
 
         <LinearLayout
@@ -45,8 +53,8 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:layout_above="@+id/layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/images"
@@ -65,14 +73,13 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profPic"
-                    android:layout_height="180dp"
                     android:layout_width="180dp"
+                    android:layout_height="180dp"
                     android:src="#BBBBBB"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/profBackground"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,7 +89,7 @@
                 <TextView
                     android:id="@+id/textView2"
                     style="@style/ProfileHeading"
-                    android:text="Profile"/>
+                    android:text="Profile" />
 
                 <Button
                     android:id="@+id/editAvatar"
@@ -117,7 +124,7 @@
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/ProfileHeading"
-                    android:text="Preferences"/>
+                    android:text="Preferences" />
 
                 <Button
                     android:id="@+id/setHealth"
@@ -144,27 +151,28 @@
     </ScrollView>
 
     <View
+        android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#A6A6A6"
         android:gravity="top"
-        android:id="@+id/separator"
         app:layout_constraintBottom_toTopOf="@id/Navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-     <include layout="@layout/layout_navbar_container"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:layout_constraintVertical_bias="1.0"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"/>
+    <include
+        layout="@layout/layout_navbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-   <!-- <androidx.fragment.app.FragmentContainerView
+    <!-- <androidx.fragment.app.FragmentContainerView
         android:id="@+id/clipboardFragmentHolder"
         android:layout_width="325dp"
         android:layout_height="575dp"
@@ -179,7 +187,7 @@
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@id/chefHeading" />
 -->
-   <!-- <androidx.fragment.app.FragmentContainerView
+    <!-- <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trendingFragmentHolder"
         android:layout_width="325dp"
         android:layout_height="575dp"
@@ -253,13 +261,13 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/profileDisplayContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chefHeading"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chefHeading" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
