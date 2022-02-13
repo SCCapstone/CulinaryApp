@@ -35,14 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/pirates" />
+            android:text="@string/sporty_lifestyle" />
 
         <RadioButton
             android:id="@+id/radio_ninjas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/ninjas" />
+            android:text="@string/sporty_lifestyle" />
     </RadioGroup>
 
 
