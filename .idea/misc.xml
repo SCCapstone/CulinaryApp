@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/layout/appbar.xml" value="0.10572916666666667" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11474164133738601" />
+        <entry key="app/src/main/res/layout/fragment_lifestyle.xml" value="0.21762843477553218" />
         <entry key="app/src/main/res/layout/fragment_profile_display.xml" value="0.11474164133738601" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11474164133738601" />
         <entry key="app/src/main/res/layout/recipe.xml" value="0.11474164133738601" />
