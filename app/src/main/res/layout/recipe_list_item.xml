@@ -2,16 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/individual_recipe_item_layout"
+    android:id="@+id/parent_layout_recipe_items"
     android:padding="15dp">
 
+    <!-- id above is attached to onClickListener -->
+
+
     <!-- CircleImageView to make round the edges of images used -->
+    <!--
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/recipe_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:imag
         android:src="@mipmap/ic_launcher" />
+    -->
 
+    <ImageView
+        android:id="@id/recipe_image"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
     <!-- TextView for displaying names associated w/ particular image -->
     <TextView
         android:id="@+id/recipe_name"
