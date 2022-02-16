@@ -1,29 +1,32 @@
 package com.github.CulinaryApp.models;
 
+import com.google.firebase.firestore.DocumentReference;
+
 public class Recipe {
 
 
     String name;
-    String imgUrl;
+    DocumentReference image;
 
-    public void setName(String aName) {
-        aName = name;
+    public Recipe() {
+
     }
 
-    public void setImgUrl(String anImgUrl) {
-        anImgUrl = imgUrl;
+    public void setName(String name) {
+        name = name;
     }
 
-    public Recipe(String aName, String anImgUrl) {
-        setName(aName);
-        setImgUrl(anImgUrl);
+    public void setImage(String image) {
+        image = image;
     }
+
+
 
     public String getName() {
         return name;
     }
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImage() {
+        return image.toString();
     }
 
 }

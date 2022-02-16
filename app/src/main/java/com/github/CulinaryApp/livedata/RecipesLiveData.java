@@ -62,7 +62,7 @@ public class RecipesLiveData
                     name = entry.getValue().toString();
                 if (entry.getKey() == "imgUrl")
                     imgUrl = entry.getValue().toString();
-                Recipe recipeFromFirestore = new Recipe(name, imgUrl);
+                Recipe recipeFromFirestore = new Recipe();
                 tempRecipeList.add(recipeFromFirestore);
             }
             // setting the mutable live data w/ array list of live data returned from our query snapshot

@@ -53,7 +53,7 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
         Log.d(TAG, "onCreate: started");
-        getSupportActionBar().setTitle("A Category's Recipes");
+       // getSupportActionBar().setTitle("A Category's Recipes");
 
         // define viewmodel
         // ViewModelProvider(Context context), get method parameter is the ViewModel pertaining to...

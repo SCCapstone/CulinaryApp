@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.recipeName.setText(recipeList.get(position).getName());
        // holder.recipeImgUrl.setText(recipeList.get(position).getImgUrl());
-        Glide.with(holder.itemView.getContext()).load(recipeList.get(position).getImgUrl()).into(holder.recipeImgUrl);
+        Glide.with(holder.itemView.getContext()).load(recipeList.get(position).getImage()).into(holder.recipeImgUrl);
     }
     @Override
     public int getItemCount() {
