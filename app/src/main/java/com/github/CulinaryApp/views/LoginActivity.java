@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(com.github.CulinaryApp.R.layout.activity_login);
 
         Log.d(TAG, "LoginActivity: CREATED");
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -80,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this.getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 //progressBar.setVisibility(View.VISIBLE);
 
                 //login user

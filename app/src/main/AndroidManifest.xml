@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.github.CulinaryApp">
 
+
     <!-- normal permissions (granted at install time) needed to perform network operations -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -20,10 +21,13 @@
         <activity
             android:name=".views.ChefRegistration"
             android:exported="false" />
+
         <activity
             android:name=".ProfileActivity"
-            android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true" />
+
+
         <activity
             android:name=".views.RecipeInstructionsActivity"
             android:exported="false" />
@@ -42,46 +46,56 @@
                       on bottom) & pull up Clipboard (how do they do that?)
         -->
         <!-- Page 1: LoginActivity -->
-        <activity
+             <activity
             android:name=".views.LoginActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="MissingClass">
             <intent-filter>
-               <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+              
+                <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="com.package.CulinaryApp." />
             </intent-filter>
-        </activity> <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
+                </activity> 
+
+ <!-- Page 1.2 a: RegistrationActivity (page 2 of 2) -->
         <activity
             android:name=".views.RegistrationActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.Categories" />
-                <action android:name="com.package.CulinaryApp." />
-
+                <action android:name="android.intent.action.Categories"/>
+                <action android:name="com.package.CulinaryApp."/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".views.RegPage2Activity"
             android:exported="false"
             android:label="@string/title_activity_reg_page2"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- android:label="@string/title_activity_main" -->
-        <!-- Page 2: CategoriesActivity -->
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--android:label="@string/title_activity_main" -->
+      
+       <!-- Page 2: CategoriesActivity -->
         <activity
             android:name=".views.CategoriesActivity"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar">
+
+
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.Categories" />
                 <action android:name="com.package.CulinaryApp." />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
-        </activity> <!-- Page 3: RecipesActivity -->
+        </activity>
+      
+       <!-- Page 3: RecipesActivity -->
         <activity
             android:name=".views.RecipesActivity"
             android:exported="true"
@@ -91,11 +105,11 @@
             android:name=".views.RecyclerViewAdapter"
             android:exported="true"
             tools:ignore="Instantiatable">
+
             <intent-filter>
-                <action android:name="android.intent.action.SEND" />
+               <action android:name="android.intent.action.SEND" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
 
 <!--
         <activity android:name="com.github.CulinaryApp.SearchableActivity"
@@ -111,8 +125,6 @@
  
 
 
-=======
->>>>>>> 65ba4233449ec9ddb5a2d06710459928f209d95c
     </application>
 
 </manifest>
