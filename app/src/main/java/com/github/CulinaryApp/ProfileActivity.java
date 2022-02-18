@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         //fragment containers for navbar
 //        clipboardContainer = findViewById(R.id.clipboardFragmentHolder);
 //        trendingContainer = findViewById(R.id.trendingFragmentHolder);
-        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
         //buttons within settings
         Button profChangeButton = findViewById(R.id.editAvatar);
@@ -204,13 +204,9 @@ public class ProfileActivity extends AppCompatActivity {
                 .commit();
     };
 
-    View.OnClickListener displayNameEditor = view -> {
-        textFromDialog("Edit Display Name", "New Display Name Here", (output) -> this.displayName = output);
-    };
+    View.OnClickListener displayNameEditor = view -> textFromDialog("Edit Display Name", "New Display Name Here", (output) -> this.displayName = output);
 
-    View.OnClickListener bioEditor = view -> {
-        textFromDialog("Edit Bio", "Your Bio Here", (output) -> this.bio = output);
-    };
+    View.OnClickListener bioEditor = view -> textFromDialog("Edit Bio", "Your Bio Here", (output) -> this.bio = output);
 
     View.OnClickListener profImgChanger = view -> {
         changingProfPic = true;
@@ -246,9 +242,7 @@ public class ProfileActivity extends AppCompatActivity {
         void set(String value);
     }
 
-    private String textFromDialog(String title, String hint, setValue setter){
-        final String[] textRetrieved = {"Default Text"};
-
+    private void textFromDialog(String title, String hint, setValue setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
 
@@ -267,8 +261,6 @@ public class ProfileActivity extends AppCompatActivity {
         textInputDialog.setPositiveButton("Done", (dialog, choice) -> setter.set(newTextInput.getText().toString()));
         textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
         textInputDialog.show();
-
-        return textRetrieved[0];
     }
 
     private int getPixelsFromDp(int densityPoints){
