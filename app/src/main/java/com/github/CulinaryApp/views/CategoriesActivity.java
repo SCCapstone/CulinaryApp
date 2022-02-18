@@ -51,6 +51,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
+        setContentView(R.layout.activity_categories);
+
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
          * Michael, not sure what you want the method definition to be like down below where you're
@@ -77,14 +80,11 @@ public class CategoriesActivity extends AppCompatActivity {
                 });
 
 
-        super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
-        setContentView(R.layout.activity_categories);
+
 
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
-        //insert navbar on activity load
-        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
