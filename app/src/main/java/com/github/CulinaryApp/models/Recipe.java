@@ -6,17 +6,17 @@ public class Recipe {
 
 
     String name;
-    DocumentReference image;
+    String image;
 
     public Recipe() {
 
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
-    public void setImage(String image) {
+    public void setImageUrl(String image) {
         image = image;
     }
 
@@ -25,8 +25,6 @@ public class Recipe {
     public String getName() {
         return name;
     }
-    public String getImage() {
-        return image.toString();
-    }
+    public String getImage() { return image; }
 
 }

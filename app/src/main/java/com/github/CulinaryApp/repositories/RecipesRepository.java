@@ -62,6 +62,10 @@ public class RecipesRepository {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 List<Recipe> recipeList = new ArrayList<>();
                 for (QueryDocumentSnapshot aDocumentSnapshot : value) {
+                    Log.d("QueryDocSnapshot:\n",
+                            "Document ID: "
+                             + aDocumentSnapshot.getId() + "\nFields: "
+                                    + aDocumentSnapshot.getData());
                     if (aDocumentSnapshot != null) {
                         recipeList.add(aDocumentSnapshot.toObject(Recipe.class));
                     }

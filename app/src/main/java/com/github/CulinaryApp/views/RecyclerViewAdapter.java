@@ -1,6 +1,7 @@
 package com.github.CulinaryApp.views;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.models.Recipe;
 
@@ -47,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.recipeName.setText(recipeList.get(position).getName());
        // holder.recipeImgUrl.setText(recipeList.get(position).getImgUrl());
-        Glide.with(holder.itemView.getContext()).load(recipeList.get(position).getImage()).into(holder.recipeImgUrl);
+        Glide.with(holder.itemView.getContext()).load(recipeList.get(position).getImage()).apply(RequestOptions.circleCropTransform()).into(holder.recipeImgUrl);
     }
     @Override
     public int getItemCount() {
