@@ -22,8 +22,14 @@ import androidx.core.view.MenuItemCompat;
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
+<<<<<<< HEAD
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+=======
+import com.github.CulinaryApp.models.CategoryResourceResponse;
+import com.github.CulinaryApp.services.GetCategories;
+import com.github.CulinaryApp.viewmodels.Categories;
+>>>>>>> 65ba4233449ec9ddb5a2d06710459928f209d95c
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +43,18 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import org.json.JSONArray;
+
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.AndroidEntryPoint;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+
+//@AndroidEntryPoint
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
@@ -53,6 +71,7 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
         setContentView(R.layout.activity_categories);
+<<<<<<< HEAD
 
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
@@ -82,6 +101,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
 
 
+=======
+/*
+>>>>>>> 65ba4233449ec9ddb5a2d06710459928f209d95c
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
@@ -102,6 +124,25 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
+ */
+        OkHttpClient httpClient = new OkHttpClient();
+        HttpUrl.Builder urlBuilder
+                = HttpUrl.parse(Categories.BASE_URL).newBuilder();
+        String url = urlBuilder.build().toString();
+
+        Request aRequest = new Request.Builder()
+                .url(url)
+                .build();
+        Response response = new Response.Builder()
+                .request(aRequest)
+                .build();
+        Boolean imConnected = response.isSuccessful();
+        if (imConnected)
+            Log.d(TAG, "CONNECTED");
+        else
+            Log.d(TAG, "NOT CONNECTED");
+        response.body().close();
+       // Call call = CategoryResourceResponse.parseJson()
     }
 
     @Override
