@@ -12,5 +12,6 @@
         android:id="@+id/recycler_view">
     </androidx.recyclerview.widget.RecyclerView>
 
+<!--    <include layout="@layout/layout_navbar_container"/>-->
 
 </RelativeLayout>
