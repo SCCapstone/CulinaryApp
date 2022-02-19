@@ -30,15 +30,20 @@
         <entry key="app/src/main/res/drawable/share_app.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_categories.xml" value="0.21257658621579859" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.11474164133738601" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.10617675781249997" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25463714599609377" />
+        <entry key="app/src/main/res/layout/activity_recipes.xml" value="0.10729166666666666" />
+        <entry key="app/src/main/res/layout/activity_recipes2.xml" value="0.10729166666666666" />
         <entry key="app/src/main/res/layout/activity_reg_page2.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.10572916666666667" />
         <entry key="app/src/main/res/layout/appbar.xml" value="0.10572916666666667" />
+        <entry key="app/src/main/res/layout/content_recipes.xml" value="0.10729166666666666" />
+        <entry key="app/src/main/res/layout/content_registration.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_scrolling.xml" value="0.21829710144927536" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11474164133738601" />
+        <entry key="app/src/main/res/layout/fragment_lifestyle.xml" value="0.1082427536231884" />
         <entry key="app/src/main/res/layout/fragment_profile_display.xml" value="0.11474164133738601" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11474164133738601" />
         <entry key="app/src/main/res/layout/recipe.xml" value="0.11474164133738601" />

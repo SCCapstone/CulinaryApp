@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".views.RegistrationActivity">
+    tools:context=".views.RegistrationActivity"
+    android:background="#36393e">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constLayout"

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5DC"
+    android:background="#36393e"
     android:id="@+id/bigLayout"
     tools:context=".ProfileActivity">
 
@@ -13,7 +13,7 @@
         android:id="@+id/chefHeading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#FF9036"
+        android:background="#301934"
         android:gravity="center"
         android:padding="8dp"
         android:text="I Am Chef"

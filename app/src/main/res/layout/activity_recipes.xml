@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.RecyclerViewAdapter">
+    tools:context=".views.RecyclerViewAdapter"
+    android:background="#36393e">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view">
+        android:id="@+id/recycler_view"
+        >
     </androidx.recyclerview.widget.RecyclerView>
 
 
