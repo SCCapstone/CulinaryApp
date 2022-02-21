@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -19,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.core.view.MenuItemCompat;
 
+import com.github.CulinaryApp.GlideApp;
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
@@ -32,9 +35,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -51,6 +58,10 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_categories);
+
+
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
          * Michael, not sure what you want the method definition to be like down below where you're
@@ -76,9 +87,32 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
                 });
 
-
-        super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
-        setContentView(R.layout.activity_categories);
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This is more or less example code for how to grab and load both strings and images
+        // into text and image views from the firestore db
+        TextView firstHeader = findViewById(R.id.creoleSection);
+        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef").getId());
+        ImageView image = findViewById(R.id.creolePastaButton);
+        DocumentReference docRef = firestoreDB.collection("CATEGORIES/").document("Beef/").collection("RECIPES").document("Beef And Oyster Pie");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        if(document.get("image").getClass() == StorageReference.class)
+                            loadImage(image, (StorageReference) document.get("image"));
+                        else
+                            loadImage(image, (String) document.get("image"));
+                    } else {
+                        Log.d("LOGGER", "No such document");
+                    }
+                } else {
+                    Log.d("LOGGER", "get failed with ", task.getException());
+                }
+            }
+        });
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
@@ -147,5 +181,16 @@ public class CategoriesActivity extends AppCompatActivity {
     //TODO redirect to recipes pages
     public void redirectToRecipe(View view){
 
+    }
+
+    public void loadImage(ImageView image, StorageReference ref) {
+        GlideApp.with(this /* context */)
+                .load(ref)
+                .into(image);
+    }
+    public void loadImage(ImageView image, String url) {
+        GlideApp.with(this /* context */)
+                .load(url)
+                .into(image);
     }
 }
