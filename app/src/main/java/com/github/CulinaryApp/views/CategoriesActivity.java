@@ -43,7 +43,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
 
-    public void navigateToRecipePage() {
+    public void redirectToRecipePage() {
         Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
         startActivity(intentToStartCategoriesPage);
     }
@@ -80,6 +80,7 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
         setContentView(R.layout.activity_categories);
 
+        redirectToRecipePage();
         mAuth = FirebaseAuth.getInstance();
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
@@ -98,7 +99,7 @@ public class CategoriesActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToRecipePage();
+                redirectToRecipePage();
             }
         });
 

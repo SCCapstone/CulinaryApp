@@ -41,7 +41,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.227"
-        tools:srcCompat="@drawable/creolepasta" />
+        tools:srcCompat="@drawable/creolepasta"
+        tools:ignore="OnClick" />
 
     <ImageButton
         android:id="@+id/buttonPlaceHolder"
@@ -58,7 +59,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@drawable/chickencreole" />
+        tools:srcCompat="@drawable/chickencreole"
+        tools:ignore="OnClick" />
 
     <ImageButton
         android:id="@+id/buttonPlaceHolder2"
@@ -73,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/jambalayapng" />
+        tools:ignore="OnClick" />
 
     <ImageButton
         android:id="@+id/buttonPlaceHolder4"
@@ -88,7 +90,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/veggieburger" />
+        tools:srcCompat="@drawable/veggieburger"
+        tools:ignore="OnClick" />
 
     <ImageButton
         android:id="@+id/buttonPlaceHolder5"
@@ -101,7 +104,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/noimagefound" />
+        tools:srcCompat="@drawable/noimagefound"
+        tools:ignore="OnClick" />
 
     <ImageButton
         android:id="@+id/buttonPlaceHolder3"
@@ -116,7 +120,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/merliton" />
+        tools:srcCompat="@drawable/merliton"
+        tools:ignore="OnClick" />
 
     <TextView
         android:id="@+id/creolePastaImage"
