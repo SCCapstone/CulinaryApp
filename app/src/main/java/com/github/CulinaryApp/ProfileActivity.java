@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.HasDefaultViewModelProviderFactory;
@@ -43,12 +44,14 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
 
+import java.util.function.Consumer;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     private CircleImageView prof;
     private ImageView bgImg;
-    private FragmentContainerView clipboardContainer, trendingContainer;
+//    private FragmentContainerView clipboardContainer, trendingContainer;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
     private Uri pfpURI, bgURI;
@@ -74,6 +77,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        //global values, need these for other functions' uses
+        //non button related
         bgImg = findViewById(R.id.profBackground);
         prof = findViewById(R.id.profPic);
 
@@ -237,19 +242,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
 
+        ViewCompat.setTransitionName(bgImg, "bgImg");
+        ViewCompat.setTransitionName(prof, "prof");
+
         manager.beginTransaction()
                 .add(R.id.profileDisplayContainer, ProfileDisplayFragment.class, null)
-//                .addSharedElement(bgImg, "bgImg")
-//                .addSharedElement(prof, "prof")
+                .addSharedElement(bgImg, "bgImg")
+                .addSharedElement(prof, "prof")
                 .commit();
     };
 
     View.OnClickListener displayNameEditor = view -> {
-        displayName = textFromDialog("Edit Display Name", "New Display Name Here");
+        textFromDialog("Edit Display Name", "New Display Name Here", (output) -> this.displayName = output);
     };
 
     View.OnClickListener bioEditor = view -> {
-        bio = textFromDialog("Edit Bio", "Your Bio Here");
+        textFromDialog("Edit Bio", "Your Bio Here", (output) -> this.bio = output);
     };
 
     View.OnClickListener profImgChanger = view -> {
@@ -282,7 +290,11 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }
 
-    private String textFromDialog(String title, String hint){
+    private interface setValue {
+        void set(String value);
+    }
+
+    private String textFromDialog(String title, String hint, setValue setter){
         final String[] textRetrieved = {"Default Text"};
 
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
@@ -294,26 +306,23 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        int dpPaddingSides = 32;
-        float scale = getResources().getDisplayMetrics().density;
-        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
-        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
+        int padding = getPixelsFromDp(32);
+        layout.setPadding(padding, padding, padding, padding);
 
         layout.addView(newTextInput);
-
         textInputDialog.setView(layout);
 
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
-            textRetrieved[0] = newTextInput.getText().toString();
-        });
-
-        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
-            dialog.cancel();
-        });
-
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> setter.set(newTextInput.getText().toString()));
+        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
         textInputDialog.show();
 
         return textRetrieved[0];
+    }
+
+    private int getPixelsFromDp(int densityPoints){
+        final float DP_CONSTANT = 0.5f;
+        float scale = getResources().getDisplayMetrics().density;
+        return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
     private void showGenericDialog(String title, View toAdd){
@@ -416,7 +425,4 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }
-
