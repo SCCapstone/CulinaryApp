@@ -59,29 +59,10 @@ public class CategoriesActivity extends AppCompatActivity {
          */
 
 
-        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
-        Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
-        firestoreDB.collection("CATEGORIES/")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData());
-                        }
-                    } else {
-                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                    }
-                }
-                });
-
-
         super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
         setContentView(R.layout.activity_categories);
 
-        redirectToRecipePage();
-        mAuth = FirebaseAuth.getInstance();
+       
         ImageButton imageButton = findViewById(R.id.creolePastaButton);
 
         //insert navbar on activity load
