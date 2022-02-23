@@ -5,181 +5,204 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5DC"
+    android:fillViewport="true"
     tools:context=".views.CategoriesActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/appbar" />
-
-    <TextView
-        android:id="@+id/creoleSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/creole"
-        android:textColor="@color/orange"
-        android:textSize="32sp"
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/creolePastaButton"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="16dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/creolePastaImage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/creolePastaImage"
-        app:layout_constraintTop_toBottomOf="@+id/creolePastaImage"
-        tools:srcCompat="@drawable/creolepasta" />
+        <LinearLayout
+            android:id="@+id/Category_Layout_Holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/buttonPlaceHolder"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="20dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/chickenCreole"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="@+id/chickenCreole"
-        app:layout_constraintTop_toBottomOf="@+id/chickenCreole"
-        tools:srcCompat="@drawable/chickencreole" />
+            <LinearLayout
+                android:id="@+id/Category_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/buttonPlaceHolder2"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="12dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/creoleJambalaya"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/creoleJambalaya"
-        app:layout_constraintTop_toBottomOf="@+id/creoleJambalaya"
-        tools:srcCompat="@drawable/jambalayapng" />
+                <TextView
+                    android:id="@+id/CategoryText"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:gravity="center"
+                    android:text="Category"
+                    android:textColor="@color/orange"
+                    android:textSize="35dp" />
 
-    <ImageButton
-        android:id="@+id/buttonPlaceHolder4"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="12dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/veggieBurgers"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/veggieBurgers"
-        app:layout_constraintTop_toBottomOf="@+id/veggieBurgers"
-        tools:srcCompat="@drawable/veggieburger" />
+                <LinearLayout
+                    android:id="@+id/Recipes_Top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/buttonPlaceHolder5"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="14dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/vegeterianPasta"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/vegeterianPasta"
-        app:layout_constraintTop_toBottomOf="@+id/vegeterianPasta"
-        tools:srcCompat="@drawable/noimagefound" />
+                    <RelativeLayout
+                        android:id="@+id/Recipe_Layout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
 
-    <ImageButton
-        android:id="@+id/buttonPlaceHolder3"
-        android:layout_width="101dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="12dp"
-        android:onClick="redirectToRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/creoleMerliton"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toStartOf="@+id/creoleMerliton"
-        app:layout_constraintTop_toBottomOf="@+id/creoleMerliton"
-        tools:srcCompat="@drawable/merliton" />
+                        <TextView
+                            android:id="@+id/Recipe1"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:gravity="center"
+                            android:text="Recipe 1"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/creolePastaImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/creolepasta"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/creoleSection"
-        app:layout_constraintHorizontal_bias="0.404"
-        app:layout_constraintStart_toStartOf="@+id/creoleSection"
-        app:layout_constraintTop_toBottomOf="@+id/creoleSection" />
+                        <ImageView
+                            android:id="@+id/Recipe_Image1"
+                            android:layout_width="match_parent"
+                            android:layout_height="135dp"
+                            android:layout_below="@+id/Recipe1"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/chickenCreole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/chickenCreole"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.616"
-        app:layout_constraintStart_toEndOf="@+id/creolePastaImage"
-        app:layout_constraintTop_toBottomOf="@+id/creoleSection" />
+                    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/creoleJambalaya"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/creoleJambalaya"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/creolePastaImage"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/creolePastaImage"
-        app:layout_constraintTop_toBottomOf="@+id/creolePastaButton" />
+                    <RelativeLayout
+                        android:id="@+id/Recipe_Layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
 
-    <TextView
-        android:id="@+id/creoleMerliton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/creoleMerltion"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/chickenCreole"
-        app:layout_constraintHorizontal_bias="0.033"
-        app:layout_constraintStart_toStartOf="@+id/chickenCreole"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlaceHolder" />
+                        <ImageView
+                            android:id="@+id/Recipe_Image2"
+                            android:layout_width="match_parent"
+                            android:layout_height="135dp"
+                            android:layout_below="@+id/Recipe2"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/vegeterianCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/Vegetarian"
-        android:textSize="32sp"
-        android:textColor="@color/orange"
-        app:layout_constraintEnd_toEndOf="@+id/creoleSection"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/creoleSection"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlaceHolder2" />
+                        <TextView
+                            android:id="@+id/Recipe2"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:gravity="center"
+                            android:text="Recipe 2"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </RelativeLayout>
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/veggieBurgers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/veggieBurgers"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/vegeterianCategory"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/creoleJambalaya"
-        app:layout_constraintTop_toBottomOf="@+id/vegeterianCategory" />
+                <LinearLayout
+                    android:id="@+id/Recipes_Bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/vegeterianPasta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/vegetarianPasta"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.717"
-        app:layout_constraintStart_toEndOf="@+id/veggieBurgers"
-        app:layout_constraintTop_toBottomOf="@+id/vegeterianCategory" />
+                    <RelativeLayout
+                        android:id="@+id/Recipe_Layout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
+                        <TextView
+                            android:id="@+id/Recipe3"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:gravity="center"
+                            android:text="Recipe 3"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/Recipe_Image3"
+                            android:layout_width="match_parent"
+                            android:layout_height="135dp"
+                            android:layout_below="@+id/Recipe3"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/Recipe_Layout4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5">
+
+                        <ImageView
+                            android:id="@+id/Recipe_Image4"
+                            android:layout_width="match_parent"
+                            android:layout_height="135dp"
+                            android:layout_below="@+id/Recipe4"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/Recipe4"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="-1dp"
+                            android:layout_marginTop="-1dp"
+                            android:layout_marginEnd="1dp"
+                            android:gravity="center"
+                            android:text="Recipe 4"
+                            android:textAlignment="center"
+                            android:textColor="@color/black" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <include layout="@layout/layout_navbar_container"
         android:layout_width="match_parent"

@@ -1,16 +1,22 @@
 package com.github.CulinaryApp.views;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +68,34 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
 
+        // TESTING DYNAMIC LOADING
+        LinearLayout newLayout = (LinearLayout)findViewById(R.id.Category_Layout);
+        LinearLayout currView = (LinearLayout)findViewById(R.id.Category_Layout_Holder);
+
+        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = vi.inflate(R.layout.fragment_category, null);
+
+        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.Category_Layout_Holder);
+        insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        ScrollView scrollView = (ScrollView)findViewById(R.id.scroll_view);
+
+        scrollView.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if (scrollView.getChildAt(0).getBottom()
+                                == (scrollView.getHeight() + scrollView.getScrollY())) {
+                            //scroll view is at bottom
+                            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        } else {
+                            //scroll view is not at bottom
+                        }
+                    }
+                });
+        /////////////
+
+
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
          * Michael, not sure what you want the method definition to be like down below where you're
@@ -90,9 +124,9 @@ public class CategoriesActivity extends AppCompatActivity {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // This is more or less example code for how to grab and load both strings and images
         // into text and image views from the firestore db
-        TextView firstHeader = findViewById(R.id.creoleSection);
+        TextView firstHeader = findViewById(R.id.Recipe1);
         firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef").getId());
-        ImageView image = findViewById(R.id.creolePastaButton);
+        ImageView image = findViewById(R.id.Recipe_Image1);
         DocumentReference docRef = firestoreDB.collection("CATEGORIES/").document("Beef/").collection("RECIPES").document("Beef And Oyster Pie");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -116,7 +150,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         redirectToRecipePage();
         mAuth = FirebaseAuth.getInstance();
-        ImageButton imageButton = findViewById(R.id.creolePastaButton);
+        //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
         //insert navbar on activity load
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
@@ -130,12 +164,13 @@ public class CategoriesActivity extends AppCompatActivity {
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //This method is what should send to recipes page
+        /**
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 redirectToRecipePage();
             }
-        });
+        });**/
 
     }
 
