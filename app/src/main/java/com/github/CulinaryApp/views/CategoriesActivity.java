@@ -104,7 +104,7 @@ public class CategoriesActivity extends AppCompatActivity {
          */
 
 
-<<<<<<< HEAD
+
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
         firestoreDB.collection("CATEGORIES/")
