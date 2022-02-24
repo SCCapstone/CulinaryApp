@@ -148,7 +148,7 @@ public class CategoriesActivity extends AppCompatActivity {
         });
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        redirectToRecipePage();
+
         mAuth = FirebaseAuth.getInstance();
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
