@@ -104,6 +104,7 @@ public class CategoriesActivity extends AppCompatActivity {
          */
 
 
+<<<<<<< HEAD
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
         firestoreDB.collection("CATEGORIES/")
@@ -151,6 +152,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
+
 
         //insert navbar on activity load
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();

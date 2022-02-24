@@ -45,11 +45,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Log.d(TAG, "onBindViewHolder CALLED");
         holder.recipeName.setText(recipeList.get(position).getName());
        // holder.recipeImgUrl.setText(recipeList.get(position).getImgUrl());
         Glide.with(holder.itemView.getContext()).load(recipeList.get(position).getImage()).apply(RequestOptions.circleCropTransform()).into(holder.recipeImgUrl);
+       holder.view.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Log.d(TAG, "clicked on " + recipeList.get(position).getName());
+           }
+       });
     }
+
     @Override
     public int getItemCount() {
         if (recipeList == null)
