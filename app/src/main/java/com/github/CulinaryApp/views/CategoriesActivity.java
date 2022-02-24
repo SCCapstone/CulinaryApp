@@ -41,6 +41,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -107,46 +108,41 @@ public class CategoriesActivity extends AppCompatActivity {
 
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This is more or less example code for how to grab and load both strings and images
+        // into text and image views from the firestore db
+        TextView firstHeader = findViewById(R.id.Recipe1);
+        //firstHeader.setText(firestoreDB.collection("CATEGORIES/").getId());
+        ImageView image = findViewById(R.id.Recipe_Image1);
+
         firestoreDB.collection("CATEGORIES/")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData());
+                            for (QueryDocumentSnapshot aCategory : task.getResult()) {
+                                Log.d("A DOC: ", aCategory.getId() + " => " + aCategory.getData());
+                                Log.d(TAG, aCategory.get("image").toString());
+                                loadImage(image, (String) aCategory.get("image"));
+                            }
                         }
-                    } else {
-                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                        else {
+                            Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                        }
                     }
+                    });
+                             /*   if (aCategory.get("image").getClass() == StorageReference.class) {
+                                    loadImage(image, (StorageReference) aCategory.get("image"));
+                                }
+                                else {
+                                    loadImage(image, (String) aCategory.get("image"));
+                                }
                 }
-                });
+                            }
+                              */
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // This is more or less example code for how to grab and load both strings and images
-        // into text and image views from the firestore db
-        TextView firstHeader = findViewById(R.id.Recipe1);
-        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef").getId());
-        ImageView image = findViewById(R.id.Recipe_Image1);
-        DocumentReference docRef = firestoreDB.collection("CATEGORIES/").document("Beef/").collection("RECIPES").document("Beef And Oyster Pie");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        if(document.get("image").getClass() == StorageReference.class)
-                            loadImage(image, (StorageReference) document.get("image"));
-                        else
-                            loadImage(image, (String) document.get("image"));
-                    } else {
-                        Log.d("LOGGER", "No such document");
-                    }
-                } else {
-                    Log.d("LOGGER", "get failed with ", task.getException());
-                }
-            }
-        });
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
