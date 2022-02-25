@@ -30,7 +30,7 @@
 
         <activity
             android:name=".views.RecipeInstructionsActivity"
-            android:exported="false" />
+            android:exported="true" />
         <!--
          The flow of our application is as follows (for our PoC - subject to change for next semester
                 if we find more effective flows):
@@ -83,7 +83,7 @@
        <!-- Page 2: CategoriesActivity -->
         <activity
             android:name=".views.CategoriesActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
 
 

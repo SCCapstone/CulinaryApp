@@ -11,15 +11,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@layout/layout_navbar_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="32dp">
 
+<!--            layout_width matches constraints, this allows text to stay on left, otherwise
+    would be centered if value was wrap_content. change if this is what u want
+-->
             <TextView
                 android:id="@+id/recipeName"
                 android:layout_width="0dp"
@@ -28,72 +33,70 @@
                 android:textColor="@color/purple"
                 android:textSize="30sp"
 
+                android:layout_margin="32dp"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                android:layout_margin="64dp"/>
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="98dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="224dp"
-                android:layout_marginBottom="21dp"
-                android:text="Ingredients"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/textViewIngredients"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                />
 
-            <TextView
-                android:id="@+id/textViewIngredients"
-                android:text="Ingredient1\nIngredient2"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="122dp"
-                app:layout_constraintBottom_toTopOf="@+id/directionstextViewID"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+
                 app:layout_constraintTop_toBottomOf="@+id/recipeName"
-                app:layout_constraintVertical_bias="0.535" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="100dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="63dp"
-                android:textColor="@color/orange"
-                android:text="Not sure about this one"
-                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.051"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewIngredients"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/directionstextViewID"
-                android:text="Instructions"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipeName"
-                app:layout_constraintVertical_bias="1.0" />
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredients"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/textViewIngredients"
+                    android:text="Ingredient1\nIngredient2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
+    <!--            commented out bc idk what it does and no explanation-->
+                <!--<TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="100dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="63dp"
+                    android:textColor="@color/orange"
+                    android:text="Not sure about this one"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.051"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewIngredients"
+                    app:layout_constraintVertical_bias="0.0" />-->
+
+                <TextView
+                    android:id="@+id/directionstextViewID"
+                    android:text="Instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <include layout="@layout/layout_navbar_container"/>
+<!--    <include layout="@layout/layout_navbar_container"/>-->
 
     <!--
 
