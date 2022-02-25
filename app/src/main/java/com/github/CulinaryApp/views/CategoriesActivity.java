@@ -27,7 +27,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.core.view.MenuItemCompat;
 
-import com.github.CulinaryApp.GlideApp;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
@@ -69,8 +70,9 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
 
+
         // TESTING DYNAMIC LOADING
-        LinearLayout newLayout = (LinearLayout)findViewById(R.id.Category_Layout);
+      //  LinearLayout newLayout = (LinearLayout)findViewById(R.id.Category_Layout);
         LinearLayout currView = (LinearLayout)findViewById(R.id.Category_Layout_Holder);
 
         LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -94,7 +96,7 @@ public class CategoriesActivity extends AppCompatActivity {
                         }
                     }
                 });
-        /////////////
+
 
 
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
@@ -113,9 +115,9 @@ public class CategoriesActivity extends AppCompatActivity {
         // This is more or less example code for how to grab and load both strings and images
         // into text and image views from the firestore db
         TextView firstHeader = findViewById(R.id.Recipe1);
-        //firstHeader.setText(firestoreDB.collection("CATEGORIES/").getId());
+        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef/").getId().toString());
         ImageView image = findViewById(R.id.Recipe_Image1);
-
+        String categoryName;
         firestoreDB.collection("CATEGORIES/")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -126,6 +128,7 @@ public class CategoriesActivity extends AppCompatActivity {
                                 Log.d("A DOC: ", aCategory.getId() + " => " + aCategory.getData());
                                 Log.d(TAG, aCategory.get("image").toString());
                                 loadImage(image, (String) aCategory.get("image"));
+                                Log.d(TAG, aCategory.get("image").toString() + " was loaded into view");
                             }
                         }
                         else {
@@ -218,13 +221,14 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     public void loadImage(ImageView image, StorageReference ref) {
-        GlideApp.with(this /* context */)
+        Glide.with(this /* context */)
                 .load(ref)
                 .into(image);
     }
     public void loadImage(ImageView image, String url) {
-        GlideApp.with(this /* context */)
+        Glide.with(this /* context */)
                 .load(url)
+             //   .apply(RequestOptions.circleCropTransform())
                 .into(image);
     }
 }
