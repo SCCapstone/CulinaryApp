@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.CulinaryApp.R;
