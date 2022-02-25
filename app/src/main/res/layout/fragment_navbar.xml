@@ -33,7 +33,7 @@
             android:weightSum="4">
 
             <Button
-                android:id="@+id/toolbarSearch"
+                android:id="@+id/toolbarHome"
                 style="@style/NavbarButton"
                 android:drawablePadding="-16dp"
                 android:drawableTop="@drawable/home_28"

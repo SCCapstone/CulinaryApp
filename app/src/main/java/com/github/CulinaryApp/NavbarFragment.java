@@ -1,10 +1,10 @@
 package com.github.CulinaryApp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +17,6 @@ public class NavbarFragment extends Fragment {
 
     public NavbarFragment() {
         //todo delete if unnecessary
-    }
-
-    public static NavbarFragment newInstance(String param1, String param2) {
-        return new NavbarFragment();
     }
 
     @Override
@@ -40,29 +36,54 @@ public class NavbarFragment extends Fragment {
         super.onStart();
 
         Button clipboardButton = getView().findViewById(R.id.toolbarClip);
-        Button searchButton = getView().findViewById(R.id.toolbarSearch);
+        Button homeButtom = getView().findViewById(R.id.toolbarHome);
         Button profileButton = getView().findViewById(R.id.toolbarProfile);
         Button trendingButton = getView().findViewById(R.id.toolbarTrending);
 
         clipboardButton.setOnClickListener(toggleClipboard);
-        profileButton.setOnClickListener(navToProf);
-        searchButton.setOnClickListener(navToHome);
+        profileButton.setOnClickListener(new navListener(ProfileActivity.class));
+        homeButtom.setOnClickListener(new navListener(CategoriesActivity.class));
 //        trendingButton.setOnClickListener(toggleTrending);
+    }
+
+    private class navListener <T extends Activity> implements View.OnClickListener {
+        private final Class<T> targetActivity;
+
+        public navListener (Class<T> targetActivity){
+              this.targetActivity = targetActivity;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(getActivity().getClass().getName().equals(targetActivity.getName()))
+                return;
+
+            Intent goToProfile = new Intent(getContext(), targetActivity);
+            startActivity(goToProfile);
+
+            getActivity().finish();
+        }
     }
 
     private View.OnClickListener toggleClipboard = dummy -> {
 
     };
 
-    private View.OnClickListener navToHome = view -> {
-        if(getActivity() instanceof CategoriesActivity)
-            return;
+    private  View.OnClickListener navListener = view -> {
 
-        Intent goToProfile = new Intent(getContext(), CategoriesActivity.class);
-        startActivity(goToProfile);
-
-        getActivity().finish();
     };
+
+
+//        =
+//    } view -> {
+//        if(getActivity() instanceof CategoriesActivity)
+//            return;
+//
+//        Intent goToProfile = new Intent(getContext(), CategoriesActivity.class);
+//        startActivity(goToProfile);
+//
+//        getActivity().finish();
+//    };
 
     private View.OnClickListener navToProf = view -> {
         if(getActivity() instanceof ProfileActivity)

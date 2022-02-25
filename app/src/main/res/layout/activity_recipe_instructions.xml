@@ -22,12 +22,12 @@
             android:layout_height="wrap_content"
             android:padding="32dp">
 
-<!--            layout_width matches constraints, this allows text to stay on left, otherwise
+<!--            layout_width=0dp matches constraints, this allows text to stay on left, otherwise
     would be centered if value was wrap_content. change if this is what u want
 -->
             <TextView
                 android:id="@+id/headingRecipeName"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Recipe Name"
                 android:textColor="@color/purple"
@@ -43,29 +43,47 @@
 
                 />
 
-            <ImageButton
-                android:id="@+id/shareButton"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/containerButtons"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/share_grey"
+                android:layout_margin="32dp"
 
-                android:background="@android:color/transparent"
+                android:orientation="horizontal"
 
-                app:layout_constraintVertical_bias="0.6"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintTop_toTopOf="@id/headingRecipeName"
-                app:layout_constraintBottom_toBottomOf="@+id/headingRecipeName"
-                app:layout_constraintStart_toEndOf="@+id/headingRecipeName"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
+                app:layout_constraintTop_toBottomOf="@id/headingRecipeName"
+                app:layout_constraintBottom_toTopOf="@+id/containerRecipe"
+                app:layout_constraintStart_toStartOf="@+id/headingRecipeName"
+                app:layout_constraintEnd_toEndOf="@+id/headingRecipeName"
+                >
+
+                <ImageButton
+                    android:id="@+id/likeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/like_grey_30"
+                    android:background="@android:color/transparent" />
+
+                <ImageButton
+                    android:id="@+id/shareButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/share_grey_30"
+                    android:background="@android:color/transparent" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/containerRecipe"
+
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="32dp"
                 android:orientation="vertical"
 
-                app:layout_constraintTop_toBottomOf="@+id/headingRecipeName"
+                app:layout_constraintTop_toBottomOf="@+id/containerButtons"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
