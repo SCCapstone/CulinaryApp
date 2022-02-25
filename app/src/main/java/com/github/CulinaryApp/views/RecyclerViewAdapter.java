@@ -54,7 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        holder.view.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Log.d(TAG, "clicked on " + recipeList.get(position).getName());
+               Log.d(TAG, "clicked on " + recipeList.get(position));
            }
        });
     }
