@@ -43,7 +43,6 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         holder.recipeT2.setText(recipes2[position]);
         holder.recipeT3.setText(recipes3[position]);
         holder.recipeT4.setText(recipes4[position]);
-        //TODO Glide image loading
         GlideApp.with(context).load(images1[position]).into(holder.imgI1);
         GlideApp.with(context).load(images2[position]).into(holder.imgI2);
         GlideApp.with(context).load(images3[position]).into(holder.imgI3);

@@ -33,6 +33,7 @@ import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
+import com.github.CulinaryApp.LifestyleToCategories;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -245,5 +249,68 @@ public class CategoriesActivity extends AppCompatActivity {
         Glide.with(this /* context */)
                 .load(url)
                 .into(image);
+    }
+
+    //Class for retrieving categories based on lifestyle preferences
+    //This was done by RJ and I have no idea really what I'm doing so feel free to update as you see fit
+    public ArrayList<String> getCategories(ArrayList<String> preferences){
+
+        ArrayList<String> categories = new ArrayList<>();
+
+        //Base case no preferences
+        if(preferences.isEmpty()){
+            //Loops through all categories in collection and adds them to the list
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            ArrayList<String> finalCategories = categories;
+            db.collection("CATEGORIES").get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()){
+                                for(QueryDocumentSnapshot document : task.getResult()){
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    finalCategories.add(document.getId().toString());
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+            return finalCategories;
+        }
+
+        //Loop through preferences and add return the most limiting list of categories
+        for(int i = 0; i<preferences.size(); i++){
+            String pref = preferences.get(i);
+            switch(pref){
+                case "Athletic":
+                    if(pref.isEmpty() || LifestyleToCategories.Athletic().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Athletic()));
+                    break;
+                case "Vegan":
+                    if(pref.isEmpty() || LifestyleToCategories.Vegan().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Vegan()));
+                    break;
+                case "Vegetarian":
+                    if(pref.isEmpty() || LifestyleToCategories.Vegetarian().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Vegetarian()));
+                    break;
+                case "Mediterranean":
+                    if(pref.isEmpty() || LifestyleToCategories.Mediterranean().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Mediterranean()));
+                    break;
+                case "Ketogenic":
+                    if(pref.isEmpty() || LifestyleToCategories.Ketogenic().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Ketogenic()));
+                    break;
+                case "Flexitarian":
+                    if(pref.isEmpty() || LifestyleToCategories.Flexitarian().length < categories.size())
+                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Flexitarian()));
+                    break;
+            }
+        }
+
+        return categories;
+
     }
 }
