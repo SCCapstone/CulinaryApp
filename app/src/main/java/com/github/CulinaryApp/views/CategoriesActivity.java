@@ -1,22 +1,12 @@
 package com.github.CulinaryApp.views;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,29 +14,21 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.CulinaryApp.GlideApp;
 import com.github.CulinaryApp.NavbarFragment;
-import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
@@ -55,6 +37,8 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
+
+    private RecyclerView recyclerView;
 
     public void redirectToRecipePage() {
         Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
@@ -69,9 +53,22 @@ public class CategoriesActivity extends AppCompatActivity {
 
 
         // TESTING DYNAMIC LOADING
-        LinearLayout newLayout = (LinearLayout)findViewById(R.id.Category_Layout);
-        LinearLayout currView = (LinearLayout)findViewById(R.id.Category_Layout_Holder);
+        recyclerView = findViewById(R.id.recyclerView);
 
+        String categories[] = {"Beef"};
+        String recipes1[] = {"Recipe 1"};
+        String recipes2[] = {"Recipe 2"};
+        String recipes3[] = {"Recipe 3"};
+        String recipes4[] = {"Recipe 4"};
+        String images1[] = {"https://www.themealdb.com//images//category//beef.png"};
+        String images2[] = {"https://www.themealdb.com//images//category//beef.png"};
+        String images3[] = {"https://www.themealdb.com//images//category//beef.png"};
+        String images4[] = {"https://www.themealdb.com//images//category//beef.png"};
+        RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(this, categories, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
+        recyclerView.setAdapter(recAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        /**
         LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = vi.inflate(R.layout.fragment_category, null);
 
@@ -92,7 +89,7 @@ public class CategoriesActivity extends AppCompatActivity {
                             //scroll view is not at bottom
                         }
                     }
-                });
+                });**/
         /////////////
 
 
@@ -124,6 +121,7 @@ public class CategoriesActivity extends AppCompatActivity {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // This is more or less example code for how to grab and load both strings and images
         // into text and image views from the firestore db
+        /**
         TextView firstHeader = findViewById(R.id.Recipe1);
         firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef").getId());
         ImageView image = findViewById(R.id.Recipe_Image1);
@@ -145,7 +143,7 @@ public class CategoriesActivity extends AppCompatActivity {
                     Log.d("LOGGER", "get failed with ", task.getException());
                 }
             }
-        });
+        });**/
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         redirectToRecipePage();
