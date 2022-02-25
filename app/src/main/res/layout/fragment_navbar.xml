@@ -25,12 +25,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         >
 
-        <!-- clipboard search trending profile -->
+        <!-- home search profile -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="4">
+            android:weightSum="3">
 
             <Button
                 android:id="@+id/toolbarHome"
@@ -40,16 +40,16 @@
                 android:text="Home" />
 
             <Button
-                android:id="@+id/toolbarClip"
+                android:id="@+id/toolbarFavs"
                 style="@style/NavbarButton"
                 android:drawableTop="@drawable/favorites"
                 android:text="Favorites" />
 
-            <Button
-                android:id="@+id/toolbarTrending"
-                style="@style/NavbarButton"
-                android:drawableTop="@drawable/trending"
-                android:text="Trending" />
+<!--            <Button-->
+<!--                android:id="@+id/toolbarTrending"-->
+<!--                style="@style/NavbarButton"-->
+<!--                android:drawableTop="@drawable/trending"-->
+<!--                android:text="Trending" />-->
 
             <Button
                 android:id="@+id/toolbarProfile"
@@ -60,5 +60,7 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

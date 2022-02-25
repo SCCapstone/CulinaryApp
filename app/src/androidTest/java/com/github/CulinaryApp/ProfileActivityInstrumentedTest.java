@@ -1,6 +1,5 @@
 package com.github.CulinaryApp;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,14 +9,10 @@ import androidx.test.core.app.ActivityScenario;
 //import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.SmallTest;
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
@@ -40,7 +35,7 @@ public class ProfileActivityInstrumentedTest {
 
         ActivityScenario<ProfileActivity> scene = ActivityScenario.launch(ProfileActivity.class);
         scene.onActivity( activity -> {
-            Button clipboardButton = activity.findViewById(R.id.toolbarClip);
+            Button clipboardButton = activity.findViewById(R.id.toolbarFavs);
             FragmentContainerView clipboardHolder = activity.findViewById(R.id.clipboardFragmentHolder);
 
             clipboardButton.performClick();

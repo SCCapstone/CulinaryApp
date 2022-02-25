@@ -50,6 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
+
         //global values, need these for other functions' uses
         //non button related
         bgImg = findViewById(R.id.profBackground);
@@ -114,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
     View.OnFocusChangeListener toolbarFocusListener = (container, hasFocus) -> {
         if(!hasFocus)
             container.setVisibility(View.GONE);
+
     };
 
     /*View.OnClickListener toggleTrending = view -> {
