@@ -26,7 +26,7 @@
     would be centered if value was wrap_content. change if this is what u want
 -->
             <TextView
-                android:id="@+id/recipeName"
+                android:id="@+id/headingRecipeName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Recipe Name"
@@ -43,13 +43,29 @@
 
                 />
 
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/share_grey"
+
+                android:background="@android:color/transparent"
+
+                app:layout_constraintVertical_bias="0.6"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toTopOf="@id/headingRecipeName"
+                app:layout_constraintBottom_toBottomOf="@+id/headingRecipeName"
+                app:layout_constraintStart_toEndOf="@+id/headingRecipeName"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="32dp"
                 android:orientation="vertical"
 
-                app:layout_constraintTop_toBottomOf="@+id/recipeName"
+                app:layout_constraintTop_toBottomOf="@+id/headingRecipeName"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
