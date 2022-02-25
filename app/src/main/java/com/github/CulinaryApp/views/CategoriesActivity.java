@@ -1,12 +1,22 @@
 package com.github.CulinaryApp.views;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,13 +27,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.CulinaryApp.GlideApp;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.CulinaryApp.NavbarFragment;
+import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -123,7 +142,7 @@ public class CategoriesActivity extends AppCompatActivity {
         // into text and image views from the firestore db
         /**
         TextView firstHeader = findViewById(R.id.Recipe1);
-        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef").getId());
+        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef/").getId().toString());
         ImageView image = findViewById(R.id.Recipe_Image1);
         DocumentReference docRef = firestoreDB.collection("CATEGORIES/").document("Beef/").collection("RECIPES").document("Beef And Oyster Pie");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -146,7 +165,7 @@ public class CategoriesActivity extends AppCompatActivity {
         });**/
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        redirectToRecipePage();
+
         mAuth = FirebaseAuth.getInstance();
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
@@ -218,12 +237,12 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     public void loadImage(ImageView image, StorageReference ref) {
-        GlideApp.with(this /* context */)
+        Glide.with(this /* context */)
                 .load(ref)
                 .into(image);
     }
     public void loadImage(ImageView image, String url) {
-        GlideApp.with(this /* context */)
+        Glide.with(this /* context */)
                 .load(url)
                 .into(image);
     }

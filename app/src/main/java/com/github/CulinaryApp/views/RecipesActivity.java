@@ -3,6 +3,7 @@ package com.github.CulinaryApp.views;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.R;
 
 import androidx.annotation.Nullable;
@@ -78,6 +79,9 @@ public class RecipesActivity extends AppCompatActivity {
            recipesRecyclerView.setAdapter(recipesViewAdapter);
            recipesViewAdapter.notifyDataSetChanged();
         });
+
+        // insert navbar
+        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
     }
 
