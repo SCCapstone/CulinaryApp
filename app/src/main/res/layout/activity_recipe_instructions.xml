@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="Recipe Name"
                 android:textColor="@color/purple"
-                android:textSize="30sp"
+                android:textSize="40sp"
 
                 android:layout_margin="32dp"
 
@@ -55,40 +55,26 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/headingIngredients"
                     android:text="Ingredients"
-                    android:textSize="20sp" />
+                    style="@style/RecipeInstructionsHeading"/>
 
                 <TextView
-                    android:id="@+id/textViewIngredients"
+                    android:id="@+id/ingredients"
                     android:text="Ingredient1\nIngredient2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-    <!--            commented out bc idk what it does and no explanation-->
-                <!--<TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="100dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="63dp"
-                    android:textColor="@color/orange"
-                    android:text="Not sure about this one"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.051"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewIngredients"
-                    app:layout_constraintVertical_bias="0.0" />-->
+                <TextView
+                    android:id="@+id/headingInstructions"
+                    android:text="Instructions"
+                    style="@style/RecipeInstructionsHeading"/>
 
                 <TextView
-                    android:id="@+id/directionstextViewID"
-                    android:text="Instructions"
+                    android:id="@+id/instructions"
+                    android:text="Step1\nStep2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -96,7 +82,7 @@
 
     </ScrollView>
 
-<!--    <include layout="@layout/layout_navbar_container"/>-->
+    <include layout="@layout/layout_navbar_container"/>
 
     <!--
 

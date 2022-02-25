@@ -80,7 +80,7 @@
             <LinearLayout style="@style/ProfileLayout">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/headingIngredients"
                     style="@style/ProfileHeading"
                     android:text="Profile"/>
 
