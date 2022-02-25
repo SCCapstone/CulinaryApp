@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    tools:context=".FavoritesActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:divider="@android:color/black"
+            app:showDividers="end|middle|beginning">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="24dp"
+                android:text="Liked Recipes"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/recipeButton"
+                style="@style/ClipboardEntry"
+                android:background="@android:color/transparent"
+                android:text="Thanksgiving Turkey  6hr\nChef Luke" />
+
+            <Button
+                android:id="@+id/recipeButton2"
+                style="@style/ClipboardEntry"
+                android:background="@android:color/transparent"
+                android:text="Pumpkin Pie  2hr\nChef John" />
+
+            <Button
+                android:id="@+id/recipeButton3"
+                style="@style/ClipboardEntry"
+                android:background="@android:color/transparent"
+                android:text="Gluten free Thanksgiving  7hr\nChef Ramsay" />
+
+            <Button
+                android:id="@+id/recipeButton4"
+                style="@style/ClipboardEntry"
+                android:background="@android:color/transparent"
+                android:text="Christmas Roast  3hrs\nChef Ramsay" />
+
+            <Button
+                android:id="@+id/recipeButton5"
+                style="@style/ClipboardEntry"
+                android:background="@android:color/transparent"
+                android:text="Prime Rib 2hr\nChef Luise" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+    <include layout="@layout/layout_navbar_container" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
