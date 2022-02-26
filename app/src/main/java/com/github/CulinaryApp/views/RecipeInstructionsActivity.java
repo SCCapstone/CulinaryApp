@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.github.CulinaryApp.R;
+import com.github.CulinaryApp.models.Recipe;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -19,6 +20,9 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
     private static final String KEY_LIKES = "likes";
     private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
+    private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
+
+    private Recipe currentRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,17 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
         ImageButton likeButton = findViewById(R.id.likeButton);
         likeButton.setOnClickListener(likeListener);
+
+        currentRecipe = null;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        this.setCurrentRecipe(new Recipe()); //todo using this as placeholder, this should actually use intents or other means to either:
+                                                                                        // get the id of the recipe user clicked on and build a recipe object
+                                                                                        // get a full recipe object thru an Intent. This may require serialization, etc.
     }
 
     View.OnClickListener likeListener = view -> {
@@ -34,14 +49,24 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
 
         SharedPreferences.Editor editor = prefs.edit();
-        //todo current get recipe in object form. We will need to have this object form to fit the recipe for when it's displayed in this activity as well
-        //
-        //
-        //todo I'll convert to JSON and string form and stuff. This class is not quite ready to run but almost
+
+        String recipeJSON = recipeToJSON(this.getCurrentRecipe());
 
         editor.putString(KEY_LIKES, likes);
         editor.apply();
     };
+
+    private static String recipeToJSON(Recipe currentRecipe) { //todo easy
+        return "{}";
+    }
+
+    private void setCurrentRecipe(Recipe currentRecipe){
+        this.currentRecipe = currentRecipe;
+    }
+
+    private Recipe getCurrentRecipe(){ //todo
+        return this.currentRecipe;
+    }
 
     private SharedPreferences getSharedPrefs(){
         SharedPreferences sharedPreferences = null;
@@ -50,7 +75,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
             sharedPreferences = EncryptedSharedPreferences.create(
                     RecipeInstructionsActivity.this,
-                    "secret_shared_prefs",
+                    FILENAME_ENCRYPTED_SHARED_PREFS,
                     key,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
