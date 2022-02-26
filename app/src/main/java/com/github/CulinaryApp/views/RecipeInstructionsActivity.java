@@ -1,30 +1,63 @@
 package com.github.CulinaryApp.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
+import androidx.security.crypto.MasterKeys;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.github.CulinaryApp.R;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class RecipeInstructionsActivity extends AppCompatActivity {
+
+    private static final String KEY_LIKES = "likes";
+    private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_instructions);
 
-        /*// Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.recipeName);
-        textView.setText("Alfredo Shrimp Pasta");
-        TextView directions = findViewById(R.id.headingInstructions);
-        directions.setText("Step 1:\nStep 2:\nStep 3:\nStep 4");
-        TextView ingredients = findViewById(R.id.ingredients);
-        ingredients.setText("Ingredient 1:\nIngredient 2:\nIngredient 3:\nIngredient 4");*/
-
+        ImageButton likeButton = findViewById(R.id.likeButton);
+        likeButton.setOnClickListener(likeListener);
     }
+
+    View.OnClickListener likeListener = view -> {
+        SharedPreferences prefs = getSharedPrefs();
+        String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        //todo current get recipe string form and convert to JSON
+
+        editor.putString(KEY_LIKES, likes);
+        editor.apply();
+    };
+
+    private SharedPreferences getSharedPrefs(){
+        SharedPreferences sharedPreferences = null;
+        try {
+            MasterKey key = new MasterKey.Builder(RecipeInstructionsActivity.this, MasterKey.DEFAULT_MASTER_KEY_ALIAS).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build();
+
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    RecipeInstructionsActivity.this,
+                    "secret_shared_prefs",
+                    key,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return sharedPreferences;
+    }
+
+
 }
