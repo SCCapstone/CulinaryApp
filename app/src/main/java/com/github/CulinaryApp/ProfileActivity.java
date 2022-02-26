@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -227,7 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        int padding = getPixelsFromDp(32);
+        int padding = getPixelsFromDp(this,32);
         layout.setPadding(padding, padding, padding, padding);
 
         layout.addView(newTextInput);
@@ -238,9 +239,9 @@ public class ProfileActivity extends AppCompatActivity {
         textInputDialog.show();
     }
 
-    private int getPixelsFromDp(int densityPoints){
+    public static int getPixelsFromDp(Context context, int densityPoints){
         final float DP_CONSTANT = 0.5f;
-        float scale = getResources().getDisplayMetrics().density;
+        float scale = context.getResources().getDisplayMetrics().density;
         return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
