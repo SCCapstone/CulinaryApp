@@ -3,7 +3,6 @@ package com.github.CulinaryApp.views;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
-import androidx.security.crypto.MasterKeys;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +11,10 @@ import android.widget.ImageButton;
 
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.models.Recipe;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -39,26 +42,43 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        this.setCurrentRecipe(new Recipe()); //todo using this as placeholder, this should actually use intents or other means to either:
+        Recipe placeHolderRecipe = new Recipe();
+
+        this.setCurrentRecipe(placeHolderRecipe); //todo using this as placeholder, this should actually use intents or other means to either:
                                                                                         // get the id of the recipe user clicked on and build a recipe object
-                                                                                        // get a full recipe object thru an Intent. This may require serialization, etc.
+                                                                                        // get a full recipe object thru an Intent. This may require serialization, etc. Somewhat harder, probably saves minimal time
     }
 
+    /**
+     * Loads old likes as String, converts to JSON, converts the new Like into JSON, appends the new Like, converts the result into a String, and writes it back
+     */
     View.OnClickListener likeListener = view -> {
         SharedPreferences prefs = getSharedPrefs();
-        String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
+        String oldLikes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
+
+        String likesWithNewAdded = appendLike(oldLikes, this.getCurrentRecipe());
 
         SharedPreferences.Editor editor = prefs.edit();
-
-        String recipeJSON = recipeToJSON(this.getCurrentRecipe());
-
-        editor.putString(KEY_LIKES, likes);
+        editor.putString(KEY_LIKES, likesWithNewAdded);
         editor.apply();
     };
 
-    private static String recipeToJSON(Recipe currentRecipe) { //todo easy
-        return "{}";
+    private String appendLike(String oldLikes, Recipe newLike){
+        JSONObject likesJSON = null;
+
+        try {
+
+            likesJSON = new JSONObject(oldLikes);
+            JSONObject newLikeJSON = Recipe.recipeToJSON(newLike);
+            likesJSON = likesJSON.accumulate("likedPosts", newLikeJSON);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return likesJSON.toString();
     }
+
 
     private void setCurrentRecipe(Recipe currentRecipe){
         this.currentRecipe = currentRecipe;
