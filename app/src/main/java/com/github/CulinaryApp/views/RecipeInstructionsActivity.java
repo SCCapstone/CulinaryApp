@@ -34,7 +34,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
 
         SharedPreferences.Editor editor = prefs.edit();
-        //todo current get recipe
+        //todo current get recipe in object form. We will need to have this object form to fit the recipe for when it's displayed in this activity as well
         //
         //
         //todo I'll convert to JSON and string form and stuff. This class is not quite ready to run but almost
