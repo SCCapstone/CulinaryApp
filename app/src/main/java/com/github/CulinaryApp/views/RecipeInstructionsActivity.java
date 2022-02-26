@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.models.Recipe;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,11 +21,12 @@ import java.security.GeneralSecurityException;
 public class RecipeInstructionsActivity extends AppCompatActivity {
 
     private static final String KEY_LIKES = "likes";
-    private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
+    private static final String JSON_OBJECT_NAME = "likedPosts";
+    private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
 
     private Recipe currentRecipe;
-    private boolean isLiked;
+    private boolean recipeLiked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,10 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_instructions);
 
         ImageButton likeButton = findViewById(R.id.likeButton);
-        likeButton.setOnClickListener(likeListener);
+        likeButton.setOnClickListener(toggleLike);
 
         currentRecipe = null;
+        recipeLiked = false;
     }
 
     @Override
@@ -44,45 +45,104 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         super.onStart();
 
         Recipe placeHolderRecipe = new Recipe("test2", "111", "022222");
-
         this.currentRecipe = placeHolderRecipe; //todo using this as placeholder, this should actually use intents or other means to either:
                                                                                         // get the id of the recipe user clicked on and build a recipe object
                                                                                         // get a full recipe object thru an Intent. This may require serialization, etc. Somewhat harder, probably saves minimal time
+
+        updateLikeButtonColor();
+    }
+
+    /**
+     * uses value of recipeLiked to determine which color the like button should be
+     */
+    private void updateLikeButtonColor(){
+        this.recipeLiked = isRecipeInLikes(this.currentRecipe);
+
+        ImageButton likeButton = findViewById(R.id.likeButton);
+        final int ID_UNLIKED = R.drawable.like_grey_30;
+        final int ID_LIKED = R.drawable.like_red_30;
+
+        if(this.recipeLiked)
+            likeButton.setImageResource(ID_LIKED);
+        else
+            likeButton.setImageResource(ID_UNLIKED);
+
+    }
+
+    /**
+     * attempts to find if the JSON of all likes includes the current recipe already, meaning the current recipe is liked
+     */
+    private boolean isRecipeInLikes(Recipe currentRecipe) {
+        SharedPreferences prefs = getSharedPrefs();
+        String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
+
+        //usage of result is unusual here, had to do it bc of what likes.getString returns. It throws an error upon not finding rather than a {} or null, so I kind of forced it to work my way
+        String result = "";
+        try {
+
+            result = new JSONObject(likes).getJSONObject(currentRecipe.getId()).toString();
+
+        } catch (JSONException e) {
+            result = "{}";
+        }
+
+        return !result.equals("{}");
     }
 
     /**
      * Loads old likes as String, converts to JSON, converts the new Like into JSON, appends the new Like, converts the result into a String, and writes it back
      */
-    View.OnClickListener likeListener = view -> {
-        final boolean DEBUG_CLEAR_LIKES = true; //for debugging
+    View.OnClickListener toggleLike = view -> {
+        final boolean DEBUG_CLEAR_LIKES = false; //for debugging
 
         //load old likes as string
         SharedPreferences prefs = getSharedPrefs();
-        String oldLikes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
+        String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
 
         //use old likes and current recipe to generate new likes as string
-        String likesWithNewAdded = appendLike(oldLikes, this.getCurrentRecipe());
+        if(!this.recipeLiked)
+            likes = appendLike(likes, this.getCurrentRecipe());
+        else
+            likes = removeLike(likes, this.getCurrentRecipe());
 
-        //save likes with new like appended as string
+        //save likes -with new like appended- as string
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_LIKES, likesWithNewAdded);
-
-        if(DEBUG_CLEAR_LIKES) //move around within this method as needed to allow for wiping before loading, after loading but before appending, or after appending but before saving
-            editor.clear();
+        editor.putString(KEY_LIKES, likes);
 
         editor.apply();
 
-        //todo mark recipe as saved
+        if(DEBUG_CLEAR_LIKES) { //move around within this method as needed to allow for wiping before loading, after loading but before appending, or after appending but before saving
+            editor.clear();
+            editor.apply();
+        }
+
+        updateLikeButtonColor();
     };
 
-    private String appendLike(String oldLikes, Recipe newLike){
+    private static String removeLike(String likes, Recipe currentRecipe) {
         JSONObject likesJSON = null;
 
         try {
 
+            likesJSON = new JSONObject(likes);
+            likesJSON.remove(currentRecipe.getId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return likesJSON.toString();
+    }
+
+    private static String appendLike(String oldLikes, Recipe newLike){
+        JSONObject likesJSON = null;
+
+        try {
             likesJSON = new JSONObject(oldLikes);
-            JSONObject newLikeJSON = Recipe.recipeToJSON(newLike);
-            likesJSON = likesJSON.accumulate("likedPosts", newLikeJSON);
+
+            JSONObject newLikeJSON = Recipe.recipeValuesToJSON(newLike);
+            String id = newLike.getId();
+            likesJSON.put(id,newLikeJSON);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -20,14 +20,19 @@ public class Recipe {
         this.name = name;
         this.image = image;
         this.id = id;
+
     }
 
-    public static JSONObject recipeToJSON(Recipe currentRecipe) {
+    /**
+     * converts recipe to JSON, id intentionally excluded bc it makes life easier elsewhere
+     * @param currentRecipe
+     * @return
+     */
+    public static JSONObject recipeValuesToJSON(Recipe currentRecipe) {
         HashMap<String, String> recipeMap = new HashMap<>();
 
-        recipeMap.put("name", currentRecipe.name);
         recipeMap.put("image", currentRecipe.image);
-        recipeMap.put("id", currentRecipe.id);
+        recipeMap.put("name", currentRecipe.name);
 
         return new JSONObject(recipeMap);
     }
