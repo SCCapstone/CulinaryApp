@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -34,6 +35,7 @@ import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +46,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,6 +56,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -75,9 +79,146 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
 
+        Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
+        /*
+         * Michael, not sure what you want the method definition to be like down below where you're
+         * gonna put the dynamic page loading functionality so I'm just gonna put this example query here for now
+         * that logs all fields for each document our Firebase project's root collection
+         */
+
+
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+        Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
+        /**
+        firestoreDB.collection("CATEGORIES/")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int count = 0;
+                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
+                                count += 1;
+                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData() + ", Count: "+count);
+                        }
+                    } else {
+                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                    }
+                }
+                });**/
+
         // TESTING DYNAMIC LOADING
+
+        ArrayList<String> lifestyles = new ArrayList<>();
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
+        dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("Data: ",snapshot.getKey()+", "+snapshot.getValue());
+                if(snapshot.getKey().equals("Lifestyle")){
+                    ArrayList<String> lifestyles = new ArrayList<String>((ArrayList)snapshot.getValue());
+                    ArrayList<String> categories = new ArrayList<String>(getCategories(lifestyles));
+
+                    String[] categoriesArray = new String[categories.size()];
+                    categoriesArray = categories.toArray(categoriesArray);
+                    String recipes1[] = new String[categoriesArray.length];
+                    String recipes2[] = new String[categoriesArray.length];
+                    String recipes3[] = new String[categoriesArray.length];
+                    String recipes4[] = new String[categoriesArray.length];
+                    String images1[] = new String[categoriesArray.length];;
+                    String images2[] = new String[categoriesArray.length];;
+                    String images3[] = new String[categoriesArray.length];;
+                    String images4[] = new String[categoriesArray.length];;
+
+                    //Loop through each category from list in categories collection and get 4 recipes from each
+                    for (String cat : categoriesArray){
+                        CollectionReference catRef = firestoreDB.collection("CATEGORIES").document(cat).collection("RECIPES");
+
+                        String[] finalCategoriesArray = categoriesArray;
+                        catRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    int count = 0;
+                                    for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
+                                        if(count == 0){
+                                            recipes1[arrLength(recipes1)] = (String)aDocInCollection.get("name");
+                                            images1[arrLength(images1)] = (String)aDocInCollection.get("image");
+                                        }
+                                        else if(count == 1){
+                                            recipes2[arrLength(recipes2)] = (String)aDocInCollection.get("name");
+                                            images2[arrLength(images2)] = (String)aDocInCollection.get("image");
+                                        }
+                                        else if(count == 2){
+                                            recipes3[arrLength(recipes3)] = (String)aDocInCollection.get("name");
+                                            images3[arrLength(images3)] = (String)aDocInCollection.get("image");
+                                        }
+                                        else if(count == 3){
+                                            recipes4[arrLength(recipes4)] = (String)aDocInCollection.get("name");
+                                            images4[arrLength(images4)] = (String)aDocInCollection.get("image");
+                                        }
+                                        count += 1;
+                                        //Log.d("A DOC: ", "Collection: "+cat+", "+aDocInCollection.getId() + " => " + aDocInCollection.getData() + ", Count: "+count);
+                                    }
+                                    //If there was less than 4 recipes in the collection, fill with duplicates
+                                    if(count < 3){
+                                        for(int i = count; i<4; i++){
+                                            switch(i) {
+                                                case 1:
+                                                    recipes2[arrLength(recipes2)] = recipes1[arrLength(recipes1)-1];
+                                                    images2[arrLength(images2)] = images1[arrLength(images1)-1];
+                                                    break;
+                                                case 2:
+                                                    recipes3[arrLength(recipes3)] = recipes1[arrLength(recipes1)-1];
+                                                    images3[arrLength(images3)] = images1[arrLength(images1)-1];
+                                                    break;
+                                                case 3:
+                                                    recipes4[arrLength(recipes4)] = recipes1[arrLength(recipes1)-1];
+                                                    images4[arrLength(images4)] = images1[arrLength(images1)-1];
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                                }
+                                if(arrLength(recipes1)==recipes1.length){
+                                    loadScreen(finalCategoriesArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
+                                }
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
         recyclerView = findViewById(R.id.recyclerView);
 
+        /**
         String categories[] = {"Beef"};
         String recipes1[] = {"Recipe 1"};
         String recipes2[] = {"Recipe 2"};
@@ -89,57 +230,9 @@ public class CategoriesActivity extends AppCompatActivity {
         String images4[] = {"https://www.themealdb.com//images//category//beef.png"};
         RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(this, categories, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
         recyclerView.setAdapter(recAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));**/
 
-        /**
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = vi.inflate(R.layout.fragment_category, null);
-
-        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.Category_Layout_Holder);
-        insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        ScrollView scrollView = (ScrollView)findViewById(R.id.scroll_view);
-
-        scrollView.getViewTreeObserver()
-                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-                    @Override
-                    public void onScrollChanged() {
-                        if (scrollView.getChildAt(0).getBottom()
-                                == (scrollView.getHeight() + scrollView.getScrollY())) {
-                            //scroll view is at bottom
-                            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            //scroll view is not at bottom
-                        }
-                    }
-                });**/
         /////////////
-
-
-        Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
-        /*
-         * Michael, not sure what you want the method definition to be like down below where you're
-         * gonna put the dynamic page loading functionality so I'm just gonna put this example query here for now
-         * that logs all fields for each document our Firebase project's root collection
-         */
-
-
-        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
-        Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
-        firestoreDB.collection("CATEGORIES/")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData());
-                        }
-                    } else {
-                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                    }
-                }
-                });
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // This is more or less example code for how to grab and load both strings and images
@@ -259,6 +352,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         //Base case no preferences
         if(preferences.isEmpty()){
+            Log.d("Get Categories","Preference list is empty");
             //Loops through all categories in collection and adds them to the list
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             ArrayList<String> finalCategories = categories;
@@ -284,33 +378,50 @@ public class CategoriesActivity extends AppCompatActivity {
             String pref = preferences.get(i);
             switch(pref){
                 case "Athletic":
-                    if(pref.isEmpty() || LifestyleToCategories.Athletic().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Athletic()));
+                    if(categories.isEmpty() || LifestyleToCategories.Athletic().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Athletic()));
                     break;
                 case "Vegan":
-                    if(pref.isEmpty() || LifestyleToCategories.Vegan().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Vegan()));
+                    if(categories.isEmpty() || LifestyleToCategories.Vegan().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Vegan()));
                     break;
                 case "Vegetarian":
-                    if(pref.isEmpty() || LifestyleToCategories.Vegetarian().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Vegetarian()));
+                    if(categories.isEmpty() || LifestyleToCategories.Vegetarian().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Vegetarian()));
                     break;
                 case "Mediterranean":
-                    if(pref.isEmpty() || LifestyleToCategories.Mediterranean().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Mediterranean()));
+                    if(categories.isEmpty() || LifestyleToCategories.Mediterranean().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Mediterranean()));
                     break;
                 case "Ketogenic":
-                    if(pref.isEmpty() || LifestyleToCategories.Ketogenic().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Ketogenic()));
+                    if(categories.isEmpty() || LifestyleToCategories.Ketogenic().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Ketogenic()));
                     break;
                 case "Flexitarian":
-                    if(pref.isEmpty() || LifestyleToCategories.Flexitarian().length < categories.size())
-                        categories = new ArrayList<>(Arrays.asList(LifestyleToCategories.Flexitarian()));
+                    if(categories.isEmpty() || LifestyleToCategories.Flexitarian().length < categories.size())
+                        categories = new ArrayList<String>(Arrays.asList(LifestyleToCategories.Flexitarian()));
                     break;
             }
         }
-
+        //Log.d("Return",categories.toString());
         return categories;
 
+    }
+
+    //Returns amount of array in use
+    public static int arrLength(Object[] array){
+        int counter = 0;
+        for (int i = 0; i < array.length; i ++) {
+            if (array[i] != null)
+                counter++;
+        }
+        return counter;
+    }
+
+    public void loadScreen(String[] categoriesArray, String[] recipes1, String[] recipes2, String[] recipes3, String[] recipes4, String[] images1,String[] images2, String[] images3, String[] images4){
+        recyclerView = findViewById(R.id.recyclerView);
+        RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(getApplicationContext(), categoriesArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
+        recyclerView.setAdapter(recAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 }
