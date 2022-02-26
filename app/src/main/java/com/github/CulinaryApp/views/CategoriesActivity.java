@@ -1,15 +1,23 @@
 package com.github.CulinaryApp.views;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -19,6 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 import androidx.core.view.MenuItemCompat;
 
+import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
@@ -32,9 +41,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -43,7 +57,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
 
-    public void navigateToRecipePage() {
+    public void redirectToRecipePage() {
         Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
         startActivity(intentToStartCategoriesPage);
     }
@@ -51,8 +65,37 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); //todo should this be happening after anything? I'm pretty sure this should go before
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+
+        // TESTING DYNAMIC LOADING
+        LinearLayout newLayout = (LinearLayout)findViewById(R.id.Category_Layout);
+        LinearLayout currView = (LinearLayout)findViewById(R.id.Category_Layout_Holder);
+
+        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = vi.inflate(R.layout.fragment_category, null);
+
+        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.Category_Layout_Holder);
+        insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        ScrollView scrollView = (ScrollView)findViewById(R.id.scroll_view);
+
+        scrollView.getViewTreeObserver()
+                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                    @Override
+                    public void onScrollChanged() {
+                        if (scrollView.getChildAt(0).getBottom()
+                                == (scrollView.getHeight() + scrollView.getScrollY())) {
+                            //scroll view is at bottom
+                            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        } else {
+                            //scroll view is not at bottom
+                        }
+                    }
+                });
+        /////////////
+
 
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
@@ -62,28 +105,49 @@ public class CategoriesActivity extends AppCompatActivity {
          */
 
 
+
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
+
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // This is more or less example code for how to grab and load both strings and images
+        // into text and image views from the firestore db
+        TextView firstHeader = findViewById(R.id.Recipe1);
+        //firstHeader.setText(firestoreDB.collection("CATEGORIES/").getId());
+        ImageView image = findViewById(R.id.Recipe_Image1);
+
         firestoreDB.collection("CATEGORIES/")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData());
+                            for (QueryDocumentSnapshot aCategory : task.getResult()) {
+                                Log.d("A DOC: ", aCategory.getId() + " => " + aCategory.getData());
+                                Log.d(TAG, aCategory.get("image").toString());
+                                loadImage(image, (String) aCategory.get("image"));
+                            }
                         }
-                    } else {
-                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                        else {
+                            Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                        }
                     }
+                    });
+                             /*   if (aCategory.get("image").getClass() == StorageReference.class) {
+                                    loadImage(image, (StorageReference) aCategory.get("image"));
+                                }
+                                else {
+                                    loadImage(image, (String) aCategory.get("image"));
+                                }
                 }
-                });
+                            }
+                              */
 
-
-
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         mAuth = FirebaseAuth.getInstance();
-        ImageButton imageButton = findViewById(R.id.creolePastaButton);
+        //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
+
 
 
         //Code for toolbar
@@ -92,15 +156,16 @@ public class CategoriesActivity extends AppCompatActivity {
 
         //displays home button
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //This method is what should send to recipes page
+        /**
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToRecipePage();
+                redirectToRecipePage();
             }
-        });
+        });**/
 
     }
 
@@ -143,4 +208,20 @@ public class CategoriesActivity extends AppCompatActivity {
     //need a way to diferentiate between users
     Query userSuggestion = databaseReference.child("recipes").child(User ID definer).orderByChild("Suggested");
     */
+
+    //TODO redirect to recipes pagesW
+    public void redirectToRecipe(View view){
+
+    }
+
+    public void loadImage(ImageView image, StorageReference ref) {
+        Glide.with(this /* context */)
+                .load(ref)
+                .into(image);
+    }
+    public void loadImage(ImageView image, String url) {
+        Glide.with(this /* context */)
+                .load(url)
+                .into(image);
+    }
 }
