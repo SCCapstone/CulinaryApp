@@ -16,6 +16,12 @@ public class Recipe {
 
     }
 
+    public Recipe(String name, String image, String id) {
+        this.name = name;
+        this.image = image;
+        this.id = id;
+    }
+
     public static JSONObject recipeToJSON(Recipe currentRecipe) {
         HashMap<String, String> recipeMap = new HashMap<>();
 
