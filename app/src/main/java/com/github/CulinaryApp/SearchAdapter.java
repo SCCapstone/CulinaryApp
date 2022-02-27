@@ -46,7 +46,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         holder.categoryText.setText(categories.get(position));
 
-        Glide.with(context).load(categoryImageList.get(position)).asBitmap().placeholder(R.mipmap.ic_launcher_round.into(holder.categoryImage));
+        Glide.with(context).load(categoryImageList.get(position)).into(holder.categoryImage);
     }
 
 
