@@ -1,6 +1,5 @@
 package com.github.CulinaryApp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,19 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.CulinaryApp.views.RecipeInstructionsActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.net.URI;
 import java.security.GeneralSecurityException;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
@@ -292,7 +286,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .into(bgImg);
     }
 
-    private Uri updatePersonalizedDisplay(Intent data, StorageReference storageRef, ImageView viewToUpdate, String key){
+    private Uri updatePersonalizedData(Intent data, StorageReference storageRef, View viewToUpdate, String key){
         Uri uri = null;
         if (viewToUpdate != null) {
             //Image Uri will not be null for RESULT_OK
@@ -307,9 +301,6 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
             });
-
-            // Use Uri object instead of File to avoid storage permissions
-            viewToUpdate.setImageURI(uri);
         }
 
         return uri;
@@ -326,11 +317,13 @@ public class ProfileActivity extends AppCompatActivity {
 
             if(changingProfPic) {
                 changingProfPic = false;
-                this.pfpURI = updatePersonalizedDisplay(data, storageRef, prof, "Pfp");
+                this.pfpURI = updatePersonalizedData(data, storageRef, prof, "Pfp");
+                prof.setImageURI(pfpURI);
 
             } else if (changingBgImg) {
                 changingBgImg = false;
-                this.bgURI = updatePersonalizedDisplay(data, storageRef, bgImg, "Bgp");
+                this.bgURI = updatePersonalizedData(data, storageRef, bgImg, "Bgp");
+                bgImg.setImageURI(bgURI);
             }
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
