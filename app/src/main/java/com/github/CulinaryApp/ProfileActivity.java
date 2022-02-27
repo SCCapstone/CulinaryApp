@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.net.URI;
 import java.security.GeneralSecurityException;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
@@ -291,7 +292,54 @@ public class ProfileActivity extends AppCompatActivity {
                 .into(bgImg);
     }
 
+    private Uri updatePersonalizedDisplay(Intent data, StorageReference storageRef, ImageView viewToUpdate, String key){
+        Uri uri = null;
+        if (viewToUpdate != null) {
+            //Image Uri will not be null for RESULT_OK
+            uri = data.getData();
+
+            StorageReference pfpRef = storageRef.child(key).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            pfpRef.putFile(uri).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                } else
+                    Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+
+            });
+
+            // Use Uri object instead of File to avoid storage permissions
+            viewToUpdate.setImageURI(uri);
+        }
+
+        return uri;
+    }
+
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            final FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+
+            if(changingProfPic) {
+                changingProfPic = false;
+                this.pfpURI = updatePersonalizedDisplay(data, storageRef, prof, "Pfp");
+
+            } else if (changingBgImg) {
+                changingBgImg = false;
+                this.bgURI = updatePersonalizedDisplay(data, storageRef, bgImg, "Bgp");
+            }
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -306,18 +354,14 @@ public class ProfileActivity extends AppCompatActivity {
                     //Image Uri will not be null for RESULT_OK
                     pfpURI = data.getData();
 
-
                     StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    pfpRef.putFile(pfpURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-                            } else
-                                Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+                    pfpRef.putFile(pfpURI).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
-                        }
                     });
 
                     // Use Uri object instead of File to avoid storage permissions
@@ -331,16 +375,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                     StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                    bgpRef.putFile(bgURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if (task.isSuccessful())
-                                Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                    bgpRef.putFile(bgURI).addOnCompleteListener(task -> {
+                        if (task.isSuccessful())
+                            Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
 
-                            else
-                                Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
-                        }
                     });
 
                     // Use Uri object instead of File to avoid storage permissions
@@ -352,5 +393,5 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 }
