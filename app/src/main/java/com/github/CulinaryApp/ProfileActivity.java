@@ -19,25 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-import com.github.CulinaryApp.views.RegPage2Activity;
-import com.google.android.gms.dynamite.DynamiteModule;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
-import com.google.firebase.storage.ListResult;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageReference;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.UploadTask;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -82,11 +71,9 @@ public class ProfileActivity extends AppCompatActivity {
         Button editDisplayNameButton = findViewById(R.id.editDispName);
         Button profileDisplayButton = findViewById(R.id.howTheySee);
 
-        //buttons within preferences
+        //buttons within preferences - potentially permanent removal of other preferences
         Button healthSettingsButton = findViewById(R.id.setHealth);
         Button lifestyleSettingsButton = findViewById(R.id.setLifestyle);
-//        Button activitySettingsButton = findViewById(R.id.setActivity);
-//        Button privacySettingsButton = findViewById(R.id.setPrivacy);
 
         //settings onclicks
         profChangeButton.setOnClickListener(profImgChanger);
@@ -98,29 +85,20 @@ public class ProfileActivity extends AppCompatActivity {
         //preferences onclicks
         healthSettingsButton.setOnClickListener(healthSettingsChanger);
         lifestyleSettingsButton.setOnClickListener(lifestyleSettingsChanger);
-//        activitySettingsButton.setOnClickListener(activitySettingsChanger);
-//        privacySettingsButton.setOnClickListener(privacySettingsChanger);
 
+        loadAcctImgsFromFirebase();
+    }
 
+    private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
         final FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
+
         //Creates a pfp reference under the users UID
         StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Checks if user has uploaded a pfp and loads a default picture if not
-        pfpRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                loadPfp(pfpRef);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                loadPfp(storageRef.child("DefaultPfp.jpg"));
-            }
-        });
-
+        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadPfp(pfpRef)).addOnFailureListener(exception -> loadPfp(storageRef.child("DefaultPfp.jpg")));
 
         //Create a bgp reference under the users UID
         //No check if reference exist as we don't currently have a default background to use
@@ -208,11 +186,11 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }
 
-    private interface setValue {
+    private interface ValueSetter {
         void set(String value);
     }
 
-    private void textFromDialog(String title, String hint, setValue setter){
+    private void textFromDialog(String title, String hint, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
 
