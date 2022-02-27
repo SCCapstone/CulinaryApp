@@ -1,14 +1,21 @@
 package com.github.CulinaryApp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.github.CulinaryApp.views.CategoriesActivity;
+import com.github.CulinaryApp.views.LoginActivity;
+import com.github.CulinaryApp.views.RecipeInstructionsActivity;
+import com.github.CulinaryApp.views.RecipesActivity;
 
 public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<RecyclerViewAdapterCategories.MyViewHolder> {
 
@@ -33,6 +40,7 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.fragment_category, parent, false);
+
         return new MyViewHolder(view);
     }
 
@@ -47,6 +55,105 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         GlideApp.with(context).load(images2[position]).into(holder.imgI2);
         GlideApp.with(context).load(images3[position]).into(holder.imgI3);
         GlideApp.with(context).load(images4[position]).into(holder.imgI4);
+
+        holder.categoryT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RecyclerViewAdapterCategories.this.context, "Detected categories click", Toast.LENGTH_LONG).show();
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipesActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+
+        //Suggested Recipe 1
+        holder.recipeT1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+        holder.imgI1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+
+        //Suggested Recipe 2
+        holder.recipeT2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+        holder.imgI2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+
+        //Suggested Recipe 3
+        holder.recipeT3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+        holder.imgI3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+
+        //Suggested Recipe 4
+        holder.recipeT4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
+        holder.imgI4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(newRecipesActivity);
+            }
+        });
     }
 
     @Override

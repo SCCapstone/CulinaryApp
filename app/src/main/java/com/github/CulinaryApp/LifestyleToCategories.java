@@ -1,6 +1,9 @@
 package com.github.CulinaryApp;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LifestyleToCategories {
 
@@ -18,7 +21,7 @@ public class LifestyleToCategories {
                 "Seafood",
                 "Side",
                 "Starter"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
     public static String[] Vegan(){
@@ -29,7 +32,7 @@ public class LifestyleToCategories {
                 "Starter",
                 "Breakfast",
                 "Miscellaneous"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
     public static String[] Vegetarian(){
@@ -40,7 +43,7 @@ public class LifestyleToCategories {
                 "Pasta",
                 "Side",
                 "Starter"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
     public static String[] Mediterranean(){
@@ -56,7 +59,7 @@ public class LifestyleToCategories {
                 "Pork",
                 "Side",
                 "Starter"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
     public static String[] Ketogenic(){
@@ -69,7 +72,7 @@ public class LifestyleToCategories {
                 "Pork",
                 "Seafood",
                 "Side"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
     public static String[] Flexitarian(){
@@ -83,7 +86,7 @@ public class LifestyleToCategories {
                 "Miscellaneous",
                 "Side",
                 "Starter"};
-        return(categoriesToReturn);
+        return categoriesToReturn;
     }
 
 }
