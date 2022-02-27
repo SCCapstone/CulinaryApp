@@ -211,8 +211,8 @@ public class CategoriesActivity extends AppCompatActivity {
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
         //insert navbar on activity load
-        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
