@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.views;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.CulinaryApp.NavbarFragment;
+import com.github.CulinaryApp.SearchFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
@@ -82,6 +84,7 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,26 +228,18 @@ public class CategoriesActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
-
+        //getSupportFragmentManager().beginTransaction().add(R.id.toolbar, SearchFragment.class, null).commit();
         //insert navbar on activity load
+        getSupportFragmentManager().beginTransaction().add(R.id.search_bar,SearchFragment.class,null).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
-
         //Code for toolbar
-        toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
+        //toolbar = findViewById(R.id.search_bar);
+        //setSupportActionBar(toolbar);
 
         //displays home button
-        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //This method is what should send to recipes page
-        /**
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectToRecipePage();
-            }
-        });**/
+
 
     }
 
