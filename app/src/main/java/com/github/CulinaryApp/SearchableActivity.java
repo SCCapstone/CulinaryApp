@@ -48,6 +48,7 @@ public class SearchableActivity extends AppCompatActivity {
         categories = new ArrayList<>();
         categoriesImages = new ArrayList<>();
 
+        //Wait for text to be changed in the search bar
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -59,6 +60,7 @@ public class SearchableActivity extends AppCompatActivity {
 
             }
 
+            //set the adapter in search adapter to be the new string to load new recycler view
             @Override
             public void afterTextChanged(Editable s) {
                 if(!s.toString().isEmpty()){
@@ -72,29 +74,37 @@ public class SearchableActivity extends AppCompatActivity {
     private void setAdapter(String s){
 
 
+        //Look for search within categories
         databaseReference.child("CATEGORIES").addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                //reset search criterea each time
                 categories.clear();
                 categoriesImages.clear();
                 recycler_view.removeAllViews();
 
+                //counter to only allow 16 recipes to be loaded at a time
                 int counter = 0;
+                //loop through categories
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     String CID = snapshot1.getKey();
                     String categoryName = snapshot1.child("CATEGORIES").getValue(String.class);
+                    //check if there is a category with the string as its name
                     if(categoryName.contains(s)){
+                        //add the category name to a list to be pulled from for loading
                         categories.add(categoryName);
                         categoriesImages.add(categoryName);
                         counter++;
                     }
 
-                    if(counter == 15){
+                    if(counter == 16){
                         break;
                     }
                 }
 
+                //make the new recycler view
                 searchAdapter = new SearchAdapter(SearchableActivity.this, categories, categoriesImages);
                 recycler_view.setAdapter(searchAdapter);
             }
