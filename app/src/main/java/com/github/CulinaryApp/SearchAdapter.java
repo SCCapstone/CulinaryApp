@@ -46,6 +46,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+
         String text = categories.get(position);
         holder.categoryText.setText(categories.get(position));
 

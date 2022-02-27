@@ -95,54 +95,55 @@ public class SearchbarFragment extends Fragment {
 
     public void showResults(String s){
         Log.d("Str entered",s);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference catRef = db.collection("CATEGORIES");
-        ArrayList<String> catsThatMatch = new ArrayList<>(); //Meow hehe
-        ArrayList<String> recsThatMatch = new ArrayList<>();
-        //Get categories that match search
-        catRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                        String catName = (String)aDocInCollection.get("name");
-                        Log.d("Cat searched", catName);
-                        if(catName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
-                            Log.d("Matches", catName);
-                            catsThatMatch.add(catName);
-                            Log.d("Cat List", catsThatMatch.toString());
-                        }
-
-                        //Get Recipes that match
-                        CollectionReference recRef = catRef.document(catName).collection("RECIPES");
-                        recRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    for (QueryDocumentSnapshot aDocInDocument : task.getResult()) {
-                                        String recName = (String)aDocInDocument.get("name");
-                                        if(recName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)))
-                                            recsThatMatch.add(recName);
-                                    }
-                                } else {
-                                    Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                                }
-                                //Log.d("Recipes that match",recsThatMatch.toString());
-                                //Log.d("Categories that match", catsThatMatch.toString());
-
-                                //Load into recycle viewer
-                                LoadSearch(catsThatMatch,recsThatMatch);
+        if(!s.equals("")) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference catRef = db.collection("CATEGORIES");
+            ArrayList<String> catsThatMatch = new ArrayList<>(); //Meow hehe
+            ArrayList<String> recsThatMatch = new ArrayList<>();
+            //Get categories that match search
+            catRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
+                            String catName = (String) aDocInCollection.get("name");
+                            Log.d("Cat searched", catName);
+                            if (catName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
+                                Log.d("Matches", catName);
+                                catsThatMatch.add(catName);
+                                Log.d("Cat List", catsThatMatch.toString());
                             }
 
-                        });
+                            //Get Recipes that match
+                            CollectionReference recRef = catRef.document(catName).collection("RECIPES");
+                            recRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot aDocInDocument : task.getResult()) {
+                                            String recName = (String) aDocInDocument.get("name");
+                                            if (recName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)))
+                                                recsThatMatch.add(recName);
+                                        }
+                                    } else {
+                                        Log.d("EXCEPTION: ", String.valueOf(task.getException()));
+                                    }
+                                    //Log.d("Recipes that match",recsThatMatch.toString());
+                                    //Log.d("Categories that match", catsThatMatch.toString());
+
+                                    //Load into recycle viewer
+                                    LoadSearch(catsThatMatch, recsThatMatch);
+                                }
+
+                            });
+                        }
+                    } else {
+                        Log.d("EXCEPTION: ", String.valueOf(task.getException()));
                     }
-                } else {
-                    Log.d("EXCEPTION: ", String.valueOf(task.getException()));
                 }
-            }
 
-        });
-
+            });
+        }
     }
 
     public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList){
@@ -169,6 +170,7 @@ public class SearchbarFragment extends Fragment {
         }
 
         RecyclerView recView = getView().findViewById(R.id.recyclerViewSearchbar);
+        recView.setHasFixedSize(true);
         SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker);
         recView.setAdapter(recAdapter);
         recView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -22,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.Toolbar;
 
 
 import com.github.CulinaryApp.models.Recipe;
@@ -47,6 +48,7 @@ public class RecipesActivity extends AppCompatActivity {
     private RecipesViewModel recipesViewModel;
     private RecyclerView recipesRecyclerView;
     private RecyclerViewAdapter recipesViewAdapter;
+    private Toolbar toolbar;
     ProgressDialog progressDialog;
 
     @Override
@@ -93,6 +95,9 @@ public class RecipesActivity extends AppCompatActivity {
 
         // insert navbar
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+        //Code for toolbar
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
     }
 
