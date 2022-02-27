@@ -77,8 +77,7 @@ public class ProfileDisplayFragment extends Fragment {
     }
 
     View.OnClickListener quitFragment = view -> {
-        ProfileActivity currentProfileActivity = (ProfileActivity) getActivity();
-        FragmentManager manager = ((ProfileActivity) getActivity()).getSupportFragmentManager();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
 
         manager.beginTransaction()
                 .remove(manager.findFragmentById(R.id.profileDisplayContainer))

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,16 +30,27 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     private CircleImageView prof;
     private ImageView bgImg;
-//    private FragmentContainerView clipboardContainer, trendingContainer;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
     private Uri pfpURI, bgURI;
     private StorageReference pfpRef, bgpRef;
+
+    private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
+    private static final String KEY_SHAREDPREFS_DISPLAY_NAME = "userDisplayName";
+    private static final String KEY_SHAREDPREFS_BIO = "userBio";
+    private static final String VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME = "No Bio yet...";
+    private static final String VALUE_SHAREDPREFS_DEFAULT_BIO = "New User...";
 
 
     @Override
@@ -46,12 +59,13 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         changingBgImg = false;
         changingProfPic = false;
-        bio = "No Bio yet...";
-        displayName = "New User...";
         pfpURI = null;
         bgURI = null;
         pfpRef = null;
         bgpRef = null;
+
+        bio =  getSharedPrefs(this).getString(KEY_SHAREDPREFS_BIO, VALUE_SHAREDPREFS_DEFAULT_BIO);
+        displayName = getSharedPrefs(this).getString(KEY_SHAREDPREFS_DISPLAY_NAME, VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME);
 
     }
 
@@ -152,9 +166,16 @@ public class ProfileActivity extends AppCompatActivity {
                 .commit();
     };
 
-    View.OnClickListener displayNameEditor = view -> textFromDialog("Edit Display Name", "New Display Name Here", (output) -> this.displayName = output);
+    private interface ValueSetter { void set(String value); }
 
-    View.OnClickListener bioEditor = view -> textFromDialog("Edit Bio", "Your Bio Here", (output) -> this.bio = output);
+    private void save(String key, String value, ValueSetter setter){
+        setter.set(value);
+        getSharedPrefs(this).edit().putString(key, value).apply();
+    }
+
+    View.OnClickListener displayNameEditor = view -> textFromDialog("Edit Display Name", "New Display Name Here", KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
+
+    View.OnClickListener bioEditor = view -> textFromDialog("Edit Bio", "Your Bio Here", KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
 
     View.OnClickListener profImgChanger = view -> {
         changingProfPic = true;
@@ -178,6 +199,25 @@ public class ProfileActivity extends AppCompatActivity {
                 .start();
     };
 
+    private static SharedPreferences getSharedPrefs(Context context){
+        SharedPreferences sharedPreferences = null;
+        try {
+            MasterKey key = new MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build();
+
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    context,
+                    FILENAME_ENCRYPTED_SHARED_PREFS,
+                    key,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return sharedPreferences;
+    }
+
     public String[] getProfileStrings(){
         return new String[] {displayName, bio};
     }
@@ -186,11 +226,7 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }
 
-    private interface ValueSetter {
-        void set(String value);
-    }
-
-    private void textFromDialog(String title, String hint, ValueSetter setter){
+    private void textFromDialog(String title, String hint, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
 
@@ -206,7 +242,7 @@ public class ProfileActivity extends AppCompatActivity {
         layout.addView(newTextInput);
         textInputDialog.setView(layout);
 
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> setter.set(newTextInput.getText().toString()));
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> save(valueBeingSaved, newTextInput.getText().toString(), setter));
         textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
         textInputDialog.show();
     }
