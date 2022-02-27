@@ -24,7 +24,7 @@ public class Recipe {
     }
 
     /**
-     * converts recipe to JSON, id intentionally excluded bc it makes life easier elsewhere
+     * converts recipe to JSON, id intentionally excluded bc it makes life easier when interacting w JSON in RecipeInstructions
      * @param currentRecipe
      * @return
      */

@@ -23,7 +23,6 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
     private static final String KEY_LIKES = "likes";
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
-    private static final String JSON_OBJECT_NAME = "likedPosts";
     private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
 
     private Recipe currentRecipe;
@@ -63,6 +62,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
         //load old likes as string
         SharedPreferences prefs = getSharedPrefs(this);
+
         String likes = prefs.getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
 
         //use old likes and current recipe to generate new likes as string

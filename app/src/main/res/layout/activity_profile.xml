@@ -3,7 +3,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bigLayout"
+    tools:context=".ProfileActivity"
+
+    android:id="@+id/outerLayout"
+    android:background="#F5F5DC"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
@@ -12,10 +16,8 @@
     android:layout_marginTop="0dp"
     android:layout_marginEnd="0dp"
     android:layout_marginRight="0dp"
-    android:layout_marginBottom="75dp"
-    android:background="#F5F5DC"
-    app:layout_marginBaseline="0dp"
-    tools:context=".ProfileActivity">
+    android:layout_marginBottom="75dp" >
+<!--    app:layout_marginBaseline="0dp" > not sure of purpose-->
 
     <TextView
         android:id="@+id/chefHeading"
@@ -39,8 +41,6 @@
         android:id="@+id/contentScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="200dp"
-        android:descendantFocusability="beforeDescendants"
         app:layout_constraintBottom_toTopOf="@+id/Navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +50,6 @@
             android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:layout_above="@+id/layout">
 
@@ -160,7 +157,7 @@
         android:id="@+id/profileDisplayContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
