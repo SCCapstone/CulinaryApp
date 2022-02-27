@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +37,7 @@ import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.SearchAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,12 +55,18 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class CategoriesActivity extends AppCompatActivity {
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
+
+    //Added by Michael
+    EditText search_edit_text;
+    SearchAdapter searchAdapter;
+
 
     private FirebaseAuth mAuth;
     private static final String TAG = "CategoriesPage";
@@ -74,6 +84,14 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+        search_edit_text = findViewById(R.id.search_edit_text);
+
+        //Code for toolbar (No Longer Needed)
+        //toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //displays home button
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         // TESTING DYNAMIC LOADING
         recyclerView = findViewById(R.id.recyclerView);
@@ -176,13 +194,9 @@ public class CategoriesActivity extends AppCompatActivity {
         //insert navbar on activity load
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
 
-        //Code for toolbar
-        toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
 
-        //displays home button
-        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
 
         //This method is what should send to recipes page
         /**
@@ -193,8 +207,11 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });**/
 
+
+
     }
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -207,7 +224,10 @@ public class CategoriesActivity extends AppCompatActivity {
 
         }
     }
+    */
 
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action_bar, menu);
@@ -229,6 +249,8 @@ public class CategoriesActivity extends AppCompatActivity {
         });
         return true;
     }
+    */
+
     /*
     This is where the dynamic page loading functionality will go
     //need a way to diferentiate between users
@@ -250,6 +272,30 @@ public class CategoriesActivity extends AppCompatActivity {
                 .load(url)
                 .into(image);
     }
+
+    //class written by Michael trying to integrate searchable activity
+    public ArrayList<String> searchCategories(ArrayList<String> search){
+        ArrayList<String> searchCategories = new ArrayList<>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ArrayList<String> searchedCategories = searchCategories;
+        db.collection("CATEGORIES").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for(QueryDocumentSnapshot document : task.getResult()){
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                searchedCategories.add(document.getId().toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        return searchedCategories;
+    }
+
 
     //Class for retrieving categories based on lifestyle preferences
     //This was done by RJ and I have no idea really what I'm doing so feel free to update as you see fit
@@ -313,4 +359,6 @@ public class CategoriesActivity extends AppCompatActivity {
         return categories;
 
     }
+
+
 }

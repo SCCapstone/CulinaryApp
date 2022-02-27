@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class SearchableActivity extends AppCompatActivity {
     EditText search_edit_text;
-    RecyclerView recyclerView;
+    RecyclerView recycler_view;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
     ArrayList<String> categories;
@@ -33,17 +33,17 @@ public class SearchableActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories); // this may be wrong
+        setContentView(R.layout.fragment_category);
 
-        search_edit_text = (EditText) findViewById(R.id.search);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        search_edit_text = findViewById(R.id.search_edit_text);
+        recycler_view = findViewById(R.id.recycler_view);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
+        recycler_view.setHasFixedSize(true);
+        recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        recycler_view.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
 
         categories = new ArrayList<>();
         categoriesImages = new ArrayList<>();
@@ -72,18 +72,18 @@ public class SearchableActivity extends AppCompatActivity {
     private void setAdapter(String s){
 
 
-        databaseReference.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("CATEGORIES").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 categories.clear();
                 categoriesImages.clear();
-                recyclerView.removeAllViews();
+                recycler_view.removeAllViews();
 
                 int counter = 0;
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     String CID = snapshot1.getKey();
-                    String categoryName = snapshot1.child("category_name").getValue(String.class);
+                    String categoryName = snapshot1.child("CATEGORIES").getValue(String.class);
                     if(categoryName.contains(s)){
                         categories.add(categoryName);
                         categoriesImages.add(categoryName);
@@ -96,7 +96,7 @@ public class SearchableActivity extends AppCompatActivity {
                 }
 
                 searchAdapter = new SearchAdapter(SearchableActivity.this, categories, categoriesImages);
-                recyclerView.setAdapter(searchAdapter);
+                recycler_view.setAdapter(searchAdapter);
             }
 
             @Override
