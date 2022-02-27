@@ -78,14 +78,13 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        /**Figure out how to add padding so part of the screen isn't cut off
+        /** Figure out how to add padding so part of the screen isn't cut off
         View v = findViewById(R.id.recyclerView);
         LayoutInflater li = getLayoutInflater();
         final View textEntrySB = li.inflate(R.layout.fragment_searchbar, null);
         final View homeButton = li.inflate(R.layout.fragment_navbar, null);
         v.setPadding(0, textEntrySB.findViewById(R.id.edit_search).getHeight(),0,homeButton.findViewById(R.id.toolbarSearch).getHeight());
-        **/
-
+         **/
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
          * Michael, not sure what you want the method definition to be like down below where you're
@@ -212,10 +211,9 @@ public class CategoriesActivity extends AppCompatActivity {
         //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
         //insert navbar on activity load
-        getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
-        //View v = findViewById(R.id.toolbar2);
-        //Log.d("Search height",""+v.getHeight());
+        // getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+        //getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
+
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -223,6 +221,7 @@ public class CategoriesActivity extends AppCompatActivity {
         //displays home button
         ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
 
 
