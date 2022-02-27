@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
+    <include layout="@layout/appbar" />
 
     <LinearLayout
         android:id="@+id/Category_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="56dp">
 
         <TextView
             android:id="@+id/CategoryText"
@@ -50,7 +55,6 @@
 
                 <ImageView
                     android:id="@+id/Recipe_Image1"
-                    tools:srcCompat="@tools:sample/avatars"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/Recipe1"
@@ -58,7 +62,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp" />
+                    android:layout_marginBottom="0dp"
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </RelativeLayout>
 
@@ -70,7 +75,6 @@
 
                 <ImageView
                     android:id="@+id/Recipe_Image2"
-                    tools:srcCompat="@tools:sample/avatars"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/Recipe2"
@@ -78,7 +82,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp" />
+                    android:layout_marginBottom="0dp"
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/Recipe2"
@@ -128,7 +133,6 @@
 
                 <ImageView
                     android:id="@+id/Recipe_Image3"
-                    tools:srcCompat="@tools:sample/avatars"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
                     android:layout_below="@+id/Recipe3"
@@ -136,7 +140,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp" />
+                    android:layout_marginBottom="0dp"
+                    tools:srcCompat="@tools:sample/avatars" />
 
             </RelativeLayout>
 
@@ -148,7 +153,6 @@
 
                 <ImageView
                     android:id="@+id/Recipe_Image4"
-                    tools:srcCompat="@tools:sample/avatars"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
                     android:layout_below="@+id/Recipe4"
@@ -156,7 +160,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp" />
+                    android:layout_marginBottom="0dp"
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/Recipe4"
