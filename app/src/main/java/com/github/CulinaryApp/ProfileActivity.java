@@ -85,8 +85,8 @@ public class ProfileActivity extends AppCompatActivity {
         //buttons within preferences
         Button healthSettingsButton = findViewById(R.id.setHealth);
         Button lifestyleSettingsButton = findViewById(R.id.setLifestyle);
-        Button activitySettingsButton = findViewById(R.id.setActivity);
-        Button privacySettingsButton = findViewById(R.id.setPrivacy);
+//        Button activitySettingsButton = findViewById(R.id.setActivity);
+//        Button privacySettingsButton = findViewById(R.id.setPrivacy);
 
         //settings onclicks
         profChangeButton.setOnClickListener(profImgChanger);
@@ -98,8 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
         //preferences onclicks
         healthSettingsButton.setOnClickListener(healthSettingsChanger);
         lifestyleSettingsButton.setOnClickListener(lifestyleSettingsChanger);
-        activitySettingsButton.setOnClickListener(activitySettingsChanger);
-        privacySettingsButton.setOnClickListener(privacySettingsChanger);
+//        activitySettingsButton.setOnClickListener(activitySettingsChanger);
+//        privacySettingsButton.setOnClickListener(privacySettingsChanger);
 
 
         //Load Pfp and Bgp
@@ -127,12 +127,6 @@ public class ProfileActivity extends AppCompatActivity {
         StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         loadBgp(bgpRef);
     }
-
-
-    View.OnFocusChangeListener toolbarFocusListener = (container, hasFocus) -> {
-        if(!hasFocus)
-            container.setVisibility(View.GONE);
-    };
 
     View.OnClickListener healthSettingsChanger = view -> {
         androidx.appcompat.widget.SwitchCompat glutenSwitch = new androidx.appcompat.widget.SwitchCompat(this);

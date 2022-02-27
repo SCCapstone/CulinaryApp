@@ -111,11 +111,15 @@
                     style="@style/ProfileButton"
                     android:text="Edit Display Name" />
 
+                <!--<Button
+                    android:id="@+id/howTheySee"
+                    style="@style/ProfileButton"
+                    android:text="Display What Others See" />-->
+
                 <Button
                     android:id="@+id/howTheySee"
                     style="@style/ProfileButton"
                     android:text="Display What Others See" />
-
 
             </LinearLayout>
 
@@ -135,7 +139,7 @@
                     android:id="@+id/setLifestyle"
                     style="@style/ProfileButton"
                     android:text="Lifestyle Settings" />
-
+<!--
                 <Button
                     android:id="@+id/setActivity"
                     style="@style/ProfileButton"
@@ -144,23 +148,11 @@
                 <Button
                     android:id="@+id/setPrivacy"
                     style="@style/ProfileButton"
-                    android:text="Privacy Settings" />
+                    android:text="Privacy Settings" />-->
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <View
-        android:id="@+id/separator"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#A6A6A6"
-        android:gravity="top"
-        app:layout_constraintBottom_toTopOf="@id/Navbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <include layout="@layout/layout_navbar_container" />
 
@@ -168,7 +160,7 @@
         android:id="@+id/profileDisplayContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
