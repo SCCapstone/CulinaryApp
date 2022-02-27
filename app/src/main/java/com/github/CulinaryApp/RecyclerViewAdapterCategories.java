@@ -72,7 +72,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -81,7 +82,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -92,7 +94,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -101,7 +104,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -112,7 +116,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -121,7 +126,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -132,7 +138,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -141,7 +148,8 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
