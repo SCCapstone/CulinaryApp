@@ -54,6 +54,17 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
         Log.d(TAG, "onCreate: started");
+
+        // RJ Code for testing
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("Category");
+            Log.d("Category passed",value);
+            //The key argument here must match that used in the other activity
+        }
+        //End of my code
+
+
        // getSupportActionBar().setTitle("A Category's Recipes");
 
         // define viewmodel

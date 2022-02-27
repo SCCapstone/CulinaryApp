@@ -89,25 +89,6 @@ public class CategoriesActivity extends AppCompatActivity {
 
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         Log.d("FIRESTORE INSTANCE: ", String.valueOf(firestoreDB));
-        /**
-        firestoreDB.collection("CATEGORIES/")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int count = 0;
-                            for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                                count += 1;
-                                Log.d("A DOC: ", aDocInCollection.getId() + " => " + aDocInCollection.getData() + ", Count: "+count);
-                        }
-                    } else {
-                       Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                    }
-                }
-                });**/
-
-        // TESTING DYNAMIC LOADING
 
         ArrayList<String> lifestyles = new ArrayList<>();
 
@@ -218,49 +199,6 @@ public class CategoriesActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        /**
-        String categories[] = {"Beef"};
-        String recipes1[] = {"Recipe 1"};
-        String recipes2[] = {"Recipe 2"};
-        String recipes3[] = {"Recipe 3"};
-        String recipes4[] = {"Recipe 4"};
-        String images1[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images2[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images3[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images4[] = {"https://www.themealdb.com//images//category//beef.png"};
-        RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(this, categories, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
-        recyclerView.setAdapter(recAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));**/
-
-        /////////////
-
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // This is more or less example code for how to grab and load both strings and images
-        // into text and image views from the firestore db
-        /**
-        TextView firstHeader = findViewById(R.id.Recipe1);
-        firstHeader.setText(firestoreDB.collection("CATEGORIES/").document("Beef/").getId().toString());
-        ImageView image = findViewById(R.id.Recipe_Image1);
-        DocumentReference docRef = firestoreDB.collection("CATEGORIES/").document("Beef/").collection("RECIPES").document("Beef And Oyster Pie");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        if(document.get("image").getClass() == StorageReference.class)
-                            loadImage(image, (StorageReference) document.get("image"));
-                        else
-                            loadImage(image, (String) document.get("image"));
-                    } else {
-                        Log.d("LOGGER", "No such document");
-                    }
-                } else {
-                    Log.d("LOGGER", "get failed with ", task.getException());
-                }
-            }
-        });**/
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
         mAuth = FirebaseAuth.getInstance();
