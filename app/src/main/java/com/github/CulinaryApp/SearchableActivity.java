@@ -70,13 +70,16 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private void setAdapter(String s){
-        categories.clear();
-        categoriesImages.clear();
-        recyclerView.removeAllViews();
+
 
         databaseReference.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                categories.clear();
+                categoriesImages.clear();
+                recyclerView.removeAllViews();
+
                 int counter = 0;
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     String CID = snapshot1.getKey();
