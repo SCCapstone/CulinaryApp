@@ -59,7 +59,7 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         holder.categoryT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RecyclerViewAdapterCategories.this.context, "Detected categories click", Toast.LENGTH_LONG).show();
+                //Toast.makeText(RecyclerViewAdapterCategories.this.context, "Detected categories click", Toast.LENGTH_LONG).show();
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipesActivity.class);
                 newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

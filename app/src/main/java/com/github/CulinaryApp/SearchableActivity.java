@@ -71,7 +71,7 @@ public class SearchableActivity extends AppCompatActivity {
 
     private void setAdapter(String s){
 
-
+/**
         databaseReference.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,6 +103,6 @@ public class SearchableActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });**/
     }
 }

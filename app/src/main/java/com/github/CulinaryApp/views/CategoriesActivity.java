@@ -35,6 +35,7 @@ import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.SearchbarFragment;
 import com.github.CulinaryApp.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,8 +78,13 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-
-
+        /** Figure out how to add padding so part of the screen isn't cut off
+        View v = findViewById(R.id.recyclerView);
+        LayoutInflater li = getLayoutInflater();
+        final View textEntrySB = li.inflate(R.layout.fragment_searchbar, null);
+        final View homeButton = li.inflate(R.layout.fragment_navbar, null);
+        v.setPadding(0, textEntrySB.findViewById(R.id.edit_search).getHeight(),0,homeButton.findViewById(R.id.toolbarSearch).getHeight());
+         **/
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
          * Michael, not sure what you want the method definition to be like down below where you're
@@ -206,6 +212,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         //insert navbar on activity load
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
@@ -215,14 +222,8 @@ public class CategoriesActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //This method is what should send to recipes page
-        /**
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                redirectToRecipePage();
-            }
-        });**/
+
+
 
     }
 
