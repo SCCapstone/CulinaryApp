@@ -99,43 +99,6 @@ public class CategoriesActivity extends AppCompatActivity {
         // TESTING DYNAMIC LOADING
         recyclerView = findViewById(R.id.recyclerView);
 
-        String categories[] = {"Beef"};
-        String recipes1[] = {"Recipe 1"};
-        String recipes2[] = {"Recipe 2"};
-        String recipes3[] = {"Recipe 3"};
-        String recipes4[] = {"Recipe 4"};
-        String images1[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images2[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images3[] = {"https://www.themealdb.com//images//category//beef.png"};
-        String images4[] = {"https://www.themealdb.com//images//category//beef.png"};
-        RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(this, categories, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
-        recyclerView.setAdapter(recAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        /**
-        LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = vi.inflate(R.layout.fragment_category, null);
-
-        ViewGroup insertPoint = (ViewGroup) findViewById(R.id.Category_Layout_Holder);
-        insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        ScrollView scrollView = (ScrollView)findViewById(R.id.scroll_view);
-
-        scrollView.getViewTreeObserver()
-                .addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-                    @Override
-                    public void onScrollChanged() {
-                        if (scrollView.getChildAt(0).getBottom()
-                                == (scrollView.getHeight() + scrollView.getScrollY())) {
-                            //scroll view is at bottom
-                            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                        } else {
-                            //scroll view is not at bottom
-                        }
-                    }
-                });**/
-        /////////////
-
 
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
         /*
@@ -196,6 +159,7 @@ public class CategoriesActivity extends AppCompatActivity {
                                         else if(count == 3){
                                             recipes4[arrLength(recipes4)] = (String)aDocInCollection.get("name");
                                             images4[arrLength(images4)] = (String)aDocInCollection.get("image");
+                                            break; // Break once four recipes are loaded
                                         }
                                         count += 1;
                                         //Log.d("A DOC: ", "Collection: "+cat+", "+aDocInCollection.getId() + " => " + aDocInCollection.getData() + ", Count: "+count);
