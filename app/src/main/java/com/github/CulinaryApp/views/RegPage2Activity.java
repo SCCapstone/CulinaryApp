@@ -3,20 +3,23 @@ package com.github.CulinaryApp.views;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.ContentView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -26,9 +29,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import java.lang.Object.*;
 
 public class RegPage2Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,8 +54,10 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
 
     private Uri uri;
     private StorageTask storageTask;
-    //private StorageReference storagePfp;
 
+    private boolean uploadPfp = false;
+    private boolean uploadedPfp = false; //Checks if pfp has been uploaded already
+    private boolean uploadBgp = false;
 
 
     private static final int RESULT_LOAD_PFP = 1;
@@ -141,45 +151,75 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.pfpButton:
-                Intent pfpIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //TODO replace with non-deprecated method
-                startActivityForResult(pfpIntent, RESULT_LOAD_PFP);
+                uploadPfp = true;
+                ImagePicker.with(this)
+                        .crop()	    			//Crop image(Optional), Check Customization for more option
+                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .start();
                 break;
 
             case R.id.backgroundPhotoButton:
-
+                uploadBgp = true;
+                ImagePicker.with(this)
+                        .crop(30,15f)	    			//Crop image(Optional), Check Customization for more option
+                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                        .start();
                 break;
         }
     }
 
-    //Function that's called when startActivityForResult is called to upload pfp and background image
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_LOAD_PFP && resultCode == RESULT_OK && data != null){
-            //Uniform resource indicator
-            Uri selectedImage = data.getData();
+
+        if (resultCode == RESULT_OK) {
+            Uri pfpURI = data.getData();
 
             final FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-            //Creates a pfp reference under the users UID
-            StorageReference pfpRef = storageRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            if (uploadPfp == true) {
+                //Creates a pfp reference under the users UID
+                StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            pfpRef.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if(task.isSuccessful())
-                        Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                pfpRef.putFile(pfpURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                            uploadedPfp = true;
+                        } else
+                            Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
-                    else
-                        Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+                    }
+                });
+                uploadPfp = false;
+            } else if(uploadBgp == true){
+                //Creates a bgp reference under the users UID
+                StorageReference pfpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-                }
-            });
+                pfpRef.putFile(pfpURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful())
+                            Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+
+                        else
+                            Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+
+                    }
+                });
+                uploadBgp = false;
+            } else {
+                Toast.makeText(RegPage2Activity.this, "Unknown error when trying to add image", Toast.LENGTH_LONG).show();
+            }
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
 
         }
-
     }
-
 
 }

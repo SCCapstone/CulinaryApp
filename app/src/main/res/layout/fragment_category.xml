@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/Category_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/CategoryText"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:gravity="center"
+            android:text="Category"
+            android:textColor="@color/orange"
+            android:textSize="35dp" />
+
+        <LinearLayout
+            android:id="@+id/Recipes_Top"
+            android:layout_width="match_parent"
+            android:layout_height="197dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/Recipe_Layout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+                <TextView
+                    android:id="@+id/Recipe1"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center"
+                    android:text="Recipe 1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/Recipe_Image1"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/Recipe1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Recipe_Layout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:id="@+id/Recipe_Image2"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/Recipe2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
+
+                <TextView
+                    android:id="@+id/Recipe2"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center"
+                    android:text="Recipe 2"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Recipes_Bottom"
+            android:layout_width="match_parent"
+            android:layout_height="198dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/Recipe_Layout3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+                <TextView
+                    android:id="@+id/Recipe3"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center"
+                    android:text="Recipe 3"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/Recipe_Image3"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp"
+                    android:layout_below="@+id/Recipe3"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Recipe_Layout4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:id="@+id/Recipe_Image4"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp"
+                    android:layout_below="@+id/Recipe4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp" />
+
+                <TextView
+                    android:id="@+id/Recipe4"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="-1dp"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginEnd="1dp"
+                    android:gravity="center"
+                    android:text="Recipe 4"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

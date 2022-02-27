@@ -27,6 +27,8 @@ public class SearchableActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
     ArrayList<String> categories;
+    ArrayList<String> categoriesImages;
+    SearchAdapter searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -44,6 +46,7 @@ public class SearchableActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
 
         categories = new ArrayList<>();
+        categoriesImages = new ArrayList<>();
 
         search_edit_text.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,6 +70,10 @@ public class SearchableActivity extends AppCompatActivity {
     }
 
     private void setAdapter(String s){
+        categories.clear();
+        categoriesImages.clear();
+        recyclerView.removeAllViews();
+
         databaseReference.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,6 +83,7 @@ public class SearchableActivity extends AppCompatActivity {
                     String categoryName = snapshot1.child("category_name").getValue(String.class);
                     if(categoryName.contains(s)){
                         categories.add(categoryName);
+                        categoriesImages.add(categoryName);
                         counter++;
                     }
 
@@ -84,6 +92,8 @@ public class SearchableActivity extends AppCompatActivity {
                     }
                 }
 
+                searchAdapter = new SearchAdapter(SearchableActivity.this, categories, categoriesImages);
+                recyclerView.setAdapter(searchAdapter);
             }
 
             @Override

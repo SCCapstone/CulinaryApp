@@ -1,12 +1,15 @@
 package com.github.CulinaryApp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.HasDefaultViewModelProviderFactory;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,17 +20,42 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.github.CulinaryApp.views.RegPage2Activity;
+import com.google.android.gms.dynamite.DynamiteModule;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+
 import com.github.dhaval2404.imagepicker.ImagePicker;
+
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageException;
+import com.google.firebase.storage.StorageReference;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.InputStream;
+
+import java.util.function.Consumer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     private CircleImageView prof;
     private ImageView bgImg;
-    private FragmentContainerView clipboardContainer, trendingContainer;
+//    private FragmentContainerView clipboardContainer, trendingContainer;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
     private Uri pfpURI, bgURI;
+    private StorageReference pfpRef, bgpRef;
 
 
     @Override
@@ -40,6 +68,8 @@ public class ProfileActivity extends AppCompatActivity {
         displayName = "New User...";
         pfpURI = null;
         bgURI = null;
+        pfpRef = null;
+        bgpRef = null;
 
     }
 
@@ -98,12 +128,33 @@ public class ProfileActivity extends AppCompatActivity {
         //these allow the "tap button -> popup appears -> tap outside of popup -> popup disappears" action
 //        clipboardContainer.setOnFocusChangeListener(toolbarFocusListener);
 //        trendingContainer.setOnFocusChangeListener(toolbarFocusListener);
+
+        //Load Pfp and Bgp
+        final FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        //Creates a pfp reference under the users UID
+        StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        //Checks if user has uploaded a pfp and loads a default picture if not
+        pfpRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                loadPfp(pfpRef);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                loadPfp(storageRef.child("DefaultPfp.jpg"));
+            }
+        });
+
+
+        //Create a bgp reference under the users UID
+        //No check if reference exist as we don't currently have a default background to use
+        StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        loadBgp(bgpRef);
     }
-
-    /*View.OnClickListener navToProf = view -> {
-        Intent goToProfile = new Intent(this, ProfileActivity.class);
-        startActivity(goToProfile);
-
+    /**
         //todo remove when toolbar is changed to a fragment, and then check the instance of the fragment parent to see if button needs to be non-functional if ur already on profile page
         finish();
     };*/
@@ -132,7 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
             trendingContainer.setVisibility(View.GONE);
 
         }
-    };*/
+    };
 
     /*View.OnClickListener toggleClipboard = dummy -> {
         FragmentManager manager = getSupportFragmentManager();
@@ -191,19 +242,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
 
+        ViewCompat.setTransitionName(bgImg, "bgImg");
+        ViewCompat.setTransitionName(prof, "prof");
+
         manager.beginTransaction()
                 .add(R.id.profileDisplayContainer, ProfileDisplayFragment.class, null)
-//                .addSharedElement(bgImg, "bgImg")
-//                .addSharedElement(prof, "prof")
+                .addSharedElement(bgImg, "bgImg")
+                .addSharedElement(prof, "prof")
                 .commit();
     };
 
     View.OnClickListener displayNameEditor = view -> {
-        displayName = textFromDialog("Edit Display Name", "New Display Name Here");
+        textFromDialog("Edit Display Name", "New Display Name Here", (output) -> this.displayName = output);
     };
 
     View.OnClickListener bioEditor = view -> {
-        bio = textFromDialog("Edit Bio", "Your Bio Here");
+        textFromDialog("Edit Bio", "Your Bio Here", (output) -> this.bio = output);
     };
 
     View.OnClickListener profImgChanger = view -> {
@@ -236,7 +290,11 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }
 
-    private String textFromDialog(String title, String hint){
+    private interface setValue {
+        void set(String value);
+    }
+
+    private String textFromDialog(String title, String hint, setValue setter){
         final String[] textRetrieved = {"Default Text"};
 
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
@@ -248,26 +306,23 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        int dpPaddingSides = 32;
-        float scale = getResources().getDisplayMetrics().density;
-        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
-        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
+        int padding = getPixelsFromDp(32);
+        layout.setPadding(padding, padding, padding, padding);
 
         layout.addView(newTextInput);
-
         textInputDialog.setView(layout);
 
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
-            textRetrieved[0] = newTextInput.getText().toString();
-        });
-
-        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
-            dialog.cancel();
-        });
-
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> setter.set(newTextInput.getText().toString()));
+        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
         textInputDialog.show();
 
         return textRetrieved[0];
+    }
+
+    private int getPixelsFromDp(int densityPoints){
+        final float DP_CONSTANT = 0.5f;
+        float scale = getResources().getDisplayMetrics().density;
+        return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
     private void showGenericDialog(String title, View toAdd){
@@ -296,18 +351,46 @@ public class ProfileActivity extends AppCompatActivity {
         textInputDialog.show();
     }
 
+    public void loadPfp(StorageReference pfpRef){
+        GlideApp.with(this /* context */)
+                .load(pfpRef)
+                .into(prof);
+    }
 
+    public void loadBgp(StorageReference bgpRef){
+        GlideApp.with(this /* context */)
+                .load(bgpRef)
+                .into(bgImg);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+
+            final FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageRef = storage.getReference();
+
             if(changingProfPic) {
                 changingProfPic = false;
                 if (prof != null) {
                     //Image Uri will not be null for RESULT_OK
                     pfpURI = data.getData();
+
+
+                    StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                    pfpRef.putFile(pfpURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
 
                     // Use Uri object instead of File to avoid storage permissions
                     prof.setImageURI(pfpURI);
@@ -317,6 +400,20 @@ public class ProfileActivity extends AppCompatActivity {
                 if (bgImg != null) {
                     //Image Uri will not be null for RESULT_OK
                     bgURI = data.getData();
+
+                    StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                    bgpRef.putFile(bgURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful())
+                                Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+
+                            else
+                                Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
 
                     // Use Uri object instead of File to avoid storage permissions
                     bgImg.setImageURI(bgURI);
