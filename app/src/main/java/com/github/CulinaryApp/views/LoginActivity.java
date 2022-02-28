@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "Login Activity";
 
     public void navigateToCategoriesPage() {
-            Intent intentToStartCategoriesPage = new Intent(this, CategoriesActivity.class);
+            Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
             startActivity(intentToStartCategoriesPage);
     }
 
