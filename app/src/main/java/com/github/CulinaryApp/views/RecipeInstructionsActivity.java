@@ -27,6 +27,7 @@ import java.nio.Buffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,29 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         recipeName.setText(this.currentRecipe.getName());
 
         String mealJSON = apiCall(this.currentRecipe.getId());
+
+        JSONObject parsedRecipe = null;
+        String instructions = null;
+        StringBuilder ingreds = new StringBuilder();
+
+        try { //todo declutter this
+            parsedRecipe = new JSONObject(mealJSON);
+            instructions = parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strInstructions").toString();
+            for(int i=1;i<=20;i++)
+                ingreds.append(parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strMeasure" + i)).append(" ").append(parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strIngredient" + i)).append("\n");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        TextView instructionsOutput = findViewById(R.id.instructions);
+        String finalInstructions = instructions;
+        runOnUiThread(() -> instructionsOutput.setText(finalInstructions));
+
+        String ingredients = ingreds.toString();
+        TextView ingredsOutput = findViewById(R.id.ingredients);
+        runOnUiThread(() -> ingredsOutput.setText(ingredients));
+
 
         updateLikeButtonColor();
     }

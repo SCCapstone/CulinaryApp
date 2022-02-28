@@ -13,13 +13,15 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Navbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="32dp">
 
 <!--            layout_width=0dp matches constraints, this allows text to stay on left, otherwise
@@ -34,13 +36,6 @@
                 android:textSize="40sp"
 
                 android:layout_margin="32dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-
                 />
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -51,11 +46,6 @@
                 android:layout_margin="32dp"
 
                 android:orientation="horizontal"
-
-                app:layout_constraintTop_toBottomOf="@id/headingRecipeName"
-                app:layout_constraintBottom_toTopOf="@+id/containerRecipe"
-                app:layout_constraintStart_toStartOf="@+id/headingRecipeName"
-                app:layout_constraintEnd_toEndOf="@+id/headingRecipeName"
                 >
 
                 <ImageButton
@@ -80,39 +70,34 @@
                 android:id="@+id/containerRecipe"
 
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-
-                app:layout_constraintTop_toBottomOf="@+id/containerButtons"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/headingIngredients"
-                    android:text="Ingredients"
-                    style="@style/RecipeInstructionsHeading"/>
+                    style="@style/RecipeInstructionsHeading"
+                    android:text="Ingredients" />
 
                 <TextView
                     android:id="@+id/ingredients"
-                    android:text="Ingredient1\nIngredient2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Ingredient1\nIngredient2" />
 
                 <TextView
                     android:id="@+id/headingInstructions"
-                    android:text="Instructions"
-                    style="@style/RecipeInstructionsHeading"/>
+                    style="@style/RecipeInstructionsHeading"
+                    android:text="Instructions" />
 
                 <TextView
                     android:id="@+id/instructions"
-                    android:text="Step1\nStep2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Step1\nStep2" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 
