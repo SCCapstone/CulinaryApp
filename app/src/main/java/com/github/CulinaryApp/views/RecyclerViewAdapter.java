@@ -24,9 +24,9 @@ import java.util.List;
 public class RecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    static final String KEY_INTENT_EXTRA_RECIPE_ID = "recipeID";
-    static final String KEY_INTENT_EXTRA_RECIPE_NAME = "recipeName";
-    static final String KEY_INTENT_EXTRA_RECIPE_IMG = "recipeImg";
+    public static final String KEY_INTENT_EXTRA_RECIPE_ID = "recipeID";
+    public static final String KEY_INTENT_EXTRA_RECIPE_NAME = "recipeName";
+    public static final String KEY_INTENT_EXTRA_RECIPE_IMG = "recipeImg";
 
     /**
      * Adapter's role is to convert an object at a position int a list row item

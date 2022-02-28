@@ -3,15 +3,20 @@ package com.github.CulinaryApp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.compose.ui.text.android.style.PlaceholderSpan;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.CulinaryApp.models.Recipe;
 import com.github.CulinaryApp.views.RecipeInstructionsActivity;
+import com.github.CulinaryApp.views.RecyclerViewAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,13 +31,13 @@ public class FavoritesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
+
+        populateLikedList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        populateLikedList();
     }
 
     private void populateLikedList(){
@@ -60,17 +65,14 @@ public class FavoritesActivity extends AppCompatActivity {
 
         JSONObject likes = getLikesJSON();
 
-        //for each liked item create a button w the recipe name
-        //this uses a pre existing button so as to copy its styling
-        Button template = findViewById(R.id.recipeButtonTemplate);
-
 
         for (Iterator<String> it = likes.keys(); it.hasNext(); ) {
             String d = it.next();
             String key = likes.keys().next();
 
             try {
-                String name = likes.getJSONObject(key).getString("name");
+                String name = likes.getJSONObject(d).getString("name");
+                String img = likes.getJSONObject(d).getString("image");
 
                 Button link = new Button(FavoritesActivity.this);
                 link.setText(name);
@@ -82,6 +84,17 @@ public class FavoritesActivity extends AppCompatActivity {
                 link.setGravity(Gravity.START);
                 link.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                 link.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+
+                link.setOnClickListener( view -> {
+                    Context context = FavoritesActivity.this;
+
+                    Intent startRecipeActivity = new Intent(context, RecipeInstructionsActivity.class);
+                    startRecipeActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, d);
+                    startRecipeActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, name);
+                    startRecipeActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, img);
+                    context.startActivity(startRecipeActivity);
+
+                });
 
                 //todo put button nav function in here
 

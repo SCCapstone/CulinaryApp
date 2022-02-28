@@ -130,7 +130,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
     private Recipe getCurrentRecipeFromIntent(){
         Intent recipeReceived = getIntent();
-        if(recipeReceived.getExtras().size() != 3)
+        if(recipeReceived.getExtras() == null || recipeReceived.getExtras().size() != 3)
             return new Recipe("test1", "000", "111111");
 
         String name = recipeReceived.getStringExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME);
