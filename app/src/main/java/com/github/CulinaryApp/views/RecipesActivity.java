@@ -22,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.widget.Toolbar;
 
 
 import com.github.CulinaryApp.models.Recipe;
@@ -47,6 +48,7 @@ public class RecipesActivity extends AppCompatActivity {
     private RecipesViewModel recipesViewModel;
     private RecyclerView recipesRecyclerView;
     private RecyclerViewAdapter recipesViewAdapter;
+    private Toolbar toolbar;
     ProgressDialog progressDialog;
 
     @Override
@@ -54,6 +56,17 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
         Log.d(TAG, "onCreate: started");
+
+        // RJ Code for testing
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("Category");
+            Log.d("Category passed",value);
+            //The key argument here must match that used in the other activity
+        }
+        //End of my code
+
+
        // getSupportActionBar().setTitle("A Category's Recipes");
 
         // define viewmodel
@@ -82,6 +95,9 @@ public class RecipesActivity extends AppCompatActivity {
 
         // insert navbar
         getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
+        //Code for toolbar
+        toolbar = findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
 
     }
 

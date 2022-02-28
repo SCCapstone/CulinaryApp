@@ -18,3 +18,4 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:name="com.github.CulinaryApp.NavbarFragment" />
+
