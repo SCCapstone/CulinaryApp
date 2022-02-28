@@ -24,12 +24,15 @@ import java.util.List;
 public class RecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    static final String KEY_INTENT_EXTRA_RECIPE_ID = "recipeID";
+    static final String KEY_INTENT_EXTRA_RECIPE_NAME = "recipeName";
+    static final String KEY_INTENT_EXTRA_RECIPE_IMG = "recipeImg";
+
     /**
      * Adapter's role is to convert an object at a position int a list row item
      * Apaters require a ViewHolder
      * ViewHolder's role is to provide access to all the view w/in each item row
      */
-
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class ViewHolder extends
@@ -42,8 +45,8 @@ public class RecyclerViewAdapter extends
 
         public ViewHolder(View itemView) {
             super(itemView);
-            recipeImage = (ImageView) itemView.findViewById(R.id.recipe_image);
-            recipeName = (TextView) itemView.findViewById(R.id.recipe_name);
+            recipeImage = itemView.findViewById(R.id.recipe_image);
+            recipeName = itemView.findViewById(R.id.recipe_name);
        //     context = context;
             // Setup the click listener
             itemView.setOnClickListener(this);
@@ -57,9 +60,11 @@ public class RecyclerViewAdapter extends
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Recipe recipe = recipeList.get(position);
                 // We can access the data within the views
-                Toast.makeText(context, recipe.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, recipe.getId(), Toast.LENGTH_SHORT).show();
                 Intent startRecipeActivity = new Intent(context, RecipeInstructionsActivity.class);
-                startRecipeActivity.putExtra("User clicked on this recipe: ", recipe.getName());
+                startRecipeActivity.putExtra(KEY_INTENT_EXTRA_RECIPE_ID, recipe.getId());
+                startRecipeActivity.putExtra(KEY_INTENT_EXTRA_RECIPE_NAME, recipe.getName());
+                startRecipeActivity.putExtra(KEY_INTENT_EXTRA_RECIPE_IMG, recipe.getImage());
                 context.startActivity(startRecipeActivity);
             }
         }

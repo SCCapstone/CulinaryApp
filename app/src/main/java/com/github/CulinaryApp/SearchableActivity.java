@@ -35,8 +35,8 @@ public class SearchableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories); // this may be wrong
 
-        search_edit_text = (EditText) findViewById(R.id.search);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        search_edit_text = findViewById(R.id.search);
+        recyclerView = findViewById(R.id.recyclerViewSearchbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

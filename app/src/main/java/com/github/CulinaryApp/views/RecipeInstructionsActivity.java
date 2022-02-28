@@ -5,10 +5,12 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.models.Recipe;
@@ -16,8 +18,19 @@ import com.github.CulinaryApp.models.Recipe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.Buffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class RecipeInstructionsActivity extends AppCompatActivity {
 
@@ -45,13 +58,62 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         super.onStart();
 
 //        Recipe placeHolderRecipe = new Recipe("test2", "111", "022222");
-        Recipe placeHolderRecipe = new Recipe("test1", "000", "111111");
-        this.currentRecipe = placeHolderRecipe; //todo using this as placeholder, this should actually use intents or other means to either:
+//        Recipe placeHolderRecipe = new Recipe("test1", "000", "111111");
+//        this.currentRecipe = placeHolderRecipe; //todo using this as placeholder, this should actually use intents or other means to either:
                                                                 // get the id of the recipe user clicked on and build a recipe object
                                                                 // OR
                                                                 // get a full recipe object thru an Intent. This may require serialization, etc. Somewhat harder, probably saves minimal time
 
+        this.currentRecipe = getCurrentRecipeFromIntent();
+
+        new Thread(this::updateDisplayedRecipe).start();
+    }
+
+    private void updateDisplayedRecipe(){
+        TextView recipeName = findViewById(R.id.headingRecipeName);
+        recipeName.setText(this.currentRecipe.getName());
+
+        String mealJSON = apiCall(this.currentRecipe.getId());
+
         updateLikeButtonColor();
+    }
+
+    private String apiCall(String id){
+        //https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+        final String URL_FIND_BY_ID = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+
+        try {
+            HttpsURLConnection connect = (HttpsURLConnection) new URL(URL_FIND_BY_ID+id).openConnection();
+            InputStream response = connect.getInputStream();
+
+            return streamToString(response);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "{}";
+    }
+
+    private String streamToString(InputStream response) {
+        String JSON = "{}";
+        try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
+            JSON = scanner.useDelimiter("\\A").next();
+        }
+
+        return JSON;
+    }
+
+    private Recipe getCurrentRecipeFromIntent(){
+        Intent recipeReceived = getIntent();
+        if(recipeReceived.getExtras().size() != 3)
+            return new Recipe("test1", "000", "111111");
+
+        String name = recipeReceived.getStringExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME);
+        String img = recipeReceived.getStringExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG);
+        String id = recipeReceived.getStringExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID);
+
+        return new Recipe(name, img, id);
     }
 
     /**

@@ -278,6 +278,7 @@ public class ProfileActivity extends AppCompatActivity {
         Glide.with(this /* context */)
                 .load(pfpRef)
                 .into(prof);
+
     }
 
     public void loadBgp(StorageReference bgpRef){
