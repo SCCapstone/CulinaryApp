@@ -6,17 +6,11 @@ import android.os.Bundle;
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.R;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviderKt;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,18 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.widget.Toolbar;
 
 
-import com.github.CulinaryApp.models.Recipe;
 import com.github.CulinaryApp.viewmodels.RecipesViewModel;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.FirebaseApp;
-//import com.google.firebase.firestore.CollectionReference;
-//import com.google.firebase.firestore.DocumentReference;
-//import com.google.firebase.firestore.FirebaseFirestore;
-//import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 
 public class RecipesActivity extends AppCompatActivity {
 
@@ -54,8 +41,9 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipes);
+        setContentView(R.layout._recipes_recycler_view);
         Log.d(TAG, "onCreate: started");
+
 
         // RJ Code for testing
         Bundle extras = getIntent().getExtras();
@@ -84,7 +72,6 @@ public class RecipesActivity extends AppCompatActivity {
 
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recipesRecyclerView.setHasFixedSize(true);
-
         // get recipes through viewModel observer class getRecipesOfACategory()
         recipesViewModel.getRecipesOfACategory().observe(this, recipeList -> {
            progressDialog.dismiss();
