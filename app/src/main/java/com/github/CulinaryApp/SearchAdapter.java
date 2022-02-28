@@ -56,9 +56,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
         if(text.equals("Categories") || text.equals("Recipes")) {
             holder.categoryText.setTypeface(Typeface.DEFAULT_BOLD);
+            holder.categoryText.setPadding(0,0,0,0);
         } else {
             holder.categoryText.setPadding(paddingPixel,0,0,0);
-
+            holder.categoryText.setTypeface(Typeface.DEFAULT);
             holder.categoryText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
