@@ -29,10 +29,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-<<<<<<< HEAD
-=======
 import com.bumptech.glide.request.RequestOptions;
->>>>>>> main
+
 import com.github.CulinaryApp.NavbarFragment;
 import com.github.CulinaryApp.ProfileActivity;
 import com.github.CulinaryApp.R;
