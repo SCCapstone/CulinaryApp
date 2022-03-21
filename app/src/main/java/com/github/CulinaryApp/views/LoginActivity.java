@@ -78,12 +78,6 @@ public class LoginActivity extends AppCompatActivity {
         Button registerButton = (findViewById(btn_signup));
 
 
-        /** RJ TEST CODE **/
-
-        new Thread(this::apiCall).start();
-
-        /****************************************/
-
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,51 +135,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /** More test code **/
-
-    private void apiCall(){
-        //https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
-        final String URL_FIND_BY_ID = "https://www.themealdb.com/api/json/v1/1/search.php?s=Arr";
-
-        try {
-            HttpsURLConnection connect = (HttpsURLConnection) new URL(URL_FIND_BY_ID).openConnection();
-            InputStream response = connect.getInputStream();
-
-            String stream = streamToString(response);
-
-            Log.d("TEST VALUES",stream);
-
-            Log.d("RECIPE NAMES",JSONToArray(stream).toString());
-
-
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private String streamToString(InputStream response) {
-        String JSON = "{}";
-        try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
-            JSON = scanner.useDelimiter("\\A").next();
-        }
-
-        return JSON;
-    }
-
-    private List<String> JSONToArray(String JSON) throws JSONException {
-        JSONObject obj = new JSONObject(JSON);
-
-        List<String> list = new ArrayList<String>();
-        JSONArray array = obj.getJSONArray("meals");
-        for(int i = 0 ; i < array.length() ; i++){
-            list.add(array.getJSONObject(i).getString("strMeal"));
-        }
-
-        return list;
-    }
-
-    /** END OF TEST CODE **/
 }
 
 
