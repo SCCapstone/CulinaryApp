@@ -22,7 +22,8 @@
                 android:paddingStart="5dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:text="Text"/>
+                android:text="Text"
+                android:textSize="20sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

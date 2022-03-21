@@ -50,15 +50,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         String text = categories.get(position);
         holder.categoryText.setText(categories.get(position));
 
+        //Padding from left of screen
         int paddingDp = 15;
         float density = context.getResources().getDisplayMetrics().density;
         int paddingPixel = (int)(paddingDp * density);
+
+        //Padding from top and bottom of screen
+        int padding_top_and_bottom_Dp = 5;
+        int padding_top_and_bottom_Pixel = (int)(padding_top_and_bottom_Dp * density);
 
         if(text.equals("Categories") || text.equals("Recipes")) {
             holder.categoryText.setTypeface(Typeface.DEFAULT_BOLD);
             holder.categoryText.setPadding(0,0,0,0);
         } else {
-            holder.categoryText.setPadding(paddingPixel,0,0,0);
+            holder.categoryText.setPadding(paddingPixel,padding_top_and_bottom_Pixel,0,padding_top_and_bottom_Pixel);
             holder.categoryText.setTypeface(Typeface.DEFAULT);
             holder.categoryText.setOnClickListener(new View.OnClickListener() {
                 @Override

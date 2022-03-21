@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.CulinaryApp.views.CategoriesActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -23,14 +24,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Scanner;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class SearchbarFragment extends Fragment {
 
     public EditText search_text;
     public RecyclerView recView;
+    private String searchEntered = "";
+    private ArrayList<String> categories = new ArrayList<>();
 
     public SearchbarFragment(){}
 
@@ -65,11 +79,54 @@ public class SearchbarFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Log.d("Txt","On Text Change");
                 if(!s.toString().isEmpty()){
-                    showResults(s.toString());
+                    searchEntered = s.toString();
+                    new Thread(this::showResults).start();
                 } else {
                     ArrayList<String> empty = new ArrayList<>();
                     LoadSearch(empty, empty);
                 }
+            }
+
+            private void showResults() {
+                Log.d("Str entered",searchEntered);
+                if(!searchEntered.equals("")) {
+                    //Get list of categories
+                    //TODO this is not really efficient to do everytime, though I'm presently unsure how to store these and retrieve them later
+                    String categories_JSON = apiCall("https://www.themealdb.com/api/json/v1/1/categories.php");
+                    try{
+                    categories = JSONToArray(categories_JSON, "categories","strCategory");
+                    } catch(JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("CATEGORIES",categories.toString());
+                    ArrayList<String> categoriesThatMatch = new ArrayList<>();
+                    ArrayList<String> recipesThatMatch = new ArrayList<>();
+                    //Find matching categories
+                    for(String cat : categories){
+                        if(cat.toLowerCase(Locale.ROOT).contains(searchEntered.toLowerCase(Locale.ROOT))){
+                            categoriesThatMatch.add(cat);
+                        }
+                    }
+
+                    //Find matching recipes
+                    String recipes_URL_start = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+                    String recipes_JSON = apiCall(recipes_URL_start+searchEntered);
+                    try{
+                        recipesThatMatch = JSONToArray(recipes_JSON,"meals","strMeal");
+                    } catch(JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    ArrayList<String> finalRecipesThatMatch = recipesThatMatch;
+                    ((CategoriesActivity)getContext()).runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            LoadSearch(categoriesThatMatch, finalRecipesThatMatch);
+                        }
+                    });
+                }
+
             }
 
             @Override
@@ -80,6 +137,7 @@ public class SearchbarFragment extends Fragment {
                     showResults(s.toString());
                 }**/
             }
+
         });
         /**
         Button clipboardButton = getView().findViewById(R.id.toolbarClip);
@@ -93,58 +151,7 @@ public class SearchbarFragment extends Fragment {
 //        trendingButton.setOnClickListener(toggleTrending);**/
     }
 
-    public void showResults(String s){
-        Log.d("Str entered",s);
-        if(!s.equals("")) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            CollectionReference catRef = db.collection("CATEGORIES");
-            ArrayList<String> catsThatMatch = new ArrayList<>(); //Meow hehe
-            ArrayList<String> recsThatMatch = new ArrayList<>();
-            //Get categories that match search
-            catRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot aDocInCollection : task.getResult()) {
-                            String catName = (String) aDocInCollection.get("name");
-                            Log.d("Cat searched", catName);
-                            if (catName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT))) {
-                                Log.d("Matches", catName);
-                                catsThatMatch.add(catName);
-                                Log.d("Cat List", catsThatMatch.toString());
-                            }
 
-                            //Get Recipes that match
-                            CollectionReference recRef = catRef.document(catName).collection("RECIPES");
-                            recRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot aDocInDocument : task.getResult()) {
-                                            String recName = (String) aDocInDocument.get("name");
-                                            if (recName.toLowerCase(Locale.ROOT).contains(s.toLowerCase(Locale.ROOT)))
-                                                recsThatMatch.add(recName);
-                                        }
-                                    } else {
-                                        Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                                    }
-                                    //Log.d("Recipes that match",recsThatMatch.toString());
-                                    //Log.d("Categories that match", catsThatMatch.toString());
-
-                                    //Load into recycle viewer
-                                    LoadSearch(catsThatMatch, recsThatMatch);
-                                }
-
-                            });
-                        }
-                    } else {
-                        Log.d("EXCEPTION: ", String.valueOf(task.getException()));
-                    }
-                }
-
-            });
-        }
-    }
 
     public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList){
         ArrayList<String> listToDisplay = new ArrayList<>();
@@ -174,6 +181,45 @@ public class SearchbarFragment extends Fragment {
         SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker);
         recView.setAdapter(recAdapter);
         recView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    //TODO redundant code, move to it's own class at some point
+    private String apiCall(String URL_TO_OPEN){
+        try {
+            HttpsURLConnection connect = (HttpsURLConnection) new URL(URL_TO_OPEN).openConnection();
+            InputStream response = connect.getInputStream();
+
+            String stream = streamToString(response);
+
+            return stream;
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private String streamToString(InputStream response) {
+        String JSON = "{}";
+        try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
+            JSON = scanner.useDelimiter("\\A").next();
+        }
+
+        return JSON;
+
+    }
+
+    private ArrayList<String> JSONToArray(String JSON, String type, String names) throws JSONException {
+        JSONObject obj = new JSONObject(JSON);
+
+        ArrayList<String> list = new ArrayList<String>();
+        JSONArray array = obj.getJSONArray(type);
+        for(int i = 0 ; i < array.length() ; i++){
+            list.add(array.getJSONObject(i).getString(names));
+        }
+
+        return list;
     }
 
 }
