@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.models.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -114,8 +116,7 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     private void updateDisplay(){
-        ArrayList<String> lifestyles = new ArrayList<>();
-        //ArrayList<String> categories = new ArrayList<>();
+        //ArrayList<String> lifestyles = new ArrayList<>();
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
         dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
@@ -132,10 +133,6 @@ public class CategoriesActivity extends AppCompatActivity {
                     }
 
 
-                    //String[] categoriesArray = new String[categories.size()];
-                    //categoriesArray = categories.toArray(categoriesArray);
-
-
                     new Thread(this::setScreen).start();
 
 
@@ -144,7 +141,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
             private void setScreen(){
                 Log.d("CATEGORIES", categories.toString());
-                final String url_start = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
+                final String url_cat_start = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
+                final String url_id_lookup_start = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+                ArrayList<String> mealIDs = new ArrayList<String>();
 
                 String recipes1[] = new String[categories.size()];
                 String recipes2[] = new String[categories.size()];
@@ -158,7 +157,38 @@ public class CategoriesActivity extends AppCompatActivity {
                 //Loop through all categories and grab 4 meals out of each
                 int counter = 0;
                 for(String cat : categories){
-                    String meal_JSON = apiCall(url_start+cat);
+                    String category_JSON = apiCall(url_cat_start+cat);
+                    //TODO * THA PLAN BABY
+                    //TODO * For each category get a list of meal ids  DONE
+                    //TODO * For each mealID search up that specific meal, create recipe object with results  DONE
+                    //TODO * Map each recipe id to its object and its score
+                    //TODO *  *  * Probably need to create new object within algo class to keep track of both
+                    //TODO * Pass recipe object into /MAGIC RECIPE SCORER ALGORITHM/
+                    //TODO * Update scores -> Display 4 highest scoring recipes
+
+                    try {
+                        //Get a list of meal IDs
+                        mealIDs = JSONToArray(category_JSON,"meals","idMeal");
+
+
+                        //Search each meal -> create recipe object
+                        ArrayList<Recipe> recipes_list = new ArrayList<Recipe>();
+                        for(String id : mealIDs) {
+                            String meal_JSON = apiCall(url_id_lookup_start+id);
+                            //There should only be a single result for each as we're looking up by ID
+                            String name =  JSONToArray(meal_JSON, "meals", "strMeal").get(0);
+                            String image =  JSONToArray(meal_JSON, "meals", "strMealThumb").get(0);
+                            ArrayList<String> ingredients = getListFromMealDB(meal_JSON, "strIngredient");
+                            ArrayList<String> measurements = getListFromMealDB(meal_JSON, "strMeasure");
+                            recipes_list.add(new Recipe(name, image, id, ingredients, measurements));
+                        }
+                        Log.d("CATEGORIES","Recipes list for "+cat+" created");
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    /**
                     ArrayList<String> meals_names_array = new ArrayList<>();
                     ArrayList<String> meals_images_array = new ArrayList<>();
                     try {
@@ -192,7 +222,7 @@ public class CategoriesActivity extends AppCompatActivity {
                         recipes4[counter] = meals_names_array.get(0);
                         images4[counter] = meals_images_array.get(0);
                     }
-                    counter++;
+                    counter++;**/
                 }
                 //Load screen with data once arrays are populated
                 Log.d("PROGRESS","Attempting to load categories screen");
@@ -385,6 +415,27 @@ public class CategoriesActivity extends AppCompatActivity {
         }
 
         return list;
+    }
+
+    /**
+     * Ingredients list in MealDB goes out 20 spots everytime (strIngredient1 - strIngredient1)
+     * If there is no value it'll either be empty or list as "null"
+     * We want to filter those out and return the array
+     * Start is for start of string value to look for (strIngredient or strMeasure)
+     **/
+    private ArrayList<String> getListFromMealDB(String meals_JSON, String start){
+        ArrayList<String> listOfElems = new ArrayList<String>();
+        for(int i = 1; i <= 20; i++){
+            try {
+                String elem = JSONToArray(meals_JSON, "meals", start+String.valueOf(i)).get(0);
+                if(!elem.isEmpty() && !elem.equalsIgnoreCase("null")){
+                    listOfElems.add(elem);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOfElems;
     }
 
 

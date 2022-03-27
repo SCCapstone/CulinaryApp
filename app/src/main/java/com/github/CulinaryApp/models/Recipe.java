@@ -4,12 +4,15 @@ import com.google.firebase.firestore.DocumentReference;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Recipe {
     private String name;
     private String image;
     private String id;
+    private ArrayList<String> ingredients;
+    private ArrayList<String> measurements;
 
     public Recipe() {
 
@@ -20,6 +23,15 @@ public class Recipe {
         this.image = image;
         this.id = id;
 
+    }
+
+    //Overloaded constructor for ingredients
+    public Recipe(String name, String image, String id, ArrayList<String> ingredients, ArrayList<String> measurements) {
+        this.name = name;
+        this.image = image;
+        this.id = id;
+        this.ingredients = ingredients;
+        this.measurements = measurements;
     }
 
     /**
@@ -52,5 +64,7 @@ public class Recipe {
     }
     public String getImage() { return this.image; }
     public String getId() { return this.id; }
+    public ArrayList<String> getIngredients() { return this.ingredients; }
+    public ArrayList<String> getMeasurements() { return this.measurements; }
 
 }
