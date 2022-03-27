@@ -1,5 +1,6 @@
 package com.github.CulinaryApp.models;
 
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.google.firebase.firestore.DocumentReference;
 
 import org.json.JSONObject;
@@ -66,5 +67,10 @@ public class Recipe {
     public String getId() { return this.id; }
     public ArrayList<String> getIngredients() { return this.ingredients; }
     public ArrayList<String> getMeasurements() { return this.measurements; }
+
+    @Override
+    public int hashCode(){
+        return this.id.hashCode();
+    }
 
 }
