@@ -18,18 +18,12 @@ import com.github.CulinaryApp.models.Recipe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.Buffer;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -58,52 +52,61 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-//        Recipe placeHolderRecipe = new Recipe("test2", "111", "022222");
-//        Recipe placeHolderRecipe = new Recipe("test1", "000", "111111");
-//        this.currentRecipe = placeHolderRecipe; //todo using this as placeholder, this should actually use intents or other means to either:
-                                                                // get the id of the recipe user clicked on and build a recipe object
-                                                                // OR
-                                                                // get a full recipe object thru an Intent. This may require serialization, etc. Somewhat harder, probably saves minimal time
-
         this.currentRecipe = getCurrentRecipeFromIntent();
-
         new Thread(this::updateDisplayedRecipe).start();
     }
 
-    private void updateDisplayedRecipe(){
-        TextView recipeName = findViewById(R.id.headingRecipeName);
-        recipeName.setText(this.currentRecipe.getName());
+    private Object getItemFromJSON(JSONObject recipe, String key) throws JSONException{
+        final String KEY_OBJECT = "meals";
 
-        String mealJSON = apiCall(this.currentRecipe.getId());
+        return recipe.getJSONArray(KEY_OBJECT).getJSONObject(0).get(key);
 
-        JSONObject parsedRecipe = null;
+    }
+
+    private String[] getRecipeContents(){
+        final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
+        final int NUM_MAX_INGREDIENTS = 20;
+
+        String mealJSONRaw = apiCall(this.currentRecipe.getId());
+
         String instructions = null;
         StringBuilder ingreds = new StringBuilder();
 
-        try { //todo declutter this
-            parsedRecipe = new JSONObject(mealJSON);
-            instructions = parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strInstructions").toString();
-            for(int i=1;i<=20;i++)
-                ingreds.append(parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strMeasure" + i)).append(" ").append(parsedRecipe.getJSONArray("meals").getJSONObject(0).get("strIngredient" + i)).append("\n");
+        try {
+            JSONObject parsedRecipe = new JSONObject(mealJSONRaw);
+
+            instructions = getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
+
+            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++)
+                ingreds.append(getItemFromJSON(parsedRecipe, KEY_AMOUNTS+i)).append(" ")
+                        .append(getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i)).append("\n");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        TextView instructionsOutput = findViewById(R.id.instructions);
-        String finalInstructions = instructions;
-        runOnUiThread(() -> instructionsOutput.setText(finalInstructions));
+        return new String[] {instructions, ingreds.toString()};
+    }
 
-        String ingredients = ingreds.toString();
-        TextView ingredsOutput = findViewById(R.id.ingredients);
-        runOnUiThread(() -> ingredsOutput.setText(ingredients));
+    private void setRecipeContentTexts(String[] texts, TextView... views){
+        for(int i=0;i<views.length;i++) {
+            int index = i;
+            runOnUiThread(() -> views[index].setText(texts[index]));
+        }
+    }
 
+    private void updateDisplayedRecipe(){
+        //update recipe name
+        TextView recipeName = findViewById(R.id.headingRecipeName);
+        recipeName.setText(this.currentRecipe.getName());
+
+        setRecipeContentTexts(getRecipeContents(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
 
         updateLikeButtonColor();
     }
 
     private String apiCall(String id){
-        //https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
+        //example https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
         final String URL_FIND_BY_ID = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
         try {
@@ -120,12 +123,12 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
     }
 
     private String streamToString(InputStream response) {
-        String JSON = "{}";
+        String JsonResponse = "{}";
         try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
-            JSON = scanner.useDelimiter("\\A").next();
+            JsonResponse = scanner.useDelimiter("\\A").next();
         }
 
-        return JSON;
+        return JsonResponse;
     }
 
     private Recipe getCurrentRecipeFromIntent(){
