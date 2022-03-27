@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 import com.github.CulinaryApp.views.RecipesActivity;
+import com.github.CulinaryApp.views.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     Context context;
     ArrayList<String> categories;
     ArrayList<Boolean> recipes; //True is recipe, false if category
+    ArrayList<String> ids;
+
     class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView categoryText;
         public SearchViewHolder(@NonNull View itemView) {
@@ -32,10 +35,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     }
 
 
-    public SearchAdapter(Context context, ArrayList<String> categories, ArrayList<Boolean> recipes){
+    public SearchAdapter(Context context, ArrayList<String> categories, ArrayList<Boolean> recipes, ArrayList<String> ids){
         this.context = context;
         this.categories = categories;
         this.recipes = recipes;
+        this.ids = ids;
     }
     @NonNull
     @Override
@@ -65,22 +69,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         } else {
             holder.categoryText.setPadding(paddingPixel,padding_top_and_bottom_Pixel,0,padding_top_and_bottom_Pixel);
             holder.categoryText.setTypeface(Typeface.DEFAULT);
-            holder.categoryText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(recipes.get(holder.getAbsoluteAdapterPosition())==false){//Category was clicked
-                        Intent newRecipesActivity = new Intent(SearchAdapter.this.context, RecipesActivity.class);
-                        newRecipesActivity.putExtra("Category", text);
-                        newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(newRecipesActivity);
-                    } else { //Recipe was clicked
-                        //TODO If possible also send category of recipe
-                        Intent newRecipesActivity = new Intent(SearchAdapter.this.context, RecipeInstructionsActivity.class);
-                        //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                        newRecipesActivity.putExtra("Recipe", text);
-                        newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(newRecipesActivity);
-                    }
+            holder.categoryText.setOnClickListener(v -> {
+                if(!recipes.get(holder.getAbsoluteAdapterPosition())){
+                    //Category was clicked
+                    Intent newRecipesActivity = new Intent(SearchAdapter.this.context, RecipesActivity.class);
+                    newRecipesActivity.putExtra("Category", text);
+                    newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(newRecipesActivity);
+                } else {
+                    //Recipe was clicked
+                    //TODO If possible also send category of recipe
+                    Intent newRecipesActivity = new Intent(SearchAdapter.this.context, RecipeInstructionsActivity.class);
+                    //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, ids.get(position));
+                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, text);
+                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, "");
+
+
+                    newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(newRecipesActivity);
                 }
             });
         }

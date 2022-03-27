@@ -83,7 +83,7 @@ public class SearchbarFragment extends Fragment {
                     new Thread(this::showResults).start();
                 } else {
                     ArrayList<String> empty = new ArrayList<>();
-                    LoadSearch(empty, empty);
+                    LoadSearch(empty, empty, empty);
                 }
             }
 
@@ -101,6 +101,7 @@ public class SearchbarFragment extends Fragment {
                     Log.d("CATEGORIES",categories.toString());
                     ArrayList<String> categoriesThatMatch = new ArrayList<>();
                     ArrayList<String> recipesThatMatch = new ArrayList<>();
+                    ArrayList<String> idsThatMatch = new ArrayList<>();
                     //Find matching categories
                     for(String cat : categories){
                         if(cat.toLowerCase(Locale.ROOT).contains(searchEntered.toLowerCase(Locale.ROOT))){
@@ -113,18 +114,15 @@ public class SearchbarFragment extends Fragment {
                     String recipes_JSON = apiCall(recipes_URL_start+searchEntered);
                     try{
                         recipesThatMatch = JSONToArray(recipes_JSON,"meals","strMeal");
+                        idsThatMatch = JSONToArray(recipes_JSON,"meals","idMeal");
+
                     } catch(JSONException e) {
                         e.printStackTrace();
                     }
 
                     ArrayList<String> finalRecipesThatMatch = recipesThatMatch;
-                    ((CategoriesActivity)getContext()).runOnUiThread(new Runnable()
-                    {
-                        public void run()
-                        {
-                            LoadSearch(categoriesThatMatch, finalRecipesThatMatch);
-                        }
-                    });
+                    ArrayList<String> finalIdsThatMatch = idsThatMatch;
+                    ((CategoriesActivity)getContext()).runOnUiThread(() -> LoadSearch(categoriesThatMatch, finalRecipesThatMatch, finalIdsThatMatch));
                 }
 
             }
@@ -153,7 +151,7 @@ public class SearchbarFragment extends Fragment {
 
 
 
-    public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList){
+    public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList, ArrayList<String> idList){
         ArrayList<String> listToDisplay = new ArrayList<>();
         ArrayList<Boolean> recipeTracker = new ArrayList<>();
         if(!catList.isEmpty()) {
@@ -178,7 +176,7 @@ public class SearchbarFragment extends Fragment {
 
         RecyclerView recView = getView().findViewById(R.id.recyclerViewSearchbar);
         recView.setHasFixedSize(true);
-        SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker);
+        SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker, idList);
         recView.setAdapter(recAdapter);
         recView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

@@ -28,10 +28,10 @@ import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 
 public class RecipeInstructionsActivity extends AppCompatActivity {
-
     private static final String KEY_LIKES = "likes";
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
     private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
+    public static String URL_FIND_BY_ID = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
     private Recipe currentRecipe;
     private boolean recipeLiked;
@@ -56,18 +56,18 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         new Thread(this::updateDisplayedRecipe).start();
     }
 
-    private Object getItemFromJSON(JSONObject recipe, String key) throws JSONException{
+    public static Object getItemFromJSON(JSONObject recipe, String key) throws JSONException{
         final String KEY_OBJECT = "meals";
 
         return recipe.getJSONArray(KEY_OBJECT).getJSONObject(0).get(key);
 
     }
 
-    private String[] getRecipeContents(){
+    private String[] getRecipeContentsById(){
         final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
         final int NUM_MAX_INGREDIENTS = 20;
 
-        String mealJSONRaw = apiCall(this.currentRecipe.getId());
+        String mealJSONRaw = apiCall(this.currentRecipe.getId(), URL_FIND_BY_ID);
 
         String instructions = null;
         StringBuilder ingreds = new StringBuilder();
@@ -100,17 +100,16 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         TextView recipeName = findViewById(R.id.headingRecipeName);
         recipeName.setText(this.currentRecipe.getName());
 
-        setRecipeContentTexts(getRecipeContents(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
+        setRecipeContentTexts(getRecipeContentsById(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
 
         updateLikeButtonColor();
     }
 
-    private String apiCall(String id){
+    public static String apiCall(String value, String url){
         //example https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
-        final String URL_FIND_BY_ID = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
         try {
-            HttpsURLConnection connect = (HttpsURLConnection) new URL(URL_FIND_BY_ID+id).openConnection();
+            HttpsURLConnection connect = (HttpsURLConnection) new URL(url+value).openConnection();
             InputStream response = connect.getInputStream();
 
             return streamToString(response);
@@ -122,7 +121,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return "{}";
     }
 
-    private String streamToString(InputStream response) {
+    private static String streamToString(InputStream response) {
         String JsonResponse = "{}";
         try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
             JsonResponse = scanner.useDelimiter("\\A").next();

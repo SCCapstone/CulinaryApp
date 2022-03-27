@@ -1,7 +1,9 @@
 package com.github.CulinaryApp.models;
 
+import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 import com.google.firebase.firestore.DocumentReference;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -11,11 +13,12 @@ public class Recipe {
     private String image;
     private String id;
 
+
     public Recipe() {
 
     }
 
-    public Recipe(String name, String image, String id) {
+        public Recipe(String name, String image, String id) {
         this.name = name;
         this.image = image;
         this.id = id;
