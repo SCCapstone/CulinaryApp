@@ -1,5 +1,17 @@
 package com.github.CulinaryApp.views;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import javax.net.ssl.HttpsURLConnection;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+
 import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
 
@@ -25,6 +37,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import android.content.Intent;
 import android.view.View;
 import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -56,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
         EditText password = (findViewById(R.id.password));
         Button loginButton = (findViewById(login_button));
         Button registerButton = (findViewById(btn_signup));
+
+
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 }
 
 
