@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 //import com.google.firebase.auth.FirebaseUser;
 import android.content.Intent;
 import android.view.View;
@@ -71,7 +72,14 @@ public class LoginActivity extends AppCompatActivity {
         Intent intentToStartRegistrationPage = new Intent(this, RegistrationActivity.class);
         startActivity(intentToStartRegistrationPage);
     }
-
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            navigateToCategoriesPage();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,11 +128,6 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 //progressBar.setVisibility(View.GONE);
 
-                                //This doesnt quite work
-                                if(isUserLoggedIn() == true){
-                                    task.isSuccessful();
-                                }
-
                                 if (!task.isSuccessful()) {
 
                                     if (userpassword.length() < 6) {
@@ -149,42 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /*
-    Everything from here down is for keeping the user signed in.
-     */
-    private boolean isUserLoggedIn(){
-        String username = getUsername(this);
-        String password = getPassword(this);
-        if(username!= null && username != "username" && password!= null && password!="password"){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    public static String getPassword(Context context){
-        return getSharedPrefs(context).getString(PASSWORD, VALUE_DEFAULT_NONE_FOUND);
-    }
-    public static String getUsername(Context context){
-        return getSharedPrefs(context).getString(USERNAME, VALUE_DEFAULT_NONE_FOUND);
-    }
-    private static SharedPreferences getSharedPrefs(Context context){
-        SharedPreferences sharedPreferences = null;
-        try{
-            MasterKey key = new MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build();
-            sharedPreferences = EncryptedSharedPreferences.create(
-                    context,
-                    FILENAME_ENCRYPTED_SHARED_PREFS,
-                    key,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            );
-        }
-        catch (GeneralSecurityException | IOException e) {
-            e.printStackTrace();
-        }
-        return sharedPreferences;
-    }
+
 
 }
 
