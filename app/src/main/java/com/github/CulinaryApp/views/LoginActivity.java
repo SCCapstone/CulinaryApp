@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import javax.net.ssl.HttpsURLConnection;
 
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.views.RegistrationActivity;
@@ -49,6 +54,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
+    private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
 
     private FirebaseAuth mAuth;
     private static final String TAG = "Login Activity";
@@ -111,6 +120,11 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 //progressBar.setVisibility(View.GONE);
 
+                                //This doesnt quite work
+                                if(isUserLoggedIn() == true){
+                                    task.isSuccessful();
+                                }
+
                                 if (!task.isSuccessful()) {
 
                                     if (userpassword.length() < 6) {
@@ -133,6 +147,43 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    /*
+    Everything from here down is for keeping the user signed in.
+     */
+    private boolean isUserLoggedIn(){
+        String username = getUsername(this);
+        String password = getPassword(this);
+        if(username!= null && username != "username" && password!= null && password!="password"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public static String getPassword(Context context){
+        return getSharedPrefs(context).getString(PASSWORD, VALUE_DEFAULT_NONE_FOUND);
+    }
+    public static String getUsername(Context context){
+        return getSharedPrefs(context).getString(USERNAME, VALUE_DEFAULT_NONE_FOUND);
+    }
+    private static SharedPreferences getSharedPrefs(Context context){
+        SharedPreferences sharedPreferences = null;
+        try{
+            MasterKey key = new MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS).setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build();
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    context,
+                    FILENAME_ENCRYPTED_SHARED_PREFS,
+                    key,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        }
+        catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+        return sharedPreferences;
     }
 
 }
