@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.RecipeRecommendationEngine;
 import com.github.CulinaryApp.models.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -47,7 +48,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -158,8 +165,9 @@ public class CategoriesActivity extends AppCompatActivity {
                     //TODO * For each category get a list of meal ids  DONE
                     //TODO * For each mealID search up that specific meal, create recipe object with results  DONE
                     //TODO * Map each recipe id to its object and its score DONE
-                    //TODO * Pass recipe object into /MAGIC RECIPE SCORER ALGORITHM/
-                    //TODO * Update scores -> Display 4 highest scoring recipes
+                    //TODO * Pass recipe object into /MAGIC RECIPE SCORER ALGORITHM/ DONE
+                    //TODO * Update scores -> Display 4 highest scoring recipes DONECa
+                    //TODO * Actually design magic scoring alogirthm
 
                     try {
                         //Get a list of meal IDs
@@ -178,6 +186,64 @@ public class CategoriesActivity extends AppCompatActivity {
                             recipes_list.add(new Recipe(name, image, id, ingredients, measurements));
                         }
                         Log.d("CATEGORIES", "Recipes list for " + cat + " created");
+
+                        //Pass recipes into scoring algorithm
+                        //Values are sorted largest score first already when returned
+                        Map<Recipe, Integer> recipesMap = new HashMap();
+                        recipesMap = RecipeRecommendationEngine.scoreRecipes(recipes_list, lifestyles[0]);
+
+                        int iterator = 0;
+                        loop: for(Map.Entry<Recipe, Integer> entry : recipesMap.entrySet()){
+                            switch(iterator){
+                                case 0:
+                                    recipes1[counter] = entry.getKey().getName();
+                                    images1[counter] = entry.getKey().getImage();
+                                    break;
+                                case 1:
+                                    recipes2[counter] = entry.getKey().getName();
+                                    images2[counter] = entry.getKey().getImage();
+                                    break;
+                                case 2:
+                                    recipes3[counter] = entry.getKey().getName();
+                                    images3[counter] = entry.getKey().getImage();
+                                    break;
+                                case 3:
+                                    recipes4[counter] = entry.getKey().getName();
+                                    images4[counter] = entry.getKey().getImage();
+                                    break;
+                                case 4:
+                                    break loop;
+                            }
+                            iterator++;
+                        }
+                        exit_loop: ;
+                        //Check if there was a total of 4 recipes in category
+                        //If not, repeat 1st recipe as many times as necessary
+                        switch(iterator){
+                            case 1:
+                                Map.Entry<Recipe,Integer> entry = recipesMap.entrySet().iterator().next();
+                                recipes2[counter] = entry.getKey().getName();
+                                recipes3[counter] = entry.getKey().getName();
+                                recipes4[counter] = entry.getKey().getName();
+                                images2[counter] = entry.getKey().getImage();
+                                images3[counter] = entry.getKey().getImage();
+                                images4[counter] = entry.getKey().getImage();
+                                break;
+                            case 2: //Java doesn't handle the declaration of entry in multiple cases well, hence the renaming
+                                Map.Entry<Recipe,Integer> entry2 = recipesMap.entrySet().iterator().next();
+                                recipes3[counter] = entry2.getKey().getName();
+                                recipes4[counter] = entry2.getKey().getName();
+                                images3[counter] = entry2.getKey().getImage();
+                                images4[counter] = entry2.getKey().getImage();
+                                break;
+                            case 3:
+                                Map.Entry<Recipe,Integer> entry3 = recipesMap.entrySet().iterator().next();
+                                recipes4[counter] = entry3.getKey().getName();
+                                images4[counter] = entry3.getKey().getImage();
+                                break;
+                        }
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -216,14 +282,15 @@ public class CategoriesActivity extends AppCompatActivity {
                      } else {
                      recipes4[counter] = meals_names_array.get(0);
                      images4[counter] = meals_images_array.get(0);
-                     }
-                     counter++;**/
+                     }**/
+
+                     counter++;
                 }
                 //Load screen with data once arrays are populated
                 Log.d("PROGRESS", "Attempting to load categories screen");
                 String[] categoriesArray = new String[categories.size()];
                 categoriesArray = categories.toArray(categoriesArray);
-                String[] finalCategoriesArray = categoriesArray;
+                String[] finalCategoriesArray = categories.toArray(categoriesArray);
                 runOnUiThread(() -> loadScreen(finalCategoriesArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4));
 
             }
@@ -424,6 +491,9 @@ public class CategoriesActivity extends AppCompatActivity {
                 String elem = JSONToArray(meals_JSON, "meals", start+String.valueOf(i)).get(0);
                 if(!elem.isEmpty() && !elem.equalsIgnoreCase("null")){
                     listOfElems.add(elem);
+                } else if (start.equals("strMeasure")){
+                    listOfElems.add("None"); //Some ingredients list are shorter than recipes list
+                    // ^ Not a great workaround but it works for now I guess
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -431,6 +501,7 @@ public class CategoriesActivity extends AppCompatActivity {
         }
         return listOfElems;
     }
+
     /**
     private ArrayList<String> getLifeStyles(){
         final ArrayList<String>[] lifestyles = new ArrayList[]{new ArrayList<String>()};
