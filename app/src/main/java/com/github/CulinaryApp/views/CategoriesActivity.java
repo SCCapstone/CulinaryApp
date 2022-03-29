@@ -248,42 +248,6 @@ public class CategoriesActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
-                    /**
-                     ArrayList<String> meals_names_array = new ArrayList<>();
-                     ArrayList<String> meals_images_array = new ArrayList<>();
-                     try {
-                     meals_names_array = JSONToArray(meal_JSON, "meals", "strMeal");
-                     meals_images_array = JSONToArray(meal_JSON, "meals", "strMealThumb");
-                     }catch (JSONException e) {
-                     e.printStackTrace();
-                     }
-                     //Add first four to the list
-                     recipes1[counter] = meals_names_array.get(0);
-                     images1[counter] = meals_images_array.get(0);
-                     //Make sure at least 4 recipes exist in category, if not, just load the first one again for now
-                     if(meals_names_array.size() >= 2 && meals_images_array.size() >= 2) {
-                     recipes2[counter] = meals_names_array.get(1);
-                     images2[counter] = meals_images_array.get(1);
-                     } else {
-                     recipes2[counter] = meals_names_array.get(0);
-                     images2[counter] = meals_images_array.get(0);
-                     }
-                     if(meals_names_array.size() >= 3 && meals_images_array.size() >= 3) {
-                     recipes3[counter] = meals_names_array.get(2);
-                     images3[counter] = meals_images_array.get(2);
-                     } else {
-                     recipes3[counter] = meals_names_array.get(0);
-                     images3[counter] = meals_images_array.get(0);
-                     }
-                     if(meals_names_array.size() >= 4 && meals_images_array.size() >= 4) {
-                     recipes4[counter] = meals_names_array.get(3);
-                     images4[counter] = meals_images_array.get(3);
-                     } else {
-                     recipes4[counter] = meals_names_array.get(0);
-                     images4[counter] = meals_images_array.get(0);
-                     }**/
-
                      counter++;
                 }
                 //Load screen with data once arrays are populated
