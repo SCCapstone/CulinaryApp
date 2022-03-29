@@ -15,7 +15,7 @@ import com.github.CulinaryApp.views.CategoriesActivity;
 import com.github.CulinaryApp.views.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class NavbarFragment extends Fragment {
+public class NavbarFragment extends Fragment{
 
   /*  public NavbarFragment() {
         //todo delete if unnecessary
@@ -41,17 +41,28 @@ public class NavbarFragment extends Fragment {
         Button homeButtom = getView().findViewById(R.id.toolbarHome);
         Button profileButton = getView().findViewById(R.id.toolbarProfile);
 //        Button trendingButton = getView().findViewById(R.id.toolbarTrending);
-        Button logoutButton  =getView().findViewById(R.id.toolbarlogOut);
+        Button logoutButton  = getView().findViewById(R.id.toolbarlogOut);
 
         profileButton.setOnClickListener(new NavListener(ProfileActivity.class));
         favsButton.setOnClickListener(new NavListener(FavoritesActivity.class));
         homeButtom.setOnClickListener(new NavListener(CategoriesActivity.class));
 //        trendingButton.setOnClickListener(toggleTrending);
-        logoutButton.setOnClickListener(v->{
-            FirebaseAuth.getInstance().signOut();
-            new NavListener(LoginActivity.class);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                goToLogin();
+            }
+
+            private void goToLogin() {
+                Intent switchToLogin = new Intent(getContext(), LoginActivity.class);
+                startActivity(switchToLogin);
+            }
         });
+
+
     }
+
 
 
     public class NavListener <T extends Activity> implements View.OnClickListener {
