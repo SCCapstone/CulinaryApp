@@ -168,9 +168,9 @@ public class ProfileActivity extends AppCompatActivity {
         getSharedPrefs(this).edit().putString(key, value).apply();
     }
 
-    View.OnClickListener displayNameEditor = view -> textFromDialog("Edit Display Name", "New Display Name Here", KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
+    View.OnClickListener displayNameEditor = view -> getStringFromDialog("Edit Display Name", "New Display Name Here", KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
 
-    View.OnClickListener bioEditor = view -> textFromDialog("Edit Bio", "Your Bio Here", KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
+    View.OnClickListener bioEditor = view -> getStringFromDialog("Edit Bio", "Your Bio Here", KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
 
     View.OnClickListener profImgChanger = view -> {
         changingProfPic = true;
@@ -221,7 +221,7 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }
 
-    private void textFromDialog(String title, String hint, String valueBeingSaved, ValueSetter setter){
+    private void getStringFromDialog(String title, String hint, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
 
@@ -242,12 +242,6 @@ public class ProfileActivity extends AppCompatActivity {
         textInputDialog.show();
     }
 
-    public static int getPixelsFromDp(Context context, int densityPoints){
-        final float DP_CONSTANT = 0.5f;
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int)(densityPoints*scale + DP_CONSTANT);
-    }
-
     private void showGenericDialog(String title, View toAdd){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
@@ -255,10 +249,8 @@ public class ProfileActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        int dpPaddingSides = 32;
-        float scale = getResources().getDisplayMetrics().density;
-        int pixelPaddingSides = (int) (dpPaddingSides*scale + 0.5f);
-        layout.setPadding(pixelPaddingSides, pixelPaddingSides, pixelPaddingSides, pixelPaddingSides);
+        int padding = getPixelsFromDp(this,32);
+        layout.setPadding(padding, padding, padding, padding);
         layout.addView(toAdd);
 
         textInputDialog.setView(layout);
@@ -272,6 +264,12 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         textInputDialog.show();
+    }
+
+    public static int getPixelsFromDp(Context context, int densityPoints){
+        final float DP_CONSTANT = 0.5f;
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
     public void loadPfp(StorageReference pfpRef){
@@ -307,7 +305,7 @@ public class ProfileActivity extends AppCompatActivity {
         return uri;
     }
 
-   /* @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -331,9 +329,9 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -387,5 +385,5 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 }

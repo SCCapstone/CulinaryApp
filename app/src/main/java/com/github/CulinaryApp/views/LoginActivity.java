@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import javax.net.ssl.HttpsURLConnection;
 
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.views.RegistrationActivity;
@@ -50,6 +55,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
+    private static final String VALUE_DEFAULT_NONE_FOUND = "{}";
 
     private FirebaseAuth mAuth;
     private static final String TAG = "Login Activity";
@@ -63,7 +72,14 @@ public class LoginActivity extends AppCompatActivity {
         Intent intentToStartRegistrationPage = new Intent(this, RegistrationActivity.class);
         startActivity(intentToStartRegistrationPage);
     }
-
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            navigateToCategoriesPage();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +150,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }
 

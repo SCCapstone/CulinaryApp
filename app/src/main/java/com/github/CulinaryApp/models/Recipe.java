@@ -1,6 +1,5 @@
 package com.github.CulinaryApp.models;
 
-import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.google.firebase.firestore.DocumentReference;
 
 import org.json.JSONObject;
