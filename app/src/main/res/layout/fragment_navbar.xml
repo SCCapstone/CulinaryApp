@@ -57,6 +57,12 @@
                 android:drawableTop="@drawable/profile"
                 android:text="Profile" />
 
+            <Button
+                android:id="@+id/toolbarlogOut"
+                style="@style/NavbarButton"
+                android:drawableTop="@drawable/logouticon"
+                android:text="Log Out" />
+
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
