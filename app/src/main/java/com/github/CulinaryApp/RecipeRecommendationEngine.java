@@ -53,34 +53,83 @@ public class RecipeRecommendationEngine {
         return recipeMap;
     }
 
-    //TODO
+
     private int getScoreChange(ArrayList<String> ingredients, ArrayList<String> measurements, ArrayList<String> lifestyles){
 
+        int currScoreChange = 0;
+
         for(String lifestyle : lifestyles){
+            for(int i = 0; i < ingredients.size(); i++) {
 
-            switch (lifestyle){
-                case "Athletic":
-                    break;
+                switch (lifestyle) {
+                    case "Athletic":
+                        currScoreChange += getAthleticScore(ingredients.get(i), measurements.get(i));
+                        break;
 
-                case "Vegan":
-                    break;
+                    case "Vegan":
+                        currScoreChange += getVeganScore(ingredients.get(i), measurements.get(i));
+                        break;
 
-                case "Vegetarian":
-                    break;
+                    case "Vegetarian":
+                        currScoreChange += getVegetarianScore(ingredients.get(i), measurements.get(i));
+                        break;
 
-                case "Mediterranean":
-                    break;
+                    case "Mediterranean":
+                        currScoreChange += getMediterraneanScore(ingredients.get(i), measurements.get(i));
+                        break;
 
-                case "Ketogenic":
-                    break;
+                    case "Ketogenic":
+                        currScoreChange += getKetogenicScore(ingredients.get(i), measurements.get(i));
+                        break;
 
-                case "Flexitarian":
-                    break;
+                    case "Flexitarian":
+                        currScoreChange += getFlexitarianScore(ingredients.get(i), measurements.get(i));
+                        break;
+                }
+
             }
 
         }
 
+        return currScoreChange;
+    }
+
+    //TODO
+    private int getAthleticScore(String ingredient, String amount){
+        return 0;
+    }
+    //TODO
+    private int getVeganScore(String ingredient, String amount){
+        return 0;
+    }
+    //TODO
+    private int getVegetarianScore(String ingredient, String amount){
+        return 0;
+    }
+    //TODO
+    private int getMediterraneanScore(String ingredient, String amount){
+        return 0;
+    }
+    //TODO
+    private int getKetogenicScore(String ingredient, String amount){
+        return 0;
+    }
+    //TODO
+    private int getFlexitarianScore(String ingredient, String amount){
         return 0;
     }
 
+
+    //TODO Convert measurements into standard unit
+
+    //TODO pass standard unit into non-linear function, altered to reflect differences in desired amount
+    /**
+     * K affects how fast exponent grows in graph
+     * smaller k values represent smaller slops
+     * Amt is the amount of an ingredient represented in a standard unit
+     * K should be changed based on desired standard amount of that ingredient
+     */
+    private double Sigmoid(int amt, float k){
+        return 2*((1/(1+Math.exp(-k*amt)))-(1/2));
+    }
 }

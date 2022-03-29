@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 //import com.google.firebase.auth.FirebaseUser;
 import android.content.Intent;
 import android.view.View;
@@ -76,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText password = (findViewById(R.id.password));
         Button loginButton = (findViewById(login_button));
         Button registerButton = (findViewById(btn_signup));
-
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {
