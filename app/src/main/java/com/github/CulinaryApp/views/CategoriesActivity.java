@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.RecyclerViewAdapterCategories;
 import com.github.CulinaryApp.LifestyleToCategories;
+import com.github.CulinaryApp.RecipeRecommendationEngine;
+import com.github.CulinaryApp.models.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,11 +43,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -114,37 +123,30 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     private void updateDisplay(){
-        ArrayList<String> lifestyles = new ArrayList<>();
-        //ArrayList<String> categories = new ArrayList<>();
+        final ArrayList<String>[] lifestyles = new ArrayList[]{new ArrayList<>()};
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
         dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("Data: ",snapshot.getKey()+", "+snapshot.getValue());
-                if(snapshot.getKey().equals("Lifestyle")){
-                    ArrayList<String> lifestyles = new ArrayList<String>((ArrayList)snapshot.getValue());
-                    categories = null;
+                Log.d("Data: ", snapshot.getKey() + ", " + snapshot.getValue());
+                if (snapshot.getKey().equals("Lifestyle")) {
+                    lifestyles[0] = (ArrayList) snapshot.getValue();
                     try {
-                        categories = getCategories(lifestyles);
+                        categories = getCategories(lifestyles[0]);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-
-                    //String[] categoriesArray = new String[categories.size()];
-                    //categoriesArray = categories.toArray(categoriesArray);
-
-
                     new Thread(this::setScreen).start();
-
 
                 }
             }
 
-            private void setScreen(){
+            private void setScreen () {
                 Log.d("CATEGORIES", categories.toString());
-                final String url_start = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
+                final String url_cat_start = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
+                final String url_id_lookup_start = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+                ArrayList<String> mealIDs = new ArrayList<String>();
 
                 String recipes1[] = new String[categories.size()];
                 String recipes2[] = new String[categories.size()];
@@ -157,52 +159,105 @@ public class CategoriesActivity extends AppCompatActivity {
 
                 //Loop through all categories and grab 4 meals out of each
                 int counter = 0;
-                for(String cat : categories){
-                    String meal_JSON = apiCall(url_start+cat);
-                    ArrayList<String> meals_names_array = new ArrayList<>();
-                    ArrayList<String> meals_images_array = new ArrayList<>();
+                for (String cat : categories) {
+                    String category_JSON = apiCall(url_cat_start + cat);
+                    //TODO * THA PLAN BABY
+                    //TODO * For each category get a list of meal ids  DONE
+                    //TODO * For each mealID search up that specific meal, create recipe object with results  DONE
+                    //TODO * Map each recipe id to its object and its score DONE
+                    //TODO * Pass recipe object into /MAGIC RECIPE SCORER ALGORITHM/ DONE
+                    //TODO * Update scores -> Display 4 highest scoring recipes DONECa
+                    //TODO * Actually design magic scoring alogirthm
+
                     try {
-                        meals_names_array = JSONToArray(meal_JSON, "meals", "strMeal");
-                        meals_images_array = JSONToArray(meal_JSON, "meals", "strMealThumb");
-                    }catch (JSONException e) {
+                        //Get a list of meal IDs
+                        mealIDs = JSONToArray(category_JSON, "meals", "idMeal");
+
+
+                        //Search each meal -> create recipe object
+                        ArrayList<Recipe> recipes_list = new ArrayList<Recipe>();
+                        for (String id : mealIDs) {
+                            String meal_JSON = apiCall(url_id_lookup_start + id);
+                            //There should only be a single result for each as we're looking up by ID
+                            String name = JSONToArray(meal_JSON, "meals", "strMeal").get(0);
+                            String image = JSONToArray(meal_JSON, "meals", "strMealThumb").get(0);
+                            ArrayList<String> ingredients = getListFromMealDB(meal_JSON, "strIngredient");
+                            ArrayList<String> measurements = getListFromMealDB(meal_JSON, "strMeasure");
+                            recipes_list.add(new Recipe(name, image, id, ingredients, measurements));
+                        }
+                        Log.d("CATEGORIES", "Recipes list for " + cat + " created");
+
+                        //Pass recipes into scoring algorithm
+                        //Values are sorted largest score first already when returned
+                        Map<Recipe, Integer> recipesMap = new HashMap();
+                        recipesMap = RecipeRecommendationEngine.scoreRecipes(recipes_list, lifestyles[0]);
+
+                        int iterator = 0;
+                        loop: for(Map.Entry<Recipe, Integer> entry : recipesMap.entrySet()){
+                            switch(iterator){
+                                case 0:
+                                    recipes1[counter] = entry.getKey().getName();
+                                    images1[counter] = entry.getKey().getImage();
+                                    break;
+                                case 1:
+                                    recipes2[counter] = entry.getKey().getName();
+                                    images2[counter] = entry.getKey().getImage();
+                                    break;
+                                case 2:
+                                    recipes3[counter] = entry.getKey().getName();
+                                    images3[counter] = entry.getKey().getImage();
+                                    break;
+                                case 3:
+                                    recipes4[counter] = entry.getKey().getName();
+                                    images4[counter] = entry.getKey().getImage();
+                                    break;
+                                case 4:
+                                    break loop;
+                            }
+                            iterator++;
+                        }
+                        exit_loop: ;
+                        //Check if there was a total of 4 recipes in category
+                        //If not, repeat 1st recipe as many times as necessary
+                        switch(iterator){
+                            case 1:
+                                Map.Entry<Recipe,Integer> entry = recipesMap.entrySet().iterator().next();
+                                recipes2[counter] = entry.getKey().getName();
+                                recipes3[counter] = entry.getKey().getName();
+                                recipes4[counter] = entry.getKey().getName();
+                                images2[counter] = entry.getKey().getImage();
+                                images3[counter] = entry.getKey().getImage();
+                                images4[counter] = entry.getKey().getImage();
+                                break;
+                            case 2: //Java doesn't handle the declaration of entry in multiple cases well, hence the renaming
+                                Map.Entry<Recipe,Integer> entry2 = recipesMap.entrySet().iterator().next();
+                                recipes3[counter] = entry2.getKey().getName();
+                                recipes4[counter] = entry2.getKey().getName();
+                                images3[counter] = entry2.getKey().getImage();
+                                images4[counter] = entry2.getKey().getImage();
+                                break;
+                            case 3:
+                                Map.Entry<Recipe,Integer> entry3 = recipesMap.entrySet().iterator().next();
+                                recipes4[counter] = entry3.getKey().getName();
+                                images4[counter] = entry3.getKey().getImage();
+                                break;
+                        }
+
+
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //Add first four to the list
-                    recipes1[counter] = meals_names_array.get(0);
-                    images1[counter] = meals_images_array.get(0);
-                    //Make sure at least 4 recipes exist in category, if not, just load the first one again for now
-                    if(meals_names_array.size() >= 2 && meals_images_array.size() >= 2) {
-                        recipes2[counter] = meals_names_array.get(1);
-                        images2[counter] = meals_images_array.get(1);
-                    } else {
-                        recipes2[counter] = meals_names_array.get(0);
-                        images2[counter] = meals_images_array.get(0);
-                    }
-                    if(meals_names_array.size() >= 3 && meals_images_array.size() >= 3) {
-                        recipes3[counter] = meals_names_array.get(2);
-                        images3[counter] = meals_images_array.get(2);
-                    } else {
-                        recipes3[counter] = meals_names_array.get(0);
-                        images3[counter] = meals_images_array.get(0);
-                    }
-                    if(meals_names_array.size() >= 4 && meals_images_array.size() >= 4) {
-                        recipes4[counter] = meals_names_array.get(3);
-                        images4[counter] = meals_images_array.get(3);
-                    } else {
-                        recipes4[counter] = meals_names_array.get(0);
-                        images4[counter] = meals_images_array.get(0);
-                    }
-                    counter++;
+
+                     counter++;
                 }
                 //Load screen with data once arrays are populated
-                Log.d("PROGRESS","Attempting to load categories screen");
+                Log.d("PROGRESS", "Attempting to load categories screen");
                 String[] categoriesArray = new String[categories.size()];
                 categoriesArray = categories.toArray(categoriesArray);
-                String[] finalCategoriesArray = categoriesArray;
-                runOnUiThread(()->loadScreen(finalCategoriesArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4));
+                String[] finalCategoriesArray = categories.toArray(categoriesArray);
+                runOnUiThread(() -> loadScreen(finalCategoriesArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4));
 
             }
-
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -223,8 +278,8 @@ public class CategoriesActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
+
     }
 
 
@@ -387,5 +442,63 @@ public class CategoriesActivity extends AppCompatActivity {
         return list;
     }
 
+    /**
+     * Ingredients list in MealDB goes out 20 spots everytime (strIngredient1 - strIngredient1)
+     * If there is no value it'll either be empty or list as "null"
+     * We want to filter those out and return the array
+     * Start is for start of string value to look for (strIngredient or strMeasure)
+     **/
+    private ArrayList<String> getListFromMealDB(String meals_JSON, String start){
+        ArrayList<String> listOfElems = new ArrayList<String>();
+        for(int i = 1; i <= 20; i++){
+            try {
+                String elem = JSONToArray(meals_JSON, "meals", start+String.valueOf(i)).get(0);
+                if(!elem.isEmpty() && !elem.equalsIgnoreCase("null")){
+                    listOfElems.add(elem);
+                } else if (start.equals("strMeasure")){
+                    listOfElems.add("None"); //Some ingredients list are shorter than recipes list
+                    // ^ Not a great workaround but it works for now I guess
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOfElems;
+    }
 
+    /**
+    private ArrayList<String> getLifeStyles(){
+        final ArrayList<String>[] lifestyles = new ArrayList[]{new ArrayList<String>()};
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
+        dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("Data: ", snapshot.getKey() + ", " + snapshot.getValue());
+                if (snapshot.getKey().equals("Lifestyle")) {
+                    lifestyles[0] = (ArrayList) snapshot.getValue();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }**/
 }
