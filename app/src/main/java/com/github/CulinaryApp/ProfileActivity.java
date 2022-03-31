@@ -38,14 +38,16 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView bgImg;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
-    private Uri pfpURI, bgURI;
+//    private Uri pfpURI, bgURI;
     private StorageReference pfpRef, bgpRef;
 
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
     private static final String KEY_SHAREDPREFS_DISPLAY_NAME = "userDisplayName";
     private static final String KEY_SHAREDPREFS_BIO = "userBio";
-    private static final String VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME = "No Bio yet...";
-    private static final String VALUE_SHAREDPREFS_DEFAULT_BIO = "New User...";
+    private static final String KEY_FIREBASE_PFP = "Pfp";
+    private static final String KEY_FIREBASE_BGIMG = "Bgp";
+    private static final String VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME = "New User";
+    private static final String VALUE_SHAREDPREFS_DEFAULT_BIO = "No Bio yet...";
 
 
     @Override
@@ -54,8 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         changingBgImg = false;
         changingProfPic = false;
-        pfpURI = null;
-        bgURI = null;
+//        pfpURI = null;
+//        bgURI = null;
         pfpRef = null;
         bgpRef = null;
 
@@ -74,28 +76,21 @@ public class ProfileActivity extends AppCompatActivity {
         prof = findViewById(R.id.profPic);
 
         //buttons within settings
-        Button profChangeButton = findViewById(R.id.editAvatar);
-        Button bgChangeButton = findViewById(R.id.editBGImg);
-        Button editBioButton = findViewById(R.id.editBio);
-        Button editDisplayNameButton = findViewById(R.id.editDispName);
-        Button profileDisplayButton = findViewById(R.id.howTheySee);
+        findViewById(R.id.editAvatar).setOnClickListener(profImgChanger);
+        findViewById(R.id.editBGImg).setOnClickListener(bgImgChanger);
+        findViewById(R.id.editBio).setOnClickListener(bioEditor);
+        findViewById(R.id.editDispName).setOnClickListener(displayNameEditor);
+        findViewById(R.id.howTheySee).setOnClickListener(displayProfileFull);
 
         //buttons within preferences - potentially permanent removal of other preferences
-        Button healthSettingsButton = findViewById(R.id.setHealth);
-        Button lifestyleSettingsButton = findViewById(R.id.setLifestyle);
-
-        //settings onclicks
-        profChangeButton.setOnClickListener(profImgChanger);
-        bgChangeButton.setOnClickListener(bgImgChanger);
-        editBioButton.setOnClickListener(bioEditor);
-        editDisplayNameButton.setOnClickListener(displayNameEditor);
-        profileDisplayButton.setOnClickListener(displayProfileFull);
-
-        //preferences onclicks
-        healthSettingsButton.setOnClickListener(healthSettingsChanger);
-        lifestyleSettingsButton.setOnClickListener(lifestyleSettingsChanger);
+        findViewById(R.id.setHealth).setOnClickListener(healthSettingsChanger);
+        findViewById(R.id.setLifestyle).setOnClickListener(lifestyleSettingsChanger);
 
         loadAcctImgsFromFirebase();
+    }
+
+    public StorageReference[] getRefs(){
+        return new StorageReference[] {pfpRef, bgpRef};
     }
 
     private void loadAcctImgsFromFirebase(){
@@ -104,15 +99,15 @@ public class ProfileActivity extends AppCompatActivity {
         StorageReference storageRef = storage.getReference();
 
         //Creates a pfp reference under the users UID
-        StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        pfpRef = storageRef.child(KEY_FIREBASE_PFP).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Checks if user has uploaded a pfp and loads a default picture if not
-        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadPfp(pfpRef)).addOnFailureListener(exception -> loadPfp(storageRef.child("DefaultPfp.jpg")));
+        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
 
         //Create a bgp reference under the users UID
         //No check if reference exist as we don't currently have a default background to use
-        StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        loadBgp(bgpRef);
+        bgpRef = storageRef.child(KEY_FIREBASE_BGIMG).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        loadImg(bgpRef, bgImg);
     }
 
     View.OnClickListener healthSettingsChanger = view -> {
@@ -217,9 +212,9 @@ public class ProfileActivity extends AppCompatActivity {
         return new String[] {displayName, bio};
     }
 
-    public Uri[] getUris(){
+    /*public Uri[] getUris(){
         return new Uri[] {bgURI, pfpURI};
-    }
+    }*/
 
     private void getStringFromDialog(String title, String hint, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
@@ -272,6 +267,13 @@ public class ProfileActivity extends AppCompatActivity {
         return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
+    public void loadImg(StorageReference reference, ImageView into){
+        Glide.with(this)
+                .load(reference)
+                .dontAnimate()
+                .into(into);
+    }
+
     public void loadPfp(StorageReference pfpRef){
         Glide.with(this /* context */)
                 .load(pfpRef)
@@ -285,24 +287,22 @@ public class ProfileActivity extends AppCompatActivity {
                 .into(bgImg);
     }
 
-    private Uri updatePersonalizedData(Intent data, StorageReference storageRef, View viewToUpdate, String key){
-        Uri uri = null;
+    private void updatePersonalizedData(Intent data, StorageReference storageRef, View viewToUpdate, String key){
         if (viewToUpdate != null) {
             //Image Uri will not be null for RESULT_OK
-            uri = data.getData();
+            Uri imgUri = data.getData();
 
-            StorageReference pfpRef = storageRef.child(key).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            StorageReference viewRef = storageRef.child(key).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            pfpRef.putFile(uri).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-                } else
-                    Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+            viewRef.putFile(imgUri).addOnCompleteListener(task -> {
+                if (task.isSuccessful())
+                    Toast.makeText(this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
             });
         }
 
-        return uri;
     }
 
     @Override
@@ -316,13 +316,13 @@ public class ProfileActivity extends AppCompatActivity {
 
             if(changingProfPic) {
                 changingProfPic = false;
-                this.pfpURI = updatePersonalizedData(data, storageRef, prof, "Pfp");
-                prof.setImageURI(pfpURI);
+                updatePersonalizedData(data, storageRef, prof, KEY_FIREBASE_PFP);
+                loadAcctImgsFromFirebase();
 
             } else if (changingBgImg) {
                 changingBgImg = false;
-                this.bgURI = updatePersonalizedData(data, storageRef, bgImg, "Bgp");
-                bgImg.setImageURI(bgURI);
+                updatePersonalizedData(data, storageRef, bgImg, KEY_FIREBASE_BGIMG);
+                loadAcctImgsFromFirebase();
             }
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
