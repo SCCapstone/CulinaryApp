@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RecipeRecommendationEngine {
 
@@ -105,7 +107,17 @@ public class RecipeRecommendationEngine {
     }
 
     //TODO
-    private static int getAthleticScore(String ingredient, String amount){
+    private static double getAthleticScore(String ingredient, String amount){
+
+        if(Pattern.compile(Pattern.quote("Chicken Breast"), Pattern.CASE_INSENSITIVE).matcher(ingredient).find()){
+            if(amount.contains("/")){
+                String[] splitString = amount.split("/");
+                int numerator = Integer.parseInt(splitString[0]);
+                int denominator = Integer.parseInt(splitString[1]);
+                return 200*Sigmoid(numerator/denominator, 1.5);
+            }
+        }
+
         return 0;
     }
     //TODO
@@ -131,6 +143,72 @@ public class RecipeRecommendationEngine {
 
 
     //TODO Convert measurements into standard unit
+    private static double standardMeasureConverter(double amount, String unit){
+        unit = unit.toLowerCase(Locale.ROOT);
+        switch(unit){
+
+            //Convert liquids to cups
+            case "cup":
+            case "cups":
+                return amount;
+
+            case "teaspoon":
+            case "teaspoons":
+                return amount*0.028333;
+
+            case "tablespoon":
+            case "tablespoons":
+                return amount*0.0625;
+
+            case "liter":
+            case "liters":
+                return amount*4.22675;
+
+            case "milliliter":
+            case "milliliters":
+                return amount*0.00422675;
+
+            case "fluid ounce":
+            case "fluid ounces":
+                return amount*0.125;
+
+            case "quart":
+            case "quarts":
+                return amount*4;
+
+            case "pint":
+            case "pints":
+                return amount*2;
+
+            //Convert units of mass to pounds
+            case "pound":
+            case "pounds":
+                return amount;
+
+            case "gram":
+            case "grams":
+                return amount*0.00220462;
+
+            case "kilogram":
+            case "kilograms":
+                return amount*2.20462;
+
+            case "milligram":
+            case "milligrams":
+                return amount*2.2046e-6;
+
+            case "stone":
+            case "stones":
+                return amount*14;
+
+            case "ounce":
+            case "ounces":
+                return amount*0.625;
+        }
+
+        //If unrecognized unit, just return amount
+        return amount;
+    }
 
     //TODO pass standard unit into non-linear function, altered to reflect differences in desired amount
     /**
@@ -139,7 +217,7 @@ public class RecipeRecommendationEngine {
      * Amt is the amount of an ingredient represented in a standard unit
      * K should be changed based on desired standard amount of that ingredient
      */
-    private static double Sigmoid(int amt, float k){
+    private static double Sigmoid(double amt, double k){
         return 2*((1/(1+Math.exp(-k*amt)))-(1/2));
     }
 
