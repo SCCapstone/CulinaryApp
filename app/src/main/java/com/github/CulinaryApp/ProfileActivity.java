@@ -135,6 +135,7 @@ public class ProfileActivity extends AppCompatActivity {
     View.OnClickListener updatePreferenceSettings = view->{
         navigateToUpdatePreferences();
     };
+
     public void navigateToUpdatePreferences(){
         Intent intentToGoToUpdatePreferences = new Intent(this, PreferencesActivity.class);
         startActivity(intentToGoToUpdatePreferences);

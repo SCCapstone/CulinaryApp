@@ -31,7 +31,7 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
     private Button cancelButton;
 
     @Override
-    protected void OnCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 

@@ -29,6 +29,8 @@
         <activity
             android:name=".views.RecipeInstructionsActivity"
             android:exported="true" />
+        <activity android:name=".PreferencesActivity"
+            android:exported="true"/>
         <!--
          The flow of our application is as follows (for our PoC - subject to change for next semester
                 if we find more effective flows):
