@@ -83,9 +83,12 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.howTheySee).setOnClickListener(displayProfileFull);
 
         //buttons within preferences - potentially permanent removal of other preferences
+        /*
+        Changing to general update preferences - Changed by Michael Sana
         findViewById(R.id.setHealth).setOnClickListener(healthSettingsChanger);
         findViewById(R.id.setLifestyle).setOnClickListener(lifestyleSettingsChanger);
-
+        */
+        findViewById(R.id.updatePreferences).setOnClickListener(updatePreferenceSettings);
         loadAcctImgsFromFirebase();
     }
 
@@ -110,13 +113,16 @@ public class ProfileActivity extends AppCompatActivity {
         loadImg(bgpRef, bgImg);
     }
 
+    /*
     View.OnClickListener healthSettingsChanger = view -> {
         androidx.appcompat.widget.SwitchCompat glutenSwitch = new androidx.appcompat.widget.SwitchCompat(this);
         glutenSwitch.setText("Gluten-free mode");
 
         showGenericDialog("Health Settings", glutenSwitch);
     };
+    */
 
+    /*
     View.OnClickListener lifestyleSettingsChanger = view -> {
         //track calories switch
         androidx.appcompat.widget.SwitchCompat caloriesSwitch = new androidx.appcompat.widget.SwitchCompat(this);
@@ -124,6 +130,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         showGenericDialog("Lifestyle Settings", caloriesSwitch);
     };
+     */
+
+    View.OnClickListener updatePreferenceSettings = view->{
+        navigateToUpdatePreferences();
+    };
+    public void navigateToUpdatePreferences(){
+        Intent intentToGoToUpdatePreferences = new Intent(this, PreferencesActivity.class);
+        startActivity(intentToGoToUpdatePreferences);
+    }
+
 
     View.OnClickListener activitySettingsChanger = view -> {
         //track recipe history switch

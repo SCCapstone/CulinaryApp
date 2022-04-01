@@ -128,14 +128,9 @@
                     android:text="Preferences" />
 
                 <Button
-                    android:id="@+id/setHealth"
+                    android:id="@+id/updatePreferences"
                     style="@style/ProfileButton"
-                    android:text="Health Settings" />
-
-                <Button
-                    android:id="@+id/setLifestyle"
-                    style="@style/ProfileButton"
-                    android:text="Lifestyle Settings" />
+                    android:text="Update Preferences" />
 <!--
                 <Button
                     android:id="@+id/setActivity"
