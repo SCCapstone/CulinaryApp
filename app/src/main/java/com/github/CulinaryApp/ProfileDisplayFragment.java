@@ -17,23 +17,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.storage.StorageReference;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileDisplayFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "name";
-    private static final String ARG_PARAM2 = "bio";
-
-
     public ProfileDisplayFragment() {
         // Required empty public constructor
     }
 
-
     public static ProfileDisplayFragment newInstance() {
-        ProfileDisplayFragment fragment = new ProfileDisplayFragment();
-        return fragment;
+        return new ProfileDisplayFragment();
     }
 
     @Override
@@ -55,16 +51,18 @@ public class ProfileDisplayFragment extends Fragment {
         String[] profileValues = currentProfileActivity.getProfileStrings();
 
         TextView displayName = getView().findViewById(R.id.displayName);
+
         TextView bio = getView().findViewById(R.id.bio);
         ImageView bgImg = getView().findViewById(R.id.backgroundImg);
         CircleImageView profilePic = getView().findViewById(R.id.profilePicture);
 
+        StorageReference[] refs = currentProfileActivity.getRefs();
+
+        currentProfileActivity.loadImg(refs[0], bgImg);
+        currentProfileActivity.loadImg(refs[1], profilePic);
+
         displayName.setText(profileValues[0]);
         bio.setText(profileValues[1]);
-
-        Uri[] uris = currentProfileActivity.getUris();
-        bgImg.setImageURI(uris[0]);
-        profilePic.setImageURI(uris[1]);
 
     }
 
