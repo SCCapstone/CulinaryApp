@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import com.github.CulinaryApp.viewmodels.RecipesViewModel;
+import com.github.CulinaryApp.viewmodels.RecipesViewModelFactory;
 
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class RecipesActivity extends AppCompatActivity {
     // this activity recieves data from RecipesViewAdapter so it needs identical data structures
 
     // View component vars
+    private ViewModelProvider recipesViewModelProvider;
     private RecipesViewModel recipesViewModel;
     private RecyclerView recipesRecyclerView;
     private RecyclerViewAdapter recipesViewAdapter;
@@ -47,11 +49,10 @@ public class RecipesActivity extends AppCompatActivity {
 
         // RJ Code for testing
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("Category");
-            Log.d("Category passed",value);
+        String categorySelected = extras.getString("Category");
+        Log.d("Category passed",categorySelected);
             //The key argument here must match that used in the other activity
-        }
+
         //End of my code
 
 
@@ -60,7 +61,9 @@ public class RecipesActivity extends AppCompatActivity {
         // define viewmodel
         // ViewModelProvider(Context context), get method parameter is the ViewModel pertaining to...
         // ... ViewModel class you want this View to be modelled after
-        recipesViewModel = new ViewModelProvider(this).get(RecipesViewModel.class);
+        recipesViewModelProvider =
+                new ViewModelProvider(this, new RecipesViewModelFactory(categorySelected));
+        recipesViewModel = recipesViewModelProvider.get(RecipesViewModel.class);
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
 

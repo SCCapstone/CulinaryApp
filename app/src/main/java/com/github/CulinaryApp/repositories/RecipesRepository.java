@@ -24,30 +24,20 @@ public class RecipesRepository {
     private static final String TAG = "RecipesRepository";
 
     FirebaseFirestore firestoreDB;
-    CollectionReference rootCategoryCollection; // there are two - CATEGORIES & CATEGORIESBYREGION
-    DocumentReference categoryUserSelected; // dynamic based on user selections from Category Page
-    CollectionReference recipesSubCollection;  // RECIPES
+   // CollectionReference rootCategoryCollection; // there are two - CATEGORIES & CATEGORIESBYREGION
+   // DocumentReference categoryUserSelected; // dynamic based on user selections from Category Page
+   CollectionReference whereAreRecipesForCategoryChosen;
 
     MutableLiveData<Recipe> recipeMutableLiveData;
     MutableLiveData<List<Recipe>> recipeListMutableLiveData;
 
-    public CollectionReference getCategoryTypeSelection() {
-        // hard-coded for now
-        return firestoreDB.collection("CATEGORIES/");
-    }
 
-    public DocumentReference getCategorySelection() {
-        // hard-coded for now
-        return rootCategoryCollection.document("Beef/");
-    }
-
-
-    public RecipesRepository() {
+    public RecipesRepository(String strCategorySelected) {
         firestoreDB = FirebaseFirestore.getInstance();
-        rootCategoryCollection = getCategoryTypeSelection();
-        categoryUserSelected = getCategorySelection();
-        recipesSubCollection = categoryUserSelected.collection("RECIPES/");
-
+        whereAreRecipesForCategoryChosen =
+                firestoreDB.collection("CATEGORIES/")
+                             .document(strCategorySelected + "/")
+                                .collection("RECIPES");
         this.recipeListMutableLiveData = new MutableLiveData<>();
         // define recipe list
         recipeMutableLiveData = new MutableLiveData<>();
@@ -57,7 +47,7 @@ public class RecipesRepository {
     public MutableLiveData<List<Recipe>> getFirestoreRecipesLiveData() {
         Log.i("TAG", "getRecipeListMutableLiveData: ");
 
-        recipesSubCollection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        whereAreRecipesForCategoryChosen.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 List<Recipe> recipeList = new ArrayList<>();

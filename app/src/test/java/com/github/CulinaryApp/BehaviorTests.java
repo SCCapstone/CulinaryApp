@@ -69,7 +69,7 @@ package com.github.CulinaryApp;
 import androidx.test.core.app.ActivityScenario;
 
 import com.github.CulinaryApp.views.LoginActivity;
-import static android.support.Espresso.onView;
+//import static android.support.Espresso.onView;
 
 import org.junit.After;
 import org.junit.Before;
