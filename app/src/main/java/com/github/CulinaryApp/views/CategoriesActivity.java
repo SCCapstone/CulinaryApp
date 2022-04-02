@@ -183,7 +183,8 @@ public class CategoriesActivity extends AppCompatActivity {
                             String image = JSONToArray(meal_JSON, "meals", "strMealThumb").get(0);
                             ArrayList<String> ingredients = getListFromMealDB(meal_JSON, "strIngredient");
                             ArrayList<String> measurements = getListFromMealDB(meal_JSON, "strMeasure");
-                            recipes_list.add(new Recipe(name, image, id, ingredients, measurements));
+                            ArrayList<String> tags = getListFromMealDB(meal_JSON, "strTags");
+                            recipes_list.add(new Recipe(name, image, id, ingredients, measurements, tags));
                         }
                         Log.d("CATEGORIES", "Recipes list for " + cat + " created");
 
