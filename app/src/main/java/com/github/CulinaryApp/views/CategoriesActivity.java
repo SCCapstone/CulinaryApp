@@ -161,13 +161,6 @@ public class CategoriesActivity extends AppCompatActivity {
                 int counter = 0;
                 for (String cat : categories) {
                     String category_JSON = apiCall(url_cat_start + cat);
-                    //TODO * THA PLAN BABY
-                    //TODO * For each category get a list of meal ids  DONE
-                    //TODO * For each mealID search up that specific meal, create recipe object with results  DONE
-                    //TODO * Map each recipe id to its object and its score DONE
-                    //TODO * Pass recipe object into /MAGIC RECIPE SCORER ALGORITHM/ DONE
-                    //TODO * Update scores -> Display 4 highest scoring recipes DONECa
-                    //TODO * Actually design magic scoring alogirthm
 
                     try {
                         //Get a list of meal IDs
