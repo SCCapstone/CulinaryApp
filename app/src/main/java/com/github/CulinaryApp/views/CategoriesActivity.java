@@ -75,7 +75,6 @@ public class CategoriesActivity extends AppCompatActivity {
         startActivity(intentToStartCategoriesPage);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
