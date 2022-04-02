@@ -35,6 +35,19 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         context = ct;
     }
 
+    public void updateScreen(Context ct, String cat[], String rec1[], String rec2[], String rec3[], String rec4[], String img1[], String img2[], String img3[], String img4[]){
+        categories = cat;
+        recipes1 = rec1;
+        recipes2 = rec2;
+        recipes3 = rec3;
+        recipes4 = rec4;
+        images1 = img1;
+        images2 = img2;
+        images3 = img3;
+        images4 = img4;
+        context = ct;
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
