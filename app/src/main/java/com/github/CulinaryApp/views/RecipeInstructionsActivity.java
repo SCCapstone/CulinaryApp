@@ -77,9 +77,16 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
             instructions = getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
 
-            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++)
-                ingreds.append(getItemFromJSON(parsedRecipe, KEY_AMOUNTS+i)).append(" ")
-                        .append(getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i)).append("\n");
+            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++) {
+                String amt = getItemFromJSON(parsedRecipe, KEY_AMOUNTS + i).toString();
+                String ingred = getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i).toString();
+
+                if(ingred.equals("") || amt.equals("") || ingred.equals("null") || amt.equals("null"))
+                    continue;
+
+                ingreds.append(amt).append(" ")
+                        .append(ingred).append("\n");
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
