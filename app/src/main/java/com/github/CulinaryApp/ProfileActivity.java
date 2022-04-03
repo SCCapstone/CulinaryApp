@@ -299,7 +299,7 @@ public class ProfileActivity extends AppCompatActivity {
             Bitmap bmp = BitmapFactory.decodeStream(new URL(imgUri.toString()).openConnection().getInputStream());
 
             runOnUiThread(() -> into.setImageBitmap(bmp));
-            System.out.println("-------------------------------yo------------------------");
+            //System.out.println("-------------------------------yo------------------------");
         } catch (IOException e) {
             e.printStackTrace();
         }

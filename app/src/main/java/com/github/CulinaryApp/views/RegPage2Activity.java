@@ -118,22 +118,27 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                     hopperUpdates.put("Last Name", LName);
 
                     //Store diet/lifestyle info
-                    ArrayList<String> lifestlyeList = new ArrayList<String>();
-                    if(AthleticL.isChecked())
-                        lifestlyeList.add("Athletic");
-                    if(VeganL.isChecked())
-                        lifestlyeList.add("Vegan");
-                    if(VegetL.isChecked())
-                        lifestlyeList.add("Vegetarian");
-                    if(MediL.isChecked())
-                        lifestlyeList.add("Mediterranean");
-                    if(KetoL.isChecked())
-                        lifestlyeList.add("Ketogenic");
-                    if(FlexiL.isChecked())
-                        lifestlyeList.add("Flexitarian");
+                    ArrayList<String> lifestyleList = new ArrayList<String>();
 
-                    if(!lifestlyeList.isEmpty())
-                        hopperUpdates.put("Lifestyle",lifestlyeList);
+                    if(AthleticL.isChecked())
+                        lifestyleList.add("Athletic");
+                    if(VeganL.isChecked())
+                        lifestyleList.add("Vegan");
+                    if(VegetL.isChecked())
+                        lifestyleList.add("Vegetarian");
+                    if(MediL.isChecked())
+                        lifestyleList.add("Mediterranean");
+                    if(KetoL.isChecked())
+                        lifestyleList.add("Ketogenic");
+                    if(FlexiL.isChecked())
+                        lifestyleList.add("Flexitarian");
+
+                    if(!lifestyleList.isEmpty())
+                        hopperUpdates.put("Lifestyle",lifestyleList);
+                    else{
+                        lifestyleList.add("None");
+                        hopperUpdates.put("Lifestyle",lifestyleList);
+                    }
 
                     hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

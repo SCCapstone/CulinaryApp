@@ -9,6 +9,24 @@ public class LifestyleToCategories {
 
     /** Generally, more 'important' categories are returned towards the start of the list (GENERALLY)**/
 
+    public static String[] Empty(){
+        String[] categoriesToReturn = {"Beef",
+                "Breakfast",
+                "Chicken",
+                "Dessert",
+                "Goat",
+                "Lamb",
+                "Miscellaneous",
+                "Pasta",
+                "Pork",
+                "Seafood",
+                "Side",
+                "Starter",
+                "Vegan",
+                "Vegetarian"};
+        return categoriesToReturn;
+    }
+
     public static String[] Athletic(){
         String[] categoriesToReturn = {"Beef",
                 "Breakfast",

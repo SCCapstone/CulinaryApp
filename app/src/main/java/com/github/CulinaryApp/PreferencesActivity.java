@@ -113,23 +113,26 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
                 //Create hashmap to store data in until upload
                 Map<String, Object> hopperUpdates = new HashMap<>();
                 //Store diet/lifestyle info
-                ArrayList<String> lifestlyeList = new ArrayList<String>();
+                ArrayList<String> lifestyleList = new ArrayList<String>();
                 if(athleticLifestyle.isChecked())
-                    lifestlyeList.add("Athletic");
+                    lifestyleList.add("Athletic");
                 if(veganLifestyle.isChecked())
-                    lifestlyeList.add("Vegan");
+                    lifestyleList.add("Vegan");
                 if(vegetLifestyle.isChecked())
-                    lifestlyeList.add("Vegetarian");
+                    lifestyleList.add("Vegetarian");
                 if(mediLifestyle.isChecked())
-                    lifestlyeList.add("Mediterranean");
+                    lifestyleList.add("Mediterranean");
                 if(ketoLifestyle.isChecked())
-                    lifestlyeList.add("Ketogenic");
+                    lifestyleList.add("Ketogenic");
                 if(flexiLifestyle.isChecked())
-                    lifestlyeList.add("Flexitarian");
+                    lifestyleList.add("Flexitarian");
 
 
-                //if(!lifestlyeList.isEmpty())
-                hopperUpdates.put("Lifestyle",lifestlyeList);
+                if(lifestyleList.isEmpty()) {
+                    lifestyleList.add("None");
+                }
+                hopperUpdates.put("Lifestyle", lifestyleList);
+
 
                 hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

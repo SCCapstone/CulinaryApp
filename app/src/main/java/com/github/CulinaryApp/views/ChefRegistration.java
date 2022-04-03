@@ -17,7 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChefRegistration extends AppCompatActivity implements View.OnClickListener{
 
@@ -108,13 +113,15 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
 
                                         Chef chef = new Chef(email, firstN, lastN, affiliation);
 
-                                        FirebaseDatabase.getInstance().getReference("Chefs")
-                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                                .setValue(chef).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        DatabaseReference hopperRef = FirebaseDatabase.getInstance().getReference("Chefs")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
+                                        hopperRef.setValue(chef).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
-                                                    Toast.makeText(ChefRegistration.this, "Chef info uploaded", Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(ChefRegistration.this, "Chef info uploaded", Toast.LENGTH_SHORT).show();
 
                                                     //TODO Send chef to profile page or categories page (or reg page 2 but that's given)
                                                 }
@@ -123,6 +130,27 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                                 }
                                             }
                                         });
+
+                                        //Some work around spaghetti code for now, sorry
+                                        Map<String, Object> hopperUpdates = new HashMap<>();
+                                        ArrayList<String> lifestyleList = new ArrayList<>();
+                                        lifestyleList.add("None");
+
+                                        hopperUpdates.put("Lifestyle", lifestyleList);
+
+                                        hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    Toast.makeText(ChefRegistration.this, "Chef Preferences Set", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else{
+
+                                                }
+
+                                            }
+                                        });
+
                                         Toast.makeText(ChefRegistration.this, "Chef successfully registered", Toast.LENGTH_LONG).show();
                                         startActivity(new Intent(ChefRegistration.this, CategoriesActivity.class));
 
