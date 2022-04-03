@@ -16,13 +16,16 @@ import com.github.CulinaryApp.views.CategoriesActivity;
 import com.github.CulinaryApp.views.LoginActivity;
 import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 import com.github.CulinaryApp.views.RecipesActivity;
+import com.github.CulinaryApp.views.RecyclerViewAdapter;
 
 public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<RecyclerViewAdapterCategories.MyViewHolder> {
 
     private String categories[], recipes1[], recipes2[], recipes3[], recipes4[], images1[], images2[], images3[], images4[];
+    private String id1[], id2[], id3[], id4[];
     private Context context;
 
-    public RecyclerViewAdapterCategories(Context ct, String cat[], String rec1[], String rec2[], String rec3[], String rec4[], String img1[], String img2[], String img3[], String img4[]){
+    public RecyclerViewAdapterCategories(Context ct, String cat[], String rec1[], String rec2[], String rec3[], String rec4[], String img1[], String img2[], String img3[], String img4[],
+                                         String id_1[], String id_2[], String id_3[], String id_4[]){
         categories = cat;
         recipes1 = rec1;
         recipes2 = rec2;
@@ -32,10 +35,15 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         images2 = img2;
         images3 = img3;
         images4 = img4;
+        id1 = id_1;
+        id2 = id_2;
+        id3 = id_3;
+        id4 = id_4;
         context = ct;
     }
 
-    public void updateScreen(Context ct, String cat[], String rec1[], String rec2[], String rec3[], String rec4[], String img1[], String img2[], String img3[], String img4[]){
+    public void updateScreen(Context ct, String cat[], String rec1[], String rec2[], String rec3[], String rec4[], String img1[], String img2[], String img3[], String img4[],
+                             String id_1[], String id_2[], String id_3[], String id_4[]){
         categories = cat;
         recipes1 = rec1;
         recipes2 = rec2;
@@ -45,6 +53,10 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
         images2 = img2;
         images3 = img3;
         images4 = img4;
+        id1 = id_1;
+        id2 = id_2;
+        id3 = id_3;
+        id4 = id_4;
         context = ct;
     }
 
@@ -85,8 +97,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images1[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -95,8 +110,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes1[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images1[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -107,8 +125,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images2[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -117,8 +138,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes2[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images2[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -129,8 +153,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images3[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -139,8 +166,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes3[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images3[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -151,8 +181,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images4[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }
@@ -161,8 +194,11 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Recycler
             @Override
             public void onClick(View v) {
                 Intent newRecipesActivity = new Intent(RecyclerViewAdapterCategories.this.context, RecipeInstructionsActivity.class);
-                newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
+                //newRecipesActivity.putExtra("Recipe", recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, id4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, recipes4[holder.getAbsoluteAdapterPosition()]);
+                newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, images4[holder.getAbsoluteAdapterPosition()]);
                 newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(newRecipesActivity);
             }

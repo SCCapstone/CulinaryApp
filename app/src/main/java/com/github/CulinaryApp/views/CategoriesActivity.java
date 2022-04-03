@@ -164,6 +164,10 @@ public class CategoriesActivity extends AppCompatActivity {
                 String images2[] = new String[categories.size()];
                 String images3[] = new String[categories.size()];
                 String images4[] = new String[categories.size()];
+                String ids1[] = new String[categories.size()];
+                String ids2[] = new String[categories.size()];
+                String ids3[] = new String[categories.size()];
+                String ids4[] = new String[categories.size()];
 
 
                 //Originally load screen as empty
@@ -171,7 +175,8 @@ public class CategoriesActivity extends AppCompatActivity {
                 String[] categoriesArray = new String[categories.size()];
                 categoriesArray = categories.toArray(categoriesArray);
                 String[] newCatArray = newCatArray(categoriesArray, arrLength(recipes1)); //New categories array, same length as recipes and images arrays
-                RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(getApplicationContext(), newCatArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
+                RecyclerViewAdapterCategories recAdapter = new RecyclerViewAdapterCategories(getApplicationContext(), newCatArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4,
+                        ids1, ids2, ids3, ids4);
                 runOnUiThread(() -> loadScreen(recAdapter));
 
                 //Loop through all categories and grab 4 meals out of each
@@ -225,18 +230,22 @@ public class CategoriesActivity extends AppCompatActivity {
                                 case 0:
                                     recipes1[counter] = entry.getKey().getName();
                                     images1[counter] = entry.getKey().getImage();
+                                    ids1[counter] = entry.getKey().getId();
                                     break;
                                 case 1:
                                     recipes2[counter] = entry.getKey().getName();
                                     images2[counter] = entry.getKey().getImage();
+                                    ids2[counter] = entry.getKey().getId();
                                     break;
                                 case 2:
                                     recipes3[counter] = entry.getKey().getName();
                                     images3[counter] = entry.getKey().getImage();
+                                    ids3[counter] = entry.getKey().getId();
                                     break;
                                 case 3:
                                     recipes4[counter] = entry.getKey().getName();
                                     images4[counter] = entry.getKey().getImage();
+                                    ids4[counter] = entry.getKey().getId();
                                     break;
                                 case 4:
                                     break loop;
@@ -255,6 +264,9 @@ public class CategoriesActivity extends AppCompatActivity {
                                 images2[counter] = entry.getKey().getImage();
                                 images3[counter] = entry.getKey().getImage();
                                 images4[counter] = entry.getKey().getImage();
+                                ids2[counter] = entry.getKey().getId();
+                                ids3[counter] = entry.getKey().getId();
+                                ids4[counter] = entry.getKey().getId();
                                 break;
                             case 2: //Java doesn't handle the declaration of entry in multiple cases well, hence the renaming
                                 Map.Entry<Recipe,Integer> entry2 = recipesMap.entrySet().iterator().next();
@@ -262,11 +274,14 @@ public class CategoriesActivity extends AppCompatActivity {
                                 recipes4[counter] = entry2.getKey().getName();
                                 images3[counter] = entry2.getKey().getImage();
                                 images4[counter] = entry2.getKey().getImage();
+                                ids3[counter] = entry2.getKey().getId();
+                                ids4[counter] = entry2.getKey().getId();
                                 break;
                             case 3:
                                 Map.Entry<Recipe,Integer> entry3 = recipesMap.entrySet().iterator().next();
                                 recipes4[counter] = entry3.getKey().getName();
                                 images4[counter] = entry3.getKey().getImage();
+                                ids4[counter] = entry3.getKey().getId();
                                 break;
                         }
 
@@ -282,7 +297,8 @@ public class CategoriesActivity extends AppCompatActivity {
                     Log.d("PROGRESS", "Attempting to load categories screen");
                     newCatArray = newCatArray(categoriesArray, arrLength(recipes1)); //New categories array, same length as recipes and images arrays
                     //Dynamically update page as recipes/categories become available
-                    recAdapter.updateScreen(getApplicationContext(), newCatArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4);
+                    recAdapter.updateScreen(getApplicationContext(), newCatArray, recipes1, recipes2, recipes3, recipes4, images1, images2, images3, images4,
+                            ids1, ids2, ids3, ids4);
                     runOnUiThread(() -> updateRecAdapter(recAdapter));
 
                 }
