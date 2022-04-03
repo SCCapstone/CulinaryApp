@@ -131,7 +131,6 @@ public class CategoriesActivity extends AppCompatActivity {
         //Read as "On instance of user found -> do"
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
         dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Log.d("Data: ", snapshot.getKey() + ", " + snapshot.getValue());
@@ -149,7 +148,6 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.O)
             private void setScreen () {
                 Log.d("CATEGORIES", categories.toString());
                 final String url_cat_start = "https://www.themealdb.com/api/json/v1/1/filter.php?c=";
@@ -180,7 +178,7 @@ public class CategoriesActivity extends AppCompatActivity {
                 runOnUiThread(() -> loadScreen(recAdapter));
 
                 //Loop through all categories and grab 4 meals out of each
-                Instant start = Instant.now();
+
                 int counter = 0;
                 for (String cat : categories) {
                     /**API call 1**/
@@ -216,9 +214,7 @@ public class CategoriesActivity extends AppCompatActivity {
                             countTo10++;
                         }
                         Log.d("CATEGORIES", "Recipes list for " + cat + " created");
-                        Instant finish = Instant.now();
 
-                        Log.d("CATEGORIES", Duration.between(start,finish).toString()+" second to complete display");
                         //Pass recipes into scoring algorithm
                         //Values are sorted largest score first already when returned
                         Map<Recipe, Integer> recipesMap;

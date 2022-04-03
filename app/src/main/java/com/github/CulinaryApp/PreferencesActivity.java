@@ -2,17 +2,22 @@ package com.github.CulinaryApp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -47,6 +52,57 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
+    protected void onStart(){
+        super.onStart();
+
+        //Remember user preferences and have those boxes already marked
+        final ArrayList<String>[] lifeStyles = new ArrayList[]{new ArrayList<>()};
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users");
+        dbRef.child(FirebaseAuth.getInstance().getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.d("Data: ", snapshot.getKey() + ", " + snapshot.getValue());
+                //Get lifestyle preferences
+                if (snapshot.getKey().equals("Lifestyle")) {
+                    lifeStyles[0] = (ArrayList<String>) snapshot.getValue();
+                    for(String lifestyle : lifeStyles[0]){
+                        switch(lifestyle){
+                            case "Athletic":
+                                athleticLifestyle.setChecked(true);
+                                break;
+                            case "Vegan":
+                                veganLifestyle.setChecked(true);
+                                break;
+                            case "Vegetarian":
+                                vegetLifestyle.setChecked(true);
+                                break;
+                            case "Mediterranean":
+                                mediLifestyle.setChecked(true);
+                                break;
+                            case "Ketogenic":
+                                ketoLifestyle.setChecked(true);
+                                break;
+                            case "Flexitarian":
+                                flexiLifestyle.setChecked(true);
+                                break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) { }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) { }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+    }
+
+    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.confirm_button:
@@ -71,8 +127,9 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
                 if(flexiLifestyle.isChecked())
                     lifestlyeList.add("Flexitarian");
 
-                if(!lifestlyeList.isEmpty())
-                    hopperUpdates.put("Lifestyle",lifestlyeList);
+
+                //if(!lifestlyeList.isEmpty())
+                hopperUpdates.put("Lifestyle",lifestlyeList);
 
                 hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
