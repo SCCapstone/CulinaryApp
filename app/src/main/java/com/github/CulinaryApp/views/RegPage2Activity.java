@@ -116,6 +116,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                     //Store name info
                     hopperUpdates.put("First Name", FName);
                     hopperUpdates.put("Last Name", LName);
+                    hopperUpdates.put("isChef", false);
 
                     //Store diet/lifestyle info
                     ArrayList<String> lifestyleList = new ArrayList<String>();
@@ -167,7 +168,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
             case R.id.backgroundPhotoButton:
                 uploadBgp = true;
                 ImagePicker.with(this)
-                        .crop(30,15f)	    			//Crop image(Optional), Check Customization for more option
+                        .crop(30,18f)	    			//Crop image(Optional), Check Customization for more option
                         .compress(1024)			//Final image size will be less than 1 MB(Optional)
                         .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                         .start();

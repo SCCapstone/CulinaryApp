@@ -103,4 +103,7 @@
     <string name="lifestyle_title">Lifestyle Preferences</string>
     <string name="sporty_lifestyle">Sporty</string>
 
+    <!--Strings used for chef waiting activity-->
+    <string name="title_activity_chef_waiting">Chef waiting activity</string>
+
 </resources>

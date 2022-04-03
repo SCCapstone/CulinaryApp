@@ -136,6 +136,7 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                         ArrayList<String> lifestyleList = new ArrayList<>();
                                         lifestyleList.add("None");
 
+                                        hopperUpdates.put("isChef", true);
                                         hopperUpdates.put("Lifestyle", lifestyleList);
 
                                         hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -152,7 +153,7 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                         });
 
                                         Toast.makeText(ChefRegistration.this, "Chef successfully registered", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(ChefRegistration.this, CategoriesActivity.class));
+                                        startActivity(new Intent(ChefRegistration.this, ChefWaitingActivity.class));
 
                                     }
                                     else{
