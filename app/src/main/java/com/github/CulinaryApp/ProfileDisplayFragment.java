@@ -1,5 +1,6 @@
 package com.github.CulinaryApp;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -56,10 +57,9 @@ public class ProfileDisplayFragment extends Fragment {
         ImageView bgImg = getView().findViewById(R.id.backgroundImg);
         CircleImageView profilePic = getView().findViewById(R.id.profilePicture);
 
-        StorageReference[] refs = currentProfileActivity.getRefs();
-
-        currentProfileActivity.loadImg(refs[0], bgImg);
-        currentProfileActivity.loadImg(refs[1], profilePic);
+        Bitmap[] imgs = currentProfileActivity.getBmps();
+        profilePic.setImageBitmap(imgs[0]);
+        bgImg.setImageBitmap(imgs[1]);
 
         displayName.setText(profileValues[0]);
         bio.setText(profileValues[1]);

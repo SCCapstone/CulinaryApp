@@ -9,8 +9,12 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -27,7 +32,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.function.Consumer;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -89,9 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
         loadAcctImgsFromFirebase();
     }
 
-    public StorageReference[] getRefs(){
-        return new StorageReference[] {pfpRef, bgpRef};
-    }
+    public Bitmap[] getBmps() { return new Bitmap[] {((BitmapDrawable)prof.getDrawable()).getBitmap(), ((BitmapDrawable)bgImg.getDrawable()).getBitmap()}; }
 
     private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
@@ -102,7 +107,8 @@ public class ProfileActivity extends AppCompatActivity {
         pfpRef = storageRef.child(KEY_FIREBASE_PFP).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Checks if user has uploaded a pfp and loads a default picture if not
-        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
+//        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
+        loadImg(pfpRef, prof);
 
         //Create a bgp reference under the users UID
         //No check if reference exist as we don't currently have a default background to use
@@ -268,10 +274,22 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void loadImg(StorageReference reference, ImageView into){
-        Glide.with(this)
-                .load(reference)
-                .dontAnimate()
-                .into(into);
+        reference.getDownloadUrl().addOnSuccessListener((uri) -> new Thread( () -> {
+            try {
+                Bitmap bmp = BitmapFactory.decodeStream(new URL(uri.toString()).openConnection().getInputStream());
+
+                runOnUiThread(() -> into.setImageBitmap(bmp));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start());
+
+
+
+//        Glide.with(this)
+//                .load(reference)
+//                .skipMemoryCache(true)
+//                .into(into);
     }
 
     public void loadPfp(StorageReference pfpRef){
