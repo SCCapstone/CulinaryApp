@@ -9,8 +9,12 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,15 +23,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.GeneralSecurityException;
+import java.util.function.Consumer;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -92,9 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
         loadAcctImgsFromFirebase();
     }
 
-    public StorageReference[] getRefs(){
-        return new StorageReference[] {pfpRef, bgpRef};
-    }
+    public Bitmap[] getBmps() { return new Bitmap[] {((BitmapDrawable)prof.getDrawable()).getBitmap(), ((BitmapDrawable)bgImg.getDrawable()).getBitmap()}; }
 
     private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
@@ -105,7 +111,8 @@ public class ProfileActivity extends AppCompatActivity {
         pfpRef = storageRef.child(KEY_FIREBASE_PFP).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Checks if user has uploaded a pfp and loads a default picture if not
-        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
+//        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
+        loadImg(pfpRef, prof);
 
         //Create a bgp reference under the users UID
         //No check if reference exist as we don't currently have a default background to use
@@ -267,13 +274,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         textInputDialog.setView(layout);
 
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
-            dialog.dismiss();
-        });
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> dialog.dismiss());
 
-        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> {
-            dialog.cancel();
-        });
+        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
 
         textInputDialog.show();
     }
@@ -284,40 +287,57 @@ public class ProfileActivity extends AppCompatActivity {
         return (int)(densityPoints*scale + DP_CONSTANT);
     }
 
-    public void loadImg(StorageReference reference, ImageView into){
-        Glide.with(this)
-                .load(reference)
-                .dontAnimate()
-                .into(into);
+    /**
+     * this method temporarily changes what is loaded into the imageviews for avatar and bgimg
+     * this must be done bc the image is not updating with the firebase until onstart runs again
+     * That has to be circumvented somehow
+     * @param into
+     * @param imgUri
+     */
+    private void loadImg(ImageView into, Uri imgUri){
+        try {
+            Bitmap bmp = BitmapFactory.decodeStream(new URL(imgUri.toString()).openConnection().getInputStream());
+
+            runOnUiThread(() -> into.setImageBitmap(bmp));
+            System.out.println("-------------------------------yo------------------------");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void loadPfp(StorageReference pfpRef){
-        Glide.with(this /* context */)
-                .load(pfpRef)
-                .into(prof);
-
+    /**
+     * this method does the same thing as load img, it just acquires the URI from firebase
+     * this happens this way bc the only way to get the uri from Firebase is to use .getDownloadUrl()
+     * this method is only used when initially loading the image from the website, otherwise, when the uri is already at hand, use the other loadimg
+     * @param reference
+     * @param into
+     */
+    private void loadImg(StorageReference reference, ImageView into){
+        reference.getDownloadUrl().addOnSuccessListener((uri) -> new Thread( () -> {
+            loadImg(into, uri);
+        }).start());
     }
 
-    public void loadBgp(StorageReference bgpRef){
-        Glide.with(this /* context */)
-                .load(bgpRef)
-                .into(bgImg);
-    }
 
-    private void updatePersonalizedData(Intent data, StorageReference storageRef, View viewToUpdate, String key){
+    private void updatePersonalizedData(Intent data, StorageReference storageRef, ImageView viewToUpdate, String key){
         if (viewToUpdate != null) {
             //Image Uri will not be null for RESULT_OK
             Uri imgUri = data.getData();
 
             StorageReference viewRef = storageRef.child(key).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            viewRef.putFile(imgUri).addOnCompleteListener(task -> {
-                if (task.isSuccessful())
+            UploadTask upload = viewRef.putFile(imgUri);
+
+            upload.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
                     Toast.makeText(this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-                else
+                    loadImg(viewToUpdate, imgUri);
+                } else
                     Toast.makeText(this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
             });
+
+
         }
 
     }
@@ -334,12 +354,10 @@ public class ProfileActivity extends AppCompatActivity {
             if(changingProfPic) {
                 changingProfPic = false;
                 updatePersonalizedData(data, storageRef, prof, KEY_FIREBASE_PFP);
-                loadAcctImgsFromFirebase();
 
             } else if (changingBgImg) {
                 changingBgImg = false;
                 updatePersonalizedData(data, storageRef, bgImg, KEY_FIREBASE_BGIMG);
-                loadAcctImgsFromFirebase();
             }
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
@@ -348,59 +366,4 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            final FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-
-            if(changingProfPic) {
-                changingProfPic = false;
-                if (prof != null) {
-                    //Image Uri will not be null for RESULT_OK
-                    pfpURI = data.getData();
-
-                    StorageReference pfpRef = storageRef.child("Pfp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                    pfpRef.putFile(pfpURI).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-                        } else
-                            Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
-
-                    });
-
-                    // Use Uri object instead of File to avoid storage permissions
-                    prof.setImageURI(pfpURI);
-                }
-            } else if (changingBgImg) {
-                changingBgImg = false;
-                if (bgImg != null) {
-                    //Image Uri will not be null for RESULT_OK
-                    bgURI = data.getData();
-
-                    StorageReference bgpRef = storageRef.child("Bgp").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                    bgpRef.putFile(bgURI).addOnCompleteListener(task -> {
-                        if (task.isSuccessful())
-                            Toast.makeText(ProfileActivity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
-
-                        else
-                            Toast.makeText(ProfileActivity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
-
-                    });
-
-                    // Use Uri object instead of File to avoid storage permissions
-                    bgImg.setImageURI(bgURI);
-                }
-            }
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
-        }
-    }*/
 }
