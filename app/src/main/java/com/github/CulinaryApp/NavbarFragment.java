@@ -1,6 +1,8 @@
 package com.github.CulinaryApp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -50,8 +52,29 @@ public class NavbarFragment extends Fragment{
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                goToLogin();
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                FirebaseAuth.getInstance().signOut();
+                                goToLogin();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getView().getContext());
+                builder.setTitle("Are you sure you'd like to logout?");
+                builder.setPositiveButton("Yes",dialogClickListener)
+                        .setNegativeButton("No",dialogClickListener).show();
+
             }
 
             private void goToLogin() {
