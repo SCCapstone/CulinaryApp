@@ -522,7 +522,9 @@ public class CategoriesActivity extends AppCompatActivity {
                     // ^ Not a great workaround but it works for now I guess
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                break;
+                //statement below sends hundreds of error messages to log bc not every recipe has 20 ingreds. Break seems like the worst fix ever but it's good enough for now
+//                e.printStackTrace();
             }
         }
         return listOfElems;

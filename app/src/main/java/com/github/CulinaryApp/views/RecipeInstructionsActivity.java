@@ -7,9 +7,14 @@ import androidx.security.crypto.MasterKey;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.CulinaryApp.FavoritesActivity;
@@ -57,6 +62,16 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         new Thread(this::updateDisplayedRecipe).start();
     }
 
+    private Bitmap getBmpFromURL(String url){
+        try {
+            InputStream bitmapStream = new URL(url).openConnection().getInputStream();
+            return BitmapFactory.decodeStream(bitmapStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     View.OnClickListener shareListener = view -> {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -74,38 +89,6 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
     }
 
-    /*private String[] getRecipeContentsById(){
-        final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
-        final int NUM_MAX_INGREDIENTS = 20;
-
-        String mealJSONRaw = apiCall(this.currentRecipe.getId(), URL_FIND_BY_ID);
-
-        String instructions = null;
-        StringBuilder ingreds = new StringBuilder();
-
-        try {
-            JSONObject parsedRecipe = new JSONObject(mealJSONRaw);
-
-            instructions = getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
-
-            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++) {
-                String amt = getItemFromJSON(parsedRecipe, KEY_AMOUNTS + i).toString();
-                String ingred = getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i).toString();
-
-                if(ingred.equals("") || amt.equals("") || ingred.equals("null") || amt.equals("null"))
-                    continue;
-
-                ingreds.append(amt).append(" ")
-                        .append(ingred).append("\n");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return new String[] {instructions, ingreds.toString()};
-    }*/
-
     private void setRecipeContentTexts(String[] texts, TextView... views){
         for(int i=0;i<views.length;i++) {
             int index = i;
@@ -117,6 +100,13 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         //update recipe name
         TextView recipeName = findViewById(R.id.headingRecipeName);
         recipeName.setText(this.currentRecipe.getName());
+
+        ImageView recipeImg = findViewById(R.id.recipeInstrImg);
+
+        new Thread( () -> {
+            Bitmap bmp = getBmpFromURL(currentRecipe.getImage());
+            runOnUiThread(() -> recipeImg.setImageBitmap(bmp));
+        }).start();
 
         setRecipeContentTexts(currentRecipe.getRecipeContentsById(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
 
@@ -291,5 +281,36 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return sharedPreferences;
     }
 
+    /*private String[] getRecipeContentsById(){
+        final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
+        final int NUM_MAX_INGREDIENTS = 20;
+
+        String mealJSONRaw = apiCall(this.currentRecipe.getId(), URL_FIND_BY_ID);
+
+        String instructions = null;
+        StringBuilder ingreds = new StringBuilder();
+
+        try {
+            JSONObject parsedRecipe = new JSONObject(mealJSONRaw);
+
+            instructions = getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
+
+            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++) {
+                String amt = getItemFromJSON(parsedRecipe, KEY_AMOUNTS + i).toString();
+                String ingred = getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i).toString();
+
+                if(ingred.equals("") || amt.equals("") || ingred.equals("null") || amt.equals("null"))
+                    continue;
+
+                ingreds.append(amt).append(" ")
+                        .append(ingred).append("\n");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return new String[] {instructions, ingreds.toString()};
+}*/
 
 }

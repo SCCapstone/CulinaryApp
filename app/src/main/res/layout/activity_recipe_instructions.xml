@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".views.RecipeInstructionsActivity">
 
-    <!-- CircleImageView to make round the edges of images used -->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,9 +22,15 @@
             android:orientation="vertical"
             android:padding="32dp">
 
-<!--            layout_width=0dp matches constraints, this allows text to stay on left, otherwise
-    would be centered if value was wrap_content. change if this is what u want
--->
+
+            <ImageView
+                android:id="@+id/recipeInstrImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noimagefound"
+                android:layout_gravity="center"
+                />
+
             <TextView
                 android:id="@+id/headingRecipeName"
                 android:layout_width="wrap_content"
@@ -35,8 +39,7 @@
                 android:textColor="@color/purple"
                 android:textSize="40sp"
 
-                android:layout_margin="32dp"
-                />
+                android:layout_margin="32dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/containerButtons"
