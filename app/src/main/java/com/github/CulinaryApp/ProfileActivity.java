@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -84,8 +85,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         //global values, need these for other functions' uses
         //non button related
-        bgImg = findViewById(R.id.profBackground);
         prof = findViewById(R.id.profPic);
+        bgImg = findViewById(R.id.profBackground);
 
         //buttons within settings
         findViewById(R.id.editAvatar).setOnClickListener(profImgChanger);
@@ -104,7 +105,32 @@ public class ProfileActivity extends AppCompatActivity {
         loadAcctImgsFromFirebase();
     }
 
-    public Bitmap[] getBmps() { return new Bitmap[] {((BitmapDrawable)prof.getDrawable()).getBitmap(), ((BitmapDrawable)bgImg.getDrawable()).getBitmap()}; }
+    private Bitmap getBitmapFromVectorDrawable(VectorDrawable img){
+        return Bitmap.createBitmap(
+                img.getIntrinsicWidth(),
+                img.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
+    }
+
+    public Bitmap[] getBmps() {
+        Drawable profDrawable = prof.getDrawable();
+        Drawable bgDrawable = bgImg.getDrawable();
+
+        Bitmap[] bmps = new Bitmap[2];
+
+        if(profDrawable instanceof VectorDrawable)
+            bmps[0] = getBitmapFromVectorDrawable((VectorDrawable) profDrawable);
+        else if(profDrawable instanceof BitmapDrawable)
+            bmps[0] = ((BitmapDrawable) profDrawable).getBitmap();
+
+        if(bgDrawable instanceof VectorDrawable)
+            bmps[1] = getBitmapFromVectorDrawable((VectorDrawable) bgDrawable);
+        else if(bgDrawable instanceof BitmapDrawable)
+            bmps[1] = ((BitmapDrawable) bgDrawable).getBitmap();
+
+
+        return bmps;
+    }
 
     private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
@@ -266,7 +292,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                typing = !newTextInput.getText().toString().trim().equals("");
+//                typing = !newTextInput.getText().toString().trim().equals("");
             }
         });
 
@@ -288,7 +314,7 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog dialog = textInputDialog.create();
         dialog.show();
 
-        new Thread(
+        /*new Thread(
             ()-> {
                 while(dialog.isShowing()){
                     boolean dialogEnabled = dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled();
@@ -300,7 +326,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 typing = false;
             }
-        ).start();
+        ).start();*/
 
 
 
