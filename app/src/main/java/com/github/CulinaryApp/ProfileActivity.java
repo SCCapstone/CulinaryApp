@@ -12,10 +12,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -55,6 +58,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String KEY_FIREBASE_BGIMG = "Bgp";
     private static final String VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME = "New User";
     private static final String VALUE_SHAREDPREFS_DEFAULT_BIO = "No Bio yet...";
+    private static final int LINES_DISPLAY_NAME = 1;
+    private static final int LINES_BIO = 6;
 
 
     @Override
@@ -186,9 +191,9 @@ public class ProfileActivity extends AppCompatActivity {
         getSharedPrefs(this).edit().putString(key, value).apply();
     }
 
-    View.OnClickListener displayNameEditor = view -> getStringFromDialog("Edit Display Name", "New Display Name Here", KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
+    View.OnClickListener displayNameEditor = view -> getStringFromDialog("Edit Display Name", "New Display Name Here", LINES_DISPLAY_NAME, KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
 
-    View.OnClickListener bioEditor = view -> getStringFromDialog("Edit Bio", "Your Bio Here", KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
+    View.OnClickListener bioEditor = view -> getStringFromDialog("Edit Bio", "Your Bio Here", LINES_BIO, KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
 
     View.OnClickListener profImgChanger = view -> {
         changingProfPic = true;
@@ -239,13 +244,15 @@ public class ProfileActivity extends AppCompatActivity {
         return new Uri[] {bgURI, pfpURI};
     }*/
 
-    private void getStringFromDialog(String title, String hint, String valueBeingSaved, ValueSetter setter){
+    private void getStringFromDialog(String title, String hint, int lines, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
 
         EditText newTextInput = new EditText(ProfileActivity.this);
         newTextInput.setHint(hint);
-//        newTextInput.setOnEditorActionListener( (editor, view, view2) -> typing = !editor.getText().toString().trim().equals(""));
+        newTextInput.setLines(lines);
+        newTextInput.setMinLines(lines);
+
         newTextInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
