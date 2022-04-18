@@ -7,6 +7,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,16 +15,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -35,7 +34,6 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.util.function.Consumer;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -48,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String bio, displayName;
 //    private Uri pfpURI, bgURI;
     private StorageReference pfpRef, bgpRef;
+    private boolean typing = false;
 
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
     private static final String KEY_SHAREDPREFS_DISPLAY_NAME = "userDisplayName";
@@ -246,6 +245,23 @@ public class ProfileActivity extends AppCompatActivity {
 
         EditText newTextInput = new EditText(ProfileActivity.this);
         newTextInput.setHint(hint);
+//        newTextInput.setOnEditorActionListener( (editor, view, view2) -> typing = !editor.getText().toString().trim().equals(""));
+        newTextInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                typing = !newTextInput.getText().toString().trim().equals("");
+            }
+        });
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -256,9 +272,31 @@ public class ProfileActivity extends AppCompatActivity {
         layout.addView(newTextInput);
         textInputDialog.setView(layout);
 
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> save(valueBeingSaved, newTextInput.getText().toString(), setter));
+        textInputDialog.setPositiveButton("Done", (dialog, choice) -> {
+            String inputText = newTextInput.getText().toString();
+            save(valueBeingSaved, inputText, setter);
+        });
         textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
-        textInputDialog.show();
+
+        AlertDialog dialog = textInputDialog.create();
+        dialog.show();
+
+        new Thread(
+            ()-> {
+                while(dialog.isShowing()){
+                    boolean dialogEnabled = dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled();
+                    if(typing && !dialogEnabled)
+                        runOnUiThread(() -> dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true));
+                    else if(!typing && dialogEnabled)
+                        runOnUiThread(() -> dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false));
+                }
+
+                typing = false;
+            }
+        ).start();
+
+
+
     }
 
     private void showGenericDialog(String title, View toAdd){
