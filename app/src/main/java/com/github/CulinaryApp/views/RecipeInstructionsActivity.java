@@ -42,8 +42,8 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_instructions);
 
-        ImageButton likeButton = findViewById(R.id.likeButton);
-        likeButton.setOnClickListener(toggleLike);
+        findViewById(R.id.likeButton).setOnClickListener(toggleLike);
+        findViewById(R.id.shareButton).setOnClickListener(shareListener);
 
         currentRecipe = null;
         recipeLiked = false;
@@ -57,6 +57,16 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         new Thread(this::updateDisplayedRecipe).start();
     }
 
+    View.OnClickListener shareListener = view -> {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, currentRecipe.toString());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    };
+
     public static Object getItemFromJSON(JSONObject recipe, String key) throws JSONException{
         final String KEY_OBJECT = "meals";
 
@@ -64,7 +74,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
 
     }
 
-    private String[] getRecipeContentsById(){
+    /*private String[] getRecipeContentsById(){
         final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
         final int NUM_MAX_INGREDIENTS = 20;
 
@@ -94,7 +104,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         }
 
         return new String[] {instructions, ingreds.toString()};
-    }
+    }*/
 
     private void setRecipeContentTexts(String[] texts, TextView... views){
         for(int i=0;i<views.length;i++) {
@@ -108,7 +118,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         TextView recipeName = findViewById(R.id.headingRecipeName);
         recipeName.setText(this.currentRecipe.getName());
 
-        setRecipeContentTexts(getRecipeContentsById(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
+        setRecipeContentTexts(currentRecipe.getRecipeContentsById(), findViewById(R.id.instructions), findViewById(R.id.ingredients));
 
         updateLikeButtonColor();
     }

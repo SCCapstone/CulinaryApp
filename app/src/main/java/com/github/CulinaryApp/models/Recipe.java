@@ -1,7 +1,9 @@
 package com.github.CulinaryApp.models;
 
+import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 import com.google.firebase.firestore.DocumentReference;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class Recipe {
     private ArrayList<String> ingredients;
     private ArrayList<String> measurements;
     private ArrayList<String> tags;
+    private String instructionsString, ingredsString;
+    private static final String URL_BASE = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 
     public Recipe() {
 
@@ -45,8 +49,49 @@ public class Recipe {
         this.tags = tags;
     }
 
+    @Override
+    public String toString() {
+        return "Recipe: " + name + "\n" +
+                URL_BASE + id + "\n" +
+                "\n\nIngredients:\n" + ingredsString +
+                "\n\nDirections:\n" + instructionsString;
+    }
+
+    public String[] getRecipeContentsById(){
+        final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
+        final int NUM_MAX_INGREDIENTS = 20;
+
+        String mealJSONRaw = RecipeInstructionsActivity.apiCall(this.getId(), RecipeInstructionsActivity.URL_FIND_BY_ID);
+
+//        String instructions = null;
+        StringBuilder ingreds = new StringBuilder();
+
+        try {
+            JSONObject parsedRecipe = new JSONObject(mealJSONRaw);
+
+            instructionsString = RecipeInstructionsActivity.getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
+
+            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++) {
+                String amt = RecipeInstructionsActivity.getItemFromJSON(parsedRecipe, KEY_AMOUNTS + i).toString();
+                String ingred = RecipeInstructionsActivity.getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i).toString();
+
+                if(ingred.equals("") || amt.equals("") || ingred.equals("null") || amt.equals("null"))
+                    continue;
+
+                ingreds.append(amt).append(" ")
+                        .append(ingred).append("\n");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ingredsString = ingreds.toString();
+        return new String[] {instructionsString, ingredsString};
+    }
+
     /**
-     * converts recipe to JSON, id intentionally excluded bc it makes life easier when interacting w JSON in RecipeInstructions
+     * converts recipe to JSON, currentRecipe.id is intentionally excluded bc it makes life easier when interacting w JSON in RecipeInstructions
      * @param currentRecipe
      * @return
      */
