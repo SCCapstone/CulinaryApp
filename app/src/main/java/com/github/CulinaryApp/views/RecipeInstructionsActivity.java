@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.CulinaryApp.FavoritesActivity;
 import com.github.CulinaryApp.R;
 import com.github.CulinaryApp.models.Recipe;
 

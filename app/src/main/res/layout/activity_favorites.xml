@@ -19,6 +19,9 @@
             android:id="@+id/recipeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            app:showDividers="end|middle|beginning"
+            app:divider="@android:color/black"
             android:orientation="vertical">
 
             <TextView
