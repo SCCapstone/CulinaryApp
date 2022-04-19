@@ -14,13 +14,17 @@ Vegetarian? *Vegan?* Even *Flexitarian??* *I am Chef* shows you only what you wa
 I am Chef is designed to be simple and intuitive. Here's how it works
 
 ### Registration:
-------------------------explain the things you set and why you set them
+------------------------explain the things you do/set and why you do/set them
 
 ### Signing In and Out:
---------(anyone)------------------explain that once you've registered, sign in follows the traditional format, and that there is no current email verification required, and how to sign out
+##### Signing in:   
+Once you have finished registering, and the app has indicated that you are finished with the process, you're all done! The app will return you to the login page and simply enter your email and password as usual, no email verification required!
+
+##### Signing out:   
+If you're already logged in and would like to log out, look to the bottom navigation bar and tap "Logout". A confirmation box will appear, tap "yes" to confirm that you would like to log out. At that point, you will return to the login page and will not be able to access the contents of the app until you log in again 
 
 ### Viewing your suggestions:
-----------------------------explain the home page, make sure to explain searching, and that you can click on whole category names as well as individual recipes
+----------------------------explain the home page, what appears and in what order (so they know what the point of scrolling down is), make sure to explain searching, and that you can click on whole category names as well as individual recipes
 
 ### Modifying your suggestions:
 -----------------------------explain the ways you can filter out recipes, go in depth on the various options for diets, and where to find the settings to change them
@@ -33,7 +37,7 @@ I am Chef is designed to be simple and intuitive. Here's how it works
 
 
 ## Images
-
+-------------------------------Either a section with images or we distribute the images into the other sections
 
 ## About Us
 *I am Chef* was developed by the CulinaryApp team within the UofSC 2022 Capstone Project framework
