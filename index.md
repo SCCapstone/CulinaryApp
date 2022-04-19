@@ -1,12 +1,12 @@
-<h1>I am Chef</h1>
+# I am Chef
 
 
-<h2>Demo Video</h2>
+## Demo Video
 
-<h2>What We do</h2>
+## What We do
 
-<h2>How to Use</h2>
+## How to Use
 
-<h2>About Us</h2>
+## About Us
 
-<h2>See Our Code</h2>
+## See Our Code
