@@ -13,22 +13,22 @@ Vegetarian? *Vegan?* Even *Flexitarian??* *I am Chef* shows you only what you wa
 ## How to Use
 I am Chef is designed to be simple and intuitive. Here's how it works
 
-Registration:
+### Registration:
 ------------------------explain the things you set and why you set them
 
-Signing In and Out:
+### Signing In and Out:
 --------(anyone)------------------explain that once you've registered, sign in follows the traditional format, and that there is no current email verification required, and how to sign out
 
-Viewing your suggestions:
+### Viewing your suggestions:
 ----------------------------explain the home page, make sure to explain searching, and that you can click on whole category names as well as individual recipes
 
-Modifying your suggestions:
+### Modifying your suggestions:
 -----------------------------explain the ways you can filter out recipes, go in depth on the various options for diets, and where to find the settings to change them
 
-Saving and sharing recipes you like:
+### Saving and sharing recipes you like:
 ---------(Lukacs)----------------------------explain the recipesinstructions page and the favorites page, go in depth on what is shared when you press share and which apps that can send to, how to like a recipe and where to find the likes, how to unlike a recipe, that recipes are linked to from the favorites page
 
-Editing your Profile:
+### Editing your Profile:
 ---------(Lukacs)--------------------explain the profile page, what can be changed, don't go into depth about preferences as it has already been explained, reference the explanation instead
 
 
