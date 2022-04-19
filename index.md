@@ -14,7 +14,11 @@ Vegetarian? *Vegan?* Even *Flexitarian??* *I am Chef* shows you only what you wa
 I am Chef is designed to be simple and intuitive. Here's how it works
 
 ### Registration:
-------------------------explain the things you do/set and why you do/set them
+#### Users
+To register a general user account, being by clicking on the "Not a member? Get registered in Firebase now!" button in the lower part of your screen. From there simply enter your email, password, and don't forget to confirm your password. After hitting next you'll just have to enter a few more details. Enter your first and last name along with clicking on any lifestyle preferences that match you! Upload a profile picture and a background image and you're all set to go!
+
+#### Chefs
+If you're a chef wanting to register an account you'll also have to click the "Not a member? Get registered in Firebase now!" button in the lower part of your screen. Then click the "Chef Registration!" text right under the page header. From there we just need your email, password (don't forget the confirmation!), first and last name, and what organization you're affiliated with. Then just hit "Register" and you're all set!
 
 ### Signing In and Out:
 ##### Signing in:   
