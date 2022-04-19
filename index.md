@@ -28,4 +28,4 @@ Mitchell Lambert
 
 ## See Our Code
 
-Our Github repository can be found at https://github.com/SCCapstone/CulinaryApp
+Our Github repository can be found at [https://github.com/SCCapstone/CulinaryApp](https://github.com/SCCapstone/CulinaryApp)
