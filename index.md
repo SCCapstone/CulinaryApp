@@ -81,7 +81,7 @@ Allows you to edit your food preferences for your recommendations. See "modifyin
 
 #### Our members:
 Lukacs Ablonczy - [find me on LinkedIn](https://www.linkedin.com/in/lablonczy/)  
-Michael A. Sana  
+Michael A. Sana - [find me on LinkedIn](https://www.linkedin.com/in/michael-sana-4170071b0/)
 Ralph J. Gleaton - [find me on LinkedIn](https://www.linkedin.com/in/ralph-gleaton-380985212/)
 Mitchell Lambert - [find me on LinkedIn](https://linkedin.com/in/mitchlambo/)
 
