@@ -28,12 +28,12 @@ Once you have finished registering, and the app has indicated that you are finis
 If you're already logged in and would like to log out, look to the bottom navigation bar and tap "Logout". A confirmation box will appear, tap "yes" to confirm that you would like to log out. At that point, you will return to the login page and will not be able to access the contents of the app until you log in again 
 
 ### Viewing your suggestions:
-----------------------------explain the home page, what appears and in what order (so they know what the point of scrolling down is), make sure to explain searching, and that you can click on whole category names as well as individual recipes
+You can view your suggested recipes from the homepage of the app! When navigating to the homepage of the app you will be presented with a list of all your suggested categories along with 4 recipes we've hand picked for you based on your lifestyle settings! On this menu you can either click on one of your suggested categories to view all our recipes in that category or click on one of the suggested recipes to view it's ingredients and instructions!
+
+If you want more than just our suggestions you can click on the searchbar at the top of the page! From here you can search for either categories or recipes!
 
 ### Modifying your suggestions:
------------------------------explain the ways you can filter out recipes, go in depth on the various options for diets, and where to find the settings to change them
-
-You can modify your suggestions by updating lifestyle settings. These settings can be found by opening up your clipboard. At the moment, most of the lifestyles revolve around different types of diets. You can choose multiple lifestyles. Some of which include veganism, vegatarianism, flexitarianism (for those who mostly stick to a plant-based, whole-grain diet but eat meat sometimes), and althetics.
+You can modify your suggestions by updating lifestyle settings. Updating your lifestyle settings will modify both the categories and recipes we suggest to you. These settings can by naviagting to your profile page and clicking "Update Preferences". At the moment, most of the lifestyles revolve around different types of diets. You can choose multiple lifestyles. Some of which include veganism, vegatarianism, flexitarianism (for those who mostly stick to a plant-based, whole-grain diet but eat meat sometimes), and althetics.
 
 ### Saving and sharing recipes you like:
 Once you've found a recipe you love, you'll want to share it or save it for later. Here's how to do that
@@ -82,7 +82,7 @@ Allows you to edit your food preferences for your recommendations. See "modifyin
 #### Our members:
 Lukacs Ablonczy - [find me on LinkedIn](https://www.linkedin.com/in/lablonczy/)  
 Michael A. Sana  
-Ralph J. Gleaton  
+Ralph J. Gleaton - [find me on LinkedIn](https://www.linkedin.com/in/ralph-gleaton-380985212/)
 Mitchell Lambert - [find me on LinkedIn](https://linkedin.com/in/mitchlambo/)
 
 
