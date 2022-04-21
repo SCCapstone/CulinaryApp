@@ -34,7 +34,20 @@ If you're already logged in and would like to log out, look to the bottom naviga
 -----------------------------explain the ways you can filter out recipes, go in depth on the various options for diets, and where to find the settings to change them
 
 ### Saving and sharing recipes you like:
----------(Lukacs)----------------------------explain the recipesinstructions page and the favorites page, go in depth on what is shared when you press share and which apps that can send to, how to like a recipe and where to find the likes, how to unlike a recipe, that recipes are linked to from the favorites page
+Once you've found a recipe you love, you'll want to share it or save it for later. Here's how to do that
+
+##### Saving a recipe:
+Saving allows you to keep a list of your favorite recipes and quickly access them without searching
+
+To save a recipe, find the recipe's page and simply tap the heart button under the name of the recipe. Once it has turned red, it means your like has been recorded in the app, and you have saved the recipe  
+Saved recipes can be found on the 'favorites' page, just tap the 'favorites' button in the bottom bar and you'll see a list of all your likes. Each item in the list is a permanent link to that recipe, so there's no more need to go searching for the recipe!
+To remove a like, repeat the like action, and the red heart on the recipe will return to its original gray, showing that the recipe is no longer in your likes.
+
+##### Sharing a recipe:
+Sharing helps you spread the word about recipes you love. Sharing a recipe will send the recipe's name, ingredients, and instructions as text to any messaging app
+
+To share a recipe, find the recipe's page and tap the share icon under the name of the recipe. This will initiate the share menu. Scroll through the menu until you find the app which you wish to share to, and tap that app's icon  
+
 
 ### Editing your Profile:
 ---------(Lukacs)--------------------explain the profile page, what can be changed, don't go into depth about preferences as it has already been explained, reference the explanation instead
@@ -54,5 +67,4 @@ Mitchell Lambert
 
 
 ## See Our Code
-
 Our Github repository can be found at [https://github.com/SCCapstone/CulinaryApp](https://github.com/SCCapstone/CulinaryApp)
