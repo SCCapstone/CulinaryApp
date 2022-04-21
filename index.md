@@ -50,7 +50,6 @@ To share a recipe, find the recipe's page and tap the share icon under the name 
 
 
 ### Editing your Profile:
----------(Lukacs)--------------------explain the profile page, what can be changed, don't go into depth about preferences as it has already been explained, reference the explanation instead
 The profile page is where you can edit the various parts of your profile as well as see what they look like to other users
 
 ###### Edit Avatar
