@@ -15,7 +15,7 @@ I am Chef is designed to be simple and intuitive. Here's how it works
 
 ### Registration:
 ###### Users
-To register a general user account, being by clicking on the "Not a member? Get registered in Firebase now!" button in the lower part of your screen. From there simply enter your email, password, and don't forget to confirm your password. After hitting next you'll just have to enter a few more details. Enter your first and last name along with clicking on any lifestyle preferences that match you! Upload a profile picture and a background image and you're all set to go!
+To register a general user account, begin by clicking on the "Not a member? Get registered in Firebase now!" button in the lower part of your screen. From there simply enter your email, password, and don't forget to confirm your password. After hitting next you'll just have to enter a few more details. Enter your first and last name along with clicking on any lifestyle preferences that match you! Upload a profile picture and a background image and you're all set to go!
 
 ###### Chefs
 If you're a chef wanting to register an account you'll also have to click the "Not a member? Get registered in Firebase now!" button in the lower part of your screen. Then click the "Chef Registration!" text right under the page header. From there we just need your email, password (don't forget the confirmation!), first and last name, and what organization you're affiliated with. Then just hit "Register" and you're all set!
@@ -32,6 +32,8 @@ If you're already logged in and would like to log out, look to the bottom naviga
 
 ### Modifying your suggestions:
 -----------------------------explain the ways you can filter out recipes, go in depth on the various options for diets, and where to find the settings to change them
+
+You can modify your suggestions by updating lifestyle settings. These settings can be found by opening up your clipboard. At the moment, most of the lifestyles revolve around different types of diets. You can choose multiple lifestyles. Some of which include veganism, vegatarianism, flexitarianism (for those who mostly stick to a plant-based, whole-grain diet but eat meat sometimes), and althetics.
 
 ### Saving and sharing recipes you like:
 Once you've found a recipe you love, you'll want to share it or save it for later. Here's how to do that
@@ -81,7 +83,7 @@ Allows you to edit your food preferences for your recommendations. See "modifyin
 Lukacs Ablonczy - [find me on LinkedIn](https://www.linkedin.com/in/lablonczy/)  
 Michael A. Sana  
 Ralph J. Gleaton  
-Mitchell Lambert
+Mitchell Lambert - [find me on LinkedIn](https://linkedin.com/in/mitchlambo/)
 
 
 ## See Our Code
