@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
                                     Log.d(TAG, "LOGIN SUCCEEDED: REDIRECTED TO CATEGORIES NOW");
-                                    Toast.makeText(LoginActivity.this, "Authentication SUCCESS.", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(LoginActivity.this, "Authentication SUCCESS.", Toast.LENGTH_SHORT).show();
                                   //  LoginActivity.this.startActivity(new Intent(LoginActivity.this, CategoriesActivity.class));
                                    // LoginActivity.this.finish();
                                     navigateToCategoriesPage();

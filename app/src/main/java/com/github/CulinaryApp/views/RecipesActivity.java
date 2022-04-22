@@ -44,13 +44,13 @@ public class RecipesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout._recipes_recycler_view);
-        Log.d(TAG, "onCreate: started");
+        //Log.d(TAG, "onCreate: started");
 
 
         // RJ Code for testing
         Bundle extras = getIntent().getExtras();
         String categorySelected = extras.getString("Category");
-        Log.d("Category passed",categorySelected);
+        //Log.d("Category passed",categorySelected);
             //The key argument here must match that used in the other activity
 
         //End of my code

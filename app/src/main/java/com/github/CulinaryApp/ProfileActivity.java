@@ -399,10 +399,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             upload.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Image successfully updated", Toast.LENGTH_LONG).show();
                     loadImg(viewToUpdate, imgUri);
                 } else
-                    Toast.makeText(this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Failed to upload user image", Toast.LENGTH_LONG).show();
 
             });
 
@@ -429,7 +429,7 @@ public class ProfileActivity extends AppCompatActivity {
                 updatePersonalizedData(data, storageRef, bgImg, KEY_FIREBASE_BGIMG);
             }
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
