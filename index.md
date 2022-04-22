@@ -75,10 +75,11 @@ Allows you to edit your food preferences for your recommendations. See "modifyin
 
 
 ## Images
-<img width="233" alt="LoginScreen" src="https://user-images.githubusercontent.com/77210893/164565152-1d4a2078-b35c-4585-bf83-8f096b096be4.png">
-<img width="233" alt="categories" src="https://user-images.githubusercontent.com/77210893/164565186-32494413-1c65-4fbf-bccb-b4aa32b91298.png">
-<img width="233" alt="recipes" src="https://user-images.githubusercontent.com/77210893/164565196-b5b8840e-d042-4545-b0da-5eed0504cc41.png">
-<img width="233" alt="profile" src="https://user-images.githubusercontent.com/70818603/164574112-9057daeb-8122-4f00-ae1e-54d14d1ee4d2.PNG">
+<img width="233" alt="LoginScreen" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164006.png">
+<img width="233" alt="categories" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164050.png">
+<img width="233" alt="recipes" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164120.png">
+<img width="233" alt="profile" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164252.png">
+<img width="233" alt="image_edit" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164242.png">
 
 ## About Us
 *I am Chef* was developed by the CulinaryApp team within the UofSC 2022 Capstone Project framework
