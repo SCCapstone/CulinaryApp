@@ -41,11 +41,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         mAuth = FirebaseAuth.getInstance();
 
-        nButton = (Button)findViewById(R.id.reg1NButton);
-        emailAddress = (EditText)findViewById(R.id.EmailAddress);
-        password = (EditText)findViewById(R.id.Password);
-        confPassword = (EditText)findViewById(R.id.ConfPassword);
-        progBar = (ProgressBar)findViewById(R.id.progressBar);
+        nButton = findViewById(R.id.reg1NButton);
+        emailAddress = findViewById(R.id.EmailAddress);
+        password = findViewById(R.id.Password);
+        confPassword = findViewById(R.id.ConfPassword);
+        progBar = findViewById(R.id.progressBar);
         progBar.setVisibility(View.GONE);
     }
 
@@ -92,10 +92,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 else{
                     progBar.setVisibility(View.VISIBLE);
 
+                    final boolean[] innerComplete = {false};
                     mAuth.createUserWithEmailAndPassword(email, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                                     if(task.isSuccessful()){
 
                                         User user = new User(email);
@@ -108,12 +111,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                                                if(task.isSuccessful()){
                                                     Toast.makeText(RegistrationActivity.this, "User successfully registered", Toast.LENGTH_LONG).show();
                                                     progBar.setVisibility(View.GONE);
+                                                    innerComplete[0] = true;
 
                                                     //TODO Send user to profile page or categories page (or reg page 2 but that's given)
                                                }
                                                else{
                                                    Toast.makeText(RegistrationActivity.this, "User failed to register", Toast.LENGTH_LONG).show();
                                                    progBar.setVisibility(View.GONE);
+                                                   innerComplete[0] = false;
                                                }
                                             }
                                         });
@@ -128,7 +133,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             });
 
                     progBar.setVisibility(View.GONE);
-                    startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
+
+                    if(innerComplete[0])
+                        startActivity(new Intent(RegistrationActivity.this, RegPage2Activity.class));
                     //setContentView(R.layout.activity_reg_page2);
                 }
                 break;
