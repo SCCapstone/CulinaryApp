@@ -17,7 +17,7 @@ public class Recipe {
     private ArrayList<String> measurements;
     private ArrayList<String> tags;
     private String instructionsString, ingredsString;
-    public static final String URL_BASE = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+    public static final String URL_BASE = "https://www.themealdb.com/meal/";
 
     public Recipe() {
 

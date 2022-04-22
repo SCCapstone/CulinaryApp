@@ -97,7 +97,6 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
     }
 
     private void updateDisplayedRecipe(){
-        //update recipe name
         TextView recipeName = findViewById(R.id.headingRecipeName);
         recipeName.setText(this.currentRecipe.getName());
 

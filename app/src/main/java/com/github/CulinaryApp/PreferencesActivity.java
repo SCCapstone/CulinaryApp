@@ -134,16 +134,13 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
                 hopperUpdates.put("Lifestyle", lifestyleList);
 
 
-                hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(PreferencesActivity.this, "Preferences successfully updated", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(PreferencesActivity.this, ProfileActivity.class));
-                        }
-                        else
-                            Toast.makeText(PreferencesActivity.this, "Failed to update user info", Toast.LENGTH_LONG).show();
+                hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Toast.makeText(PreferencesActivity.this, "Preferences successfully updated", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(PreferencesActivity.this, ProfileActivity.class));
                     }
+                    else
+                        Toast.makeText(PreferencesActivity.this, "Failed to update user info", Toast.LENGTH_LONG).show();
                 });
                 break;
 

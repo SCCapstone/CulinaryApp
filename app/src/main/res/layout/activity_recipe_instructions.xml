@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5DC"
     tools:context=".views.RecipeInstructionsActivity">
 
     <ScrollView
@@ -36,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Recipe Name"
-                android:textColor="@color/purple"
+                android:textColor="#FF9036"
                 android:textSize="40sp"
 
                 android:layout_margin="32dp" />
@@ -85,6 +86,7 @@
                     android:id="@+id/ingredients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#676767"
                     android:text="Ingredient1\nIngredient2" />
 
                 <TextView
@@ -96,6 +98,7 @@
                     android:id="@+id/instructions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#676767"
                     android:text="Step1\nStep2" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

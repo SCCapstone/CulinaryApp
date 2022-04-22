@@ -15,9 +15,9 @@
         <activity
             android:name=".FavoritesActivity"
             android:exported="true"
-            android:theme="@style/AppTheme"
             android:debuggable="true"
-            tools:ignore="HardcodedDebugMode" />
+            tools:ignore="HardcodedDebugMode"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".views.ChefRegistration"
@@ -28,9 +28,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.RecipeInstructionsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".PreferencesActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
          The flow of our application is as follows (for our PoC - subject to change for next semester
                 if we find more effective flows):

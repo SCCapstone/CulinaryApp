@@ -15,6 +15,7 @@
             android:id="@+id/Category_Layout"
             android:layout_width="match_parent"
             android:layout_height="473dp"
+            android:background="#F5F5DC"
             android:orientation="vertical">
 
             <TextView

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -35,14 +36,14 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-
+        populateLikedList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        populateLikedList();
+
     }
 
     private void populateLikedList(){
@@ -82,12 +83,14 @@ public class FavoritesActivity extends AppCompatActivity {
                 link.setText(name);
                 link.setLayoutParams(new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
 
-                int paddingStart = ProfileActivity.getPixelsFromDp(this, 32);
+                int paddingSides = ProfileActivity.getPixelsFromDp(this, 32);
                 int paddingVertical = ProfileActivity.getPixelsFromDp(this, 25);
-                link.setPadding(paddingStart, paddingVertical, 0, paddingVertical);
+                link.setPadding(paddingSides, paddingVertical, paddingSides, paddingVertical);
                 link.setGravity(Gravity.START);
                 link.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-                link.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                link.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
+                link.setTextColor(Color.parseColor("#676767"));
+//                link.setTypeface(link.getTypeface(), Typeface.BOLD);
 
                 link.setOnClickListener( view -> {
                     Context context = FavoritesActivity.this;

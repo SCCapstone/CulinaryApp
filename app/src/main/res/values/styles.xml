@@ -12,6 +12,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#595959</item>
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
@@ -52,7 +53,9 @@
     <style name="ProfileHeading">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#A5FF91</item>
+<!--        <item name="android:textColor">#A5FF91</item>-->
+<!--        <item name="android:textColor">#FF9036</item>-->
+        <item name="android:textColor">#FF9036</item>
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -68,7 +71,9 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:minHeight">24dp</item>
-        <item name="android:textColor">#FF9036</item>
+<!--        <item name="android:textColor">#676767</item>-->
+        <item name="android:textColor">#FFB274</item>
+<!--        <item name="android:textColor">#7A7A7A</item>-->
         <item name="android:textSize">15sp</item>
     </style>
     <!--

@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3F3"
     tools:context=".FavoritesActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#F5F5DC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,45 +19,45 @@
             android:id="@+id/recipeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:showDividers="end|middle|beginning"
+            android:orientation="vertical"
             app:divider="@android:color/black"
-            android:orientation="vertical">
+            app:showDividers="middle">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/orange"
                 android:gravity="center"
                 android:padding="24dp"
                 android:text="Liked Recipes"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
-<!--            <Button-->
-<!--                android:id="@+id/recipeButtonTemplate"-->
-<!--                style="@style/FavsEntry"-->
-<!--                android:text="Thanksgiving Turkey  6hr\nChef Luke" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeButtonTemplate"-->
+            <!--                style="@style/FavsEntry"-->
+            <!--                android:text="Thanksgiving Turkey  6hr\nChef Luke" />-->
 
-<!--            <Button-->
-<!--                android:id="@+id/recipeButton2"-->
-<!--                style="@style/FavsEntry"-->
-<!--                android:text="Pumpkin Pie  2hr\nChef John" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeButton2"-->
+            <!--                style="@style/FavsEntry"-->
+            <!--                android:text="Pumpkin Pie  2hr\nChef John" />-->
 
-<!--            <Button-->
-<!--                android:id="@+id/recipeButton3"-->
-<!--                style="@style/FavsEntry"-->
-<!--                android:text="Gluten free Thanksgiving  7hr\nChef Ramsay" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeButton3"-->
+            <!--                style="@style/FavsEntry"-->
+            <!--                android:text="Gluten free Thanksgiving  7hr\nChef Ramsay" />-->
 
-<!--            <Button-->
-<!--                android:id="@+id/recipeButton4"-->
-<!--                style="@style/FavsEntry"-->
-<!--                android:text="Christmas Roast  3hrs\nChef Ramsay" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeButton4"-->
+            <!--                style="@style/FavsEntry"-->
+            <!--                android:text="Christmas Roast  3hrs\nChef Ramsay" />-->
 
-<!--            <Button-->
-<!--                android:id="@+id/recipeButton5"-->
-<!--                style="@style/FavsEntry"-->
-<!--                android:text="Prime Rib 2hr\nChef Luise" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/recipeButton5"-->
+            <!--                style="@style/FavsEntry"-->
+            <!--                android:text="Prime Rib 2hr\nChef Luise" />-->
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

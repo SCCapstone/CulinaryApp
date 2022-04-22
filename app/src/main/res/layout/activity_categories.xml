@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:paddingTop="55dp"
         android:paddingBottom="40dp"
+        android:background="#F5F5DC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
