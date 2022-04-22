@@ -60,7 +60,7 @@ public class RecyclerViewAdapter extends
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Recipe recipe = recipeList.get(position);
                 // We can access the data within the views
-                Toast.makeText(context, recipe.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, recipe.getId(), Toast.LENGTH_SHORT).show();
                 Intent startRecipeActivity = new Intent(context, RecipeInstructionsActivity.class);
                 startRecipeActivity.putExtra(KEY_INTENT_EXTRA_RECIPE_ID, recipe.getId());
                 startRecipeActivity.putExtra(KEY_INTENT_EXTRA_RECIPE_NAME, recipe.getName());
