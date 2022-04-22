@@ -89,7 +89,7 @@ public class FavoritesActivity extends AppCompatActivity {
                 link.setGravity(Gravity.START);
                 link.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                 link.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21);
-                link.setTextColor(Color.parseColor("#676767"));
+                link.setTextColor(getResources().getColor(R.color.page_subtext));
 //                link.setTypeface(link.getTypeface(), Typeface.BOLD);
 
                 link.setOnClickListener( view -> {

@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#F5F5DC"
+        android:background="@color/page_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:padding="24dp"
                 android:text="Liked Recipes"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/page_title"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 

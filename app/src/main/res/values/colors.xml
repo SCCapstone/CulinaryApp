@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="page_title">#FFFFFF</color>
+    <color name="page_background">#FFFFFF</color>
+    <color name="page_heading">#FF9036</color>
+    <color name="page_text">#000000</color>
+    <color name="page_subtext">#7C7C7C</color>
+
     <color name="purple">#CBC3E3</color>
     <color name="orange">#ff8000</color>
     <color name="green">#69ff66</color>

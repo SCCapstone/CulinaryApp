@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5DC"
+    android:background="@color/page_background"
     android:fillViewport="true"
     tools:context=".views.CategoriesActivity">
 
@@ -15,7 +15,6 @@
         android:layout_height="match_parent"
         android:paddingTop="55dp"
         android:paddingBottom="40dp"
-        android:background="#F5F5DC"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
