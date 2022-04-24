@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class SearchbarFragment extends Fragment {
                     new Thread(this::showResults).start();
                 } else {
                     ArrayList<String> empty = new ArrayList<>();
-                    LoadSearch(empty, empty, empty);
+                    LoadSearch(empty, empty, empty, empty);
                 }
             }
 
@@ -102,6 +103,7 @@ public class SearchbarFragment extends Fragment {
                     ArrayList<String> categoriesThatMatch = new ArrayList<>();
                     ArrayList<String> recipesThatMatch = new ArrayList<>();
                     ArrayList<String> idsThatMatch = new ArrayList<>();
+                    ArrayList<String> imgsThatMatch = new ArrayList<>();
                     //Find matching categories
                     for(String cat : categories){
                         if(cat.toLowerCase(Locale.ROOT).contains(searchEntered.toLowerCase(Locale.ROOT))){
@@ -115,6 +117,7 @@ public class SearchbarFragment extends Fragment {
                     try{
                         recipesThatMatch = JSONToArray(recipes_JSON,"meals","strMeal");
                         idsThatMatch = JSONToArray(recipes_JSON,"meals","idMeal");
+                        imgsThatMatch = JSONToArray(recipes_JSON,"meals","strMealThumb");
 
                     } catch(JSONException e) {
                         e.printStackTrace();
@@ -122,7 +125,8 @@ public class SearchbarFragment extends Fragment {
 
                     ArrayList<String> finalRecipesThatMatch = recipesThatMatch;
                     ArrayList<String> finalIdsThatMatch = idsThatMatch;
-                    ((CategoriesActivity)getContext()).runOnUiThread(() -> LoadSearch(categoriesThatMatch, finalRecipesThatMatch, finalIdsThatMatch));
+                    ArrayList<String> finalImgsThatMatch = imgsThatMatch;
+                    ((CategoriesActivity)getContext()).runOnUiThread(() -> LoadSearch(categoriesThatMatch, finalRecipesThatMatch, finalIdsThatMatch, finalImgsThatMatch));
                 }
 
             }
@@ -151,7 +155,7 @@ public class SearchbarFragment extends Fragment {
 
 
 
-    public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList, ArrayList<String> idList){
+    public void LoadSearch(ArrayList<String> catList, ArrayList<String> recList, ArrayList<String> idList, ArrayList<String> imgList){
         ArrayList<String> listToDisplay = new ArrayList<>();
         ArrayList<Boolean> recipeTracker = new ArrayList<>();
         if(!catList.isEmpty()) {
@@ -176,7 +180,7 @@ public class SearchbarFragment extends Fragment {
 
         RecyclerView recView = getView().findViewById(R.id.recyclerViewSearchbar);
         recView.setHasFixedSize(true);
-        SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker, idList);
+        SearchAdapter recAdapter = new SearchAdapter(getContext(), listToDisplay, recipeTracker, idList, imgList);
         recView.setAdapter(recAdapter);
         recView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

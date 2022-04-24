@@ -399,10 +399,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             upload.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(this, "Image successfully updated", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, "Image successfully updated", Toast.LENGTH_LONG).show();
                     loadImg(viewToUpdate, imgUri);
                 } else
-                    //Toast.makeText(this, "Failed to upload user image", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Failed to your image", Toast.LENGTH_LONG).show();
 
             });
 
