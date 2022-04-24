@@ -43,6 +43,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         this.ids = ids;
         this.imgs = imgs;
     }
+
+    public SearchAdapter(Context context){
+
+    }
+
+    public void clearAdapter(){
+        if(categories != null) {
+            categories.clear();
+        }
+        if(recipes != null) {
+            recipes.clear();
+        }
+        if(ids != null) {
+            ids.clear();
+        }
+        if(imgs != null) {
+            imgs.clear();
+        }
+    }
+
     @NonNull
     @Override
     public SearchAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -97,6 +117,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        if(categories != null) {
+            return categories.size();
+        }
+        else
+            return 0;
     }
 }
