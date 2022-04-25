@@ -44,11 +44,13 @@ public class ProfileDisplayFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile_display, container, false);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ProfileActivity currentProfileActivity = (ProfileActivity) getActivity();
+        //gets display name and bio from the profile activity
         String[] profileValues = currentProfileActivity.getProfileStrings();
 
         TextView displayName = getView().findViewById(R.id.displayName);
@@ -57,6 +59,7 @@ public class ProfileDisplayFragment extends Fragment {
         ImageView bgImg = getView().findViewById(R.id.backgroundImg);
         CircleImageView profilePic = getView().findViewById(R.id.profilePicture);
 
+        //gets the images from the profile activity
         Bitmap[] imgs = currentProfileActivity.getBmps();
         profilePic.setImageBitmap(imgs[0]);
         bgImg.setImageBitmap(imgs[1]);
@@ -74,6 +77,9 @@ public class ProfileDisplayFragment extends Fragment {
         backButton.setOnClickListener(quitFragment);
     }
 
+    /**
+     * leaves the fragment from within the fragment
+     */
     View.OnClickListener quitFragment = view -> {
         FragmentManager manager = getActivity().getSupportFragmentManager();
 

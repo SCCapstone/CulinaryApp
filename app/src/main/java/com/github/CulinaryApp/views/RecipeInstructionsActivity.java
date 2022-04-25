@@ -50,6 +50,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         findViewById(R.id.likeButton).setOnClickListener(toggleLike);
         findViewById(R.id.shareButton).setOnClickListener(shareListener);
 
+        //default values for instance variables
         currentRecipe = null;
         recipeLiked = false;
     }
@@ -58,10 +59,15 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
+        //retrieves the values of the recipe the user clicked
         this.currentRecipe = getCurrentRecipeFromIntent();
+
+        //asyc call to get and set the recipe's instructions, img, and ingredients using mealdb api
         new Thread(this::updateDisplayedRecipe).start();
     }
 
+    //Forms a bitmap object from any .png stored on the web
     private Bitmap getBmpFromURL(String url){
         try {
             InputStream bitmapStream = new URL(url).openConnection().getInputStream();
@@ -72,6 +78,7 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         }
     }
 
+    //starts android's sharing interface. shares the current recipe in string form
     View.OnClickListener shareListener = view -> {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -82,26 +89,36 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         startActivity(shareIntent);
     };
 
+    //retrieves an item from a JSON array using a default key to get the array and a given key to get the item
+    //index is 0 because structure wise there is only ever one array named meals
     public static Object getItemFromJSON(JSONObject recipe, String key) throws JSONException{
         final String KEY_OBJECT = "meals";
+        final int INDEX = 0;
 
-        return recipe.getJSONArray(KEY_OBJECT).getJSONObject(0).get(key);
+        return recipe.getJSONArray(KEY_OBJECT).getJSONObject(INDEX).get(key);
 
     }
 
+    //Takes parallel lists of texts and views, must be the same size, and iteratively displays one text onto every Textview by index
     private void setRecipeContentTexts(String[] texts, TextView... views){
         for(int i=0;i<views.length;i++) {
             int index = i;
+            //this method runs within an async thread, meaning it cannot make changes to what is displayed. runOnUiThread method allows access to layout edits
             runOnUiThread(() -> views[index].setText(texts[index]));
         }
     }
 
+    /**
+     * replaces the default values from before a recipe has loaded with the values of the intended recipe
+     */
     private void updateDisplayedRecipe(){
         TextView recipeName = findViewById(R.id.headingRecipeName);
         recipeName.setText(this.currentRecipe.getName());
 
         ImageView recipeImg = findViewById(R.id.recipeInstrImg);
 
+        //getBmpFromURL is a network call, so it must be off the main thread
+        //however, that bmp is immediately used to update layout, so a uiThread call is required within this thread to avoid unnecessary complication
         new Thread( () -> {
             Bitmap bmp = getBmpFromURL(currentRecipe.getImage());
             runOnUiThread(() -> recipeImg.setImageBitmap(bmp));
@@ -112,6 +129,13 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         updateLikeButtonColor();
     }
 
+    /**
+     * sends an HTTP GET request to the mealdb api
+     * api endpoint: lookup meal by id
+     * @param value the key of the api endpoint. either id or name
+     * @param url the base url defining the type of lookup
+     * @return the result of the request as a JSON formatted string
+     */
     public static String apiCall(String value, String url){
         //example https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772
 
@@ -128,6 +152,11 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return "{}";
     }
 
+    /**
+     * converts an inputstream into a string
+     * @param response the inputstream resulting from an HTTPsUrlConnection
+     * @return the JSON response of an API call in string form
+     */
     private static String streamToString(InputStream response) {
         String JsonResponse = "{}";
         try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
@@ -137,6 +166,10 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return JsonResponse;
     }
 
+    /**
+     * Retrieves the individual details of the recipe the user clicked on either on the categories page or the recipes outer page
+     * @return the new Recipe constructed from the Intent send to this activity
+     */
     private Recipe getCurrentRecipeFromIntent(){
         Intent recipeReceived = getIntent();
         if(recipeReceived.getExtras() == null || recipeReceived.getExtras().size() != 3)
@@ -216,10 +249,21 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return !result.equals("{}");
     }
 
+    /**
+     * Gets the likes from sharedprefs
+     * @param context
+     * @return the recipes a user liked
+     */
     public static String getLikes(Context context){
         return getSharedPrefs(context).getString(KEY_LIKES, VALUE_DEFAULT_NONE_FOUND);
     }
 
+    /**
+     * removes a recipe from the list of likes
+     * @param likes likes as JSON format string
+     * @param currentRecipe recipe being displayed
+     * @return likes as JSON format string without the recipe that was unliked
+     */
     private static String removeLike(String likes, Recipe currentRecipe) {
         JSONObject likesJSON = null;
 
@@ -235,6 +279,12 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return likesJSON.toString();
     }
 
+    /**
+     * adds a recipe to the list of likes
+     * @param oldLikes the list previous to pressing the like button
+     * @param newLike the recipe to add to the list
+     * @return the list of likes including the new recipe as a JSON format string
+     */
     private static String appendLike(String oldLikes, Recipe newLike){
         JSONObject likesJSON = null;
 
@@ -252,15 +302,19 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return likesJSON.toString();
     }
 
-
-    private void setCurrentRecipe(Recipe currentRecipe){
-        this.currentRecipe = currentRecipe;
-    }
-
+    /**
+     * returns the recipe being displayed
+     * @return the recipe the user clicked on
+     */
     private Recipe getCurrentRecipe(){ //todo
         return this.currentRecipe;
     }
 
+    /**
+     * returns the sharedpreferences
+     * @param context
+     * @return sharedprefs object
+     */
     private static SharedPreferences getSharedPrefs(Context context){
         SharedPreferences sharedPreferences = null;
         try {
@@ -280,36 +334,5 @@ public class RecipeInstructionsActivity extends AppCompatActivity {
         return sharedPreferences;
     }
 
-    /*private String[] getRecipeContentsById(){
-        final String KEY_INSTRUCTIONS="strInstructions", KEY_AMOUNTS="strMeasure", KEY_INGREDIENTS="strIngredient";
-        final int NUM_MAX_INGREDIENTS = 20;
-
-        String mealJSONRaw = apiCall(this.currentRecipe.getId(), URL_FIND_BY_ID);
-
-        String instructions = null;
-        StringBuilder ingreds = new StringBuilder();
-
-        try {
-            JSONObject parsedRecipe = new JSONObject(mealJSONRaw);
-
-            instructions = getItemFromJSON(parsedRecipe, KEY_INSTRUCTIONS).toString();
-
-            for(int i=1;i<=NUM_MAX_INGREDIENTS;i++) {
-                String amt = getItemFromJSON(parsedRecipe, KEY_AMOUNTS + i).toString();
-                String ingred = getItemFromJSON(parsedRecipe, KEY_INGREDIENTS + i).toString();
-
-                if(ingred.equals("") || amt.equals("") || ingred.equals("null") || amt.equals("null"))
-                    continue;
-
-                ingreds.append(amt).append(" ")
-                        .append(ingred).append("\n");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return new String[] {instructions, ingreds.toString()};
-}*/
 
 }

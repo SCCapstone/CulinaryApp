@@ -36,16 +36,18 @@ public class FavoritesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
+        //needs to be in onCreate so it doesn't continually repeat add recipes if you return to this activity via the back button
         populateLikedList();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 
+    /**
+     * adds likes into the favorites page
+     */
     private void populateLikedList(){
         TextView[] recipeLinks = createLikedRecipeButtons();
 
@@ -55,6 +57,9 @@ public class FavoritesActivity extends AppCompatActivity {
             recipeList.addView(recipe);
     }
 
+    /**
+     * @return The list of recipes the user has liked in json format String
+     */
     private JSONObject getLikesJSON(){
         JSONObject likes = null;
         try {
@@ -66,6 +71,10 @@ public class FavoritesActivity extends AppCompatActivity {
         return likes;
     }
 
+    /**
+     * Creates a link to the recipe for each recipe the user has liked
+     * @return array of textviews displaying liked recipes
+     */
     private TextView[] createLikedRecipeButtons(){
         LinkedList<TextView> recipeLinks = new LinkedList<>();
 
