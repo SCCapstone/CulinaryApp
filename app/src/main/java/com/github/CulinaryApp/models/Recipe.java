@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Recipe {
+    /**
+     * Recipe class is the data model for recipes
+     * The Recipes page contains a list of Recipe objects.
+     * The Recipes detail page contains one recipe and uses an overloaded constructor for Recipe
+     * Additionally, this class deals with recipe parsing from mealdb.
+     */
     private String name;
     private String image;
     private String id;
