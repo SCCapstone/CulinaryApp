@@ -43,6 +43,9 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * Main Profile activity class, caries out all basic profile functions
+ */
 public class ProfileActivity extends AppCompatActivity {
     private CircleImageView prof;
     private ImageView bgImg;
@@ -63,22 +66,30 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int LINES_BIO = 6;
 
 
+    /**
+     * Tells the profiles page what to do when the activity is called
+     * @param savedInstanceState past saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Set the activity to use the activity_profile xml
         setContentView(R.layout.activity_profile);
         changingBgImg = false;
         changingProfPic = false;
-//        pfpURI = null;
-//        bgURI = null;
         pfpRef = null;
         bgpRef = null;
 
+        //get the bio if already set by the user
         bio =  getSharedPrefs(this).getString(KEY_SHAREDPREFS_BIO, VALUE_SHAREDPREFS_DEFAULT_BIO);
+        //get the user display name
         displayName = getSharedPrefs(this).getString(KEY_SHAREDPREFS_DISPLAY_NAME, VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME);
 
     }
 
+    /**
+     * Tells the app what to do when the activity is called, similar to onCreate just doesnt hold past instance
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -96,15 +107,15 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.howTheySee).setOnClickListener(displayProfileFull);
 
         //buttons within preferences - potentially permanent removal of other preferences
-        /*
-        Changing to general update preferences - Changed by Michael Sana
-        findViewById(R.id.setHealth).setOnClickListener(healthSettingsChanger);
-        findViewById(R.id.setLifestyle).setOnClickListener(lifestyleSettingsChanger);
-        */
         findViewById(R.id.updatePreferences).setOnClickListener(updatePreferenceSettings);
         loadAcctImgsFromFirebase();
     }
 
+    /**
+     * Takes in an image and gets the bitmap to be displayed
+     * @param img
+     * @return created bitMap
+     */
     private Bitmap getBitmapFromVectorDrawable(VectorDrawable img){
         return Bitmap.createBitmap(
                 img.getIntrinsicWidth(),
@@ -112,6 +123,10 @@ public class ProfileActivity extends AppCompatActivity {
                 Bitmap.Config.ARGB_8888);
     }
 
+    /**
+     * Get the bitmaps from storage to be used
+     * @return drawables
+     */
     public Bitmap[] getBmps() {
         Drawable profDrawable = prof.getDrawable();
         Drawable bgDrawable = bgImg.getDrawable();
@@ -132,6 +147,9 @@ public class ProfileActivity extends AppCompatActivity {
         return bmps;
     }
 
+    /**
+     * Loads the account iages from firebase
+     */
     private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
         final FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -141,7 +159,6 @@ public class ProfileActivity extends AppCompatActivity {
         pfpRef = storageRef.child(KEY_FIREBASE_PFP).child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Checks if user has uploaded a pfp and loads a default picture if not
-//        pfpRef.getDownloadUrl().addOnSuccessListener(uri -> loadImg(pfpRef, prof)).addOnFailureListener(exception -> loadImg(storageRef.child("DefaultPfp.jpg"), prof));
         loadImg(pfpRef, prof);
 
         //Create a bgp reference under the users UID
@@ -150,27 +167,13 @@ public class ProfileActivity extends AppCompatActivity {
         loadImg(bgpRef, bgImg);
     }
 
-    /*
-    View.OnClickListener healthSettingsChanger = view -> {
-        androidx.appcompat.widget.SwitchCompat glutenSwitch = new androidx.appcompat.widget.SwitchCompat(this);
-        glutenSwitch.setText("Gluten-free mode");
 
-        showGenericDialog("Health Settings", glutenSwitch);
-    };
-    */
-
-    /*
-    View.OnClickListener lifestyleSettingsChanger = view -> {
-        //track calories switch
-        androidx.appcompat.widget.SwitchCompat caloriesSwitch = new androidx.appcompat.widget.SwitchCompat(this);
-        caloriesSwitch.setText("Track my Caloric intake");
-
-        showGenericDialog("Lifestyle Settings", caloriesSwitch);
-    };
-     */
 
     View.OnClickListener updatePreferenceSettings = view-> navigateToUpdatePreferences();
 
+    /**
+     * switches current view to update preferences activity
+     */
     public void navigateToUpdatePreferences(){
         Intent intentToGoToUpdatePreferences = new Intent(this, PreferencesActivity.class);
         startActivity(intentToGoToUpdatePreferences);
@@ -185,6 +188,9 @@ public class ProfileActivity extends AppCompatActivity {
         showGenericDialog("Activity Settings", historySwitch);
     };
 
+    /**
+     * Below are the onclick listeners for the buttons
+     */
     View.OnClickListener privacySettingsChanger = view -> {
         //private acct switch
         androidx.appcompat.widget.SwitchCompat privateSwitch = new androidx.appcompat.widget.SwitchCompat(this);
@@ -194,7 +200,6 @@ public class ProfileActivity extends AppCompatActivity {
     };
 
     View.OnClickListener displayProfileFull = view ->{
-//        findViewById(R.id.clipboardFragmentHolder).setVisibility(View.VISIBLE);
 
         FragmentManager manager = getSupportFragmentManager();
 
@@ -210,6 +215,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private interface ValueSetter { void set(String value); }
 
+    /**
+     * saves current images
+     * @param key
+     * @param value
+     * @param setter
+     */
     private void save(String key, String value, ValueSetter setter){
         setter.set(value);
         getSharedPrefs(this).edit().putString(key, value).apply();
@@ -241,6 +252,11 @@ public class ProfileActivity extends AppCompatActivity {
                 .start();
     };
 
+    /**
+     * Saves the current preferences to be retrieved next time the activity is opened
+     * @param context
+     * @return all the saved preferences
+     */
     private static SharedPreferences getSharedPrefs(Context context){
         SharedPreferences sharedPreferences = null;
         try {
@@ -260,13 +276,14 @@ public class ProfileActivity extends AppCompatActivity {
         return sharedPreferences;
     }
 
+    /**
+     * Get the users profile name and bio
+     * @return
+     */
     public String[] getProfileStrings(){
         return new String[] {displayName, bio};
     }
 
-    /*public Uri[] getUris(){
-        return new Uri[] {bgURI, pfpURI};
-    }*/
 
     private void getStringFromDialog(String title, String hint, int lines, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
@@ -312,24 +329,16 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog dialog = textInputDialog.create();
         dialog.show();
 
-        /*new Thread(
-            ()-> {
-                while(dialog.isShowing()){
-                    boolean dialogEnabled = dialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled();
-                    if(typing && !dialogEnabled)
-                        runOnUiThread(() -> dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true));
-                    else if(!typing && dialogEnabled)
-                        runOnUiThread(() -> dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false));
-                }
-
-                typing = false;
-            }
-        ).start();*/
 
 
 
     }
 
+    /**
+     * Generic dialog options for the profile page, what is automatically set before the user updates
+     * @param title
+     * @param toAdd
+     */
     private void showGenericDialog(String title, View toAdd){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
