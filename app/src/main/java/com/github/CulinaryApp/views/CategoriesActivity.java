@@ -64,7 +64,9 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
-
+/**
+ * Main categories activity class, displays categories and recipes to the user
+ */
 public class CategoriesActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
@@ -75,11 +77,18 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private ArrayList<String> categories = new ArrayList<>();
 
+    /**
+     * redirects user to the selected recipe page
+     */
     public void redirectToRecipePage() {
         Intent intentToStartCategoriesPage = new Intent(this, RecipesActivity.class);
         startActivity(intentToStartCategoriesPage);
     }
 
+    /**
+     * Tells the categories page what to do when the activity is called
+     * @param savedInstanceState past saved state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,21 +101,13 @@ public class CategoriesActivity extends AppCompatActivity {
         v.setPadding(0, textEntrySB.findViewById(R.id.edit_search).getHeight(),0,homeButton.findViewById(R.id.toolbarSearch).getHeight());
          **/
         Log.d(TAG, "CATEGORIES_ACTIVITY_CREATED\n");
-        /*
-         * Michael, not sure what you want the method definition to be like down below where you're
-         * gonna put the dynamic page loading functionality so I'm just gonna put this example query here for now
-         * that logs all fields for each document our Firebase project's root collection
-         */
+
 
         recyclerView = findViewById(R.id.recyclerView);
 
 
         mAuth = FirebaseAuth.getInstance();
-        //ImageButton imageButton = findViewById(R.id.Recipe_Image1);
 
-        //insert navbar on activity load
-        // getSupportFragmentManager().beginTransaction().add(R.id.Navbar, NavbarFragment.class, null).commit();
-        //getSupportFragmentManager().beginTransaction().add(R.id.Searchbar, SearchbarFragment.class, null).commit();
 
         //Code for toolbar
         toolbar = findViewById(R.id.toolBar);
@@ -114,18 +115,20 @@ public class CategoriesActivity extends AppCompatActivity {
 
         //displays home button
         ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
 
+    /**
+     * Tells the categories page what to do when the activity is started similar to onCreate()
+     */
     @Override
     protected void onStart(){
         super.onStart();
-
         new Thread(this::updateDisplay).start();
-
     }
 
+    /**
+     * updates the displayed page based on user preferences
+     */
     private void updateDisplay() {
         final ArrayList<String>[] lifestyles = new ArrayList[]{new ArrayList<>()};
         String userID = FirebaseAuth.getInstance().getUid();
