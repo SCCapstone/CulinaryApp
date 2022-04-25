@@ -135,9 +135,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                         lifestyleList.add("Flexitarian");
 
                     if(!lifestyleList.isEmpty())
-                        lifestyleList.add("None");
-
-                    hopperUpdates.put("Lifestyle",lifestyleList);
+                        hopperUpdates.put("Lifestyle",lifestyleList);
 
 
                     hopperRef.updateChildren(hopperUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 input.setLayoutParams(lp);
-                builder.setView(input); // uncomment this line
+                builder.setView(input);
 
                 //Builds dialog interface
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
