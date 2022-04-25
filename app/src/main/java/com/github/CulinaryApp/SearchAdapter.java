@@ -102,9 +102,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     //Recipe was clicked
                     Intent newRecipesActivity = new Intent(SearchAdapter.this.context, RecipeInstructionsActivity.class);
                     //newRecipesActivity.putExtra("Category", categories[holder.getAbsoluteAdapterPosition()]);
-                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, ids.get(position));
+                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_ID, ids.get(position-(categories.size()-ids.size())));
                     newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_NAME, text);
-                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, imgs.get(position));
+                    newRecipesActivity.putExtra(RecyclerViewAdapter.KEY_INTENT_EXTRA_RECIPE_IMG, imgs.get(position-(categories.size()-imgs.size())));
 
 
                     newRecipesActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
