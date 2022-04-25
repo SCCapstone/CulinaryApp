@@ -66,7 +66,10 @@ public class BehaviorTests {
 
 package com.github.CulinaryApp;
 
+import androidx.annotation.ContentView;
+import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.github.CulinaryApp.views.LoginActivity;
 //import static android.support.Espresso.onView;
@@ -80,11 +83,20 @@ import org.junit.Test;
 public class BehaviorTests{
 
     @Rule
-    ActivityScenario<LoginActivity> mActivityTestRule = ActivityScenario.launch(LoginActivity.class);
+    public ActivityScenarioRule<LoginActivity> rule =
+            new ActivityScenarioRule<>(LoginActivity.class);
 
     private String email = "default@email.com";
     private String password = "default";
 
+    @Test
+    public void launchedActivityDisplaysExpectedInitialState() {
+        try(ActivityScenario<LoginActivity> scenario = ActivityScenario.launch(LoginActivity.class)) {
+            scenario.moveToState(Lifecycle.State.STARTED);
+            scenario.moveToState(Lifecycle.State.CREATED);
+            assert scenario.getState().isAtLeast(Lifecycle.State.CREATED);
+        }
+    }
     @Before
     public void setUp() throws Exception{
 
