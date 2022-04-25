@@ -144,7 +144,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(RegPage2Activity.this, "User info successfully updated", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(RegPage2Activity.this, "User info successfully updated", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(RegPage2Activity.this, CategoriesActivity.class));
                             }
                             else
@@ -192,7 +192,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
                             uploadedPfp = true;
                         } else
                             Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();
@@ -207,8 +207,8 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                 pfpRef.putFile(pfpURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful())
-                            Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
+                        if (task.isSuccessful()){}
+                            //Toast.makeText(RegPage2Activity.this, "User image successfully uploaded", Toast.LENGTH_LONG).show();
 
                         else
                             Toast.makeText(RegPage2Activity.this, "Failed to upload user image", Toast.LENGTH_LONG).show();

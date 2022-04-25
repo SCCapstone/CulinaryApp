@@ -15,8 +15,11 @@ import java.io.IOException;
 
 import static com.github.CulinaryApp.R.id.btn_signup;
 import static com.github.CulinaryApp.R.id.login_button;
+import static com.github.CulinaryApp.R.id.reset_button;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +29,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 // import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -93,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText password = (findViewById(R.id.password));
         Button loginButton = (findViewById(login_button));
         Button registerButton = (findViewById(btn_signup));
+        Button resetButton = (findViewById(reset_button));
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +149,55 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+            }
+        });
+
+        //Forgot password button
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setTitle("Please enter your email address");
+
+                final EditText input = new EditText(LoginActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                builder.setView(input); // uncomment this line
+
+                //Builds dialog interface
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //"Send email" clicked
+                                String emailAddress = input.getText().toString();
+                                mAuth.sendPasswordResetEmail(emailAddress)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d(TAG, "Email sent.");
+                                                }
+                                            }
+                                        });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //"Cancel" clicked
+                                break;
+                        }
+
+                    }
+                };
+
+                builder.setPositiveButton("Send Email", dialogClickListener);
+                builder.setNegativeButton("Cancel", dialogClickListener);
+                builder.show();
 
             }
         });
