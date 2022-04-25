@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesRepository {
+    /**
+      * This Repo dymanically queiries Cloud Firestore to get a list of Recipes based on the category searched for or selected on the home page
+      */
 
     private static final String TAG = "RecipesRepository";
 
     FirebaseFirestore firestoreDB;
-   // CollectionReference rootCategoryCollection; // there are two - CATEGORIES & CATEGORIESBYREGION
-   // DocumentReference categoryUserSelected; // dynamic based on user selections from Category Page
-   CollectionReference whereAreRecipesForCategoryChosen;
+    CollectionReference whereAreRecipesForCategoryChosen;
 
     MutableLiveData<Recipe> recipeMutableLiveData;
     MutableLiveData<List<Recipe>> recipeListMutableLiveData;
@@ -35,9 +36,9 @@ public class RecipesRepository {
     public RecipesRepository(String strCategorySelected) {
         firestoreDB = FirebaseFirestore.getInstance();
         whereAreRecipesForCategoryChosen =
-                firestoreDB.collection("CATEGORIES/")
-                             .document(strCategorySelected + "/")
-                                .collection("RECIPES");
+                firestoreDB.collection("CATEGORIES/") // the root collection in Cloud Firestore
+                             .document(strCategorySelected + "/") // user selection from home page
+                                .collection("RECIPES"); // regardless of selection, each category document has an associated collection for recipes
         this.recipeListMutableLiveData = new MutableLiveData<>();
         // define recipe list
         recipeMutableLiveData = new MutableLiveData<>();
@@ -57,7 +58,7 @@ public class RecipesRepository {
                              + aDocumentSnapshot.getId() + "\nFields: "
                                     + aDocumentSnapshot.getData());
                     if (aDocumentSnapshot != null) {
-                        recipeList.add(aDocumentSnapshot.toObject(Recipe.class));
+                        recipeList.add(aDocumentSnapshot.toObject(Recipe.class)); // constructs a Recipe object for each entry returned from Firebase
                     }
                 }
                 recipeListMutableLiveData.postValue(recipeList);

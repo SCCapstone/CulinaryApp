@@ -42,31 +42,28 @@ public class NavbarFragment extends Fragment{
         Button favsButton = getView().findViewById(R.id.toolbarFavs);
         Button homeButtom = getView().findViewById(R.id.toolbarHome);
         Button profileButton = getView().findViewById(R.id.toolbarProfile);
-//        Button trendingButton = getView().findViewById(R.id.toolbarTrending);
         Button logoutButton  = getView().findViewById(R.id.toolbarlogOut);
 
         profileButton.setOnClickListener(new NavListener(ProfileActivity.class));
         favsButton.setOnClickListener(new NavListener(FavoritesActivity.class));
         homeButtom.setOnClickListener(new NavListener(CategoriesActivity.class));
-//        trendingButton.setOnClickListener(toggleTrending);
+
+        //signs user out if they click and confirm their intent to logout
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                FirebaseAuth.getInstance().signOut();
-                                goToLogin();
-                                break;
+                DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Yes button clicked
+                            FirebaseAuth.getInstance().signOut();
+                            goToLogin();
+                            break;
 
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
-                        }
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
                     }
                 };
 
@@ -77,6 +74,7 @@ public class NavbarFragment extends Fragment{
 
             }
 
+            //navigates the user to the login page post logout
             private void goToLogin() {
                 Intent switchToLogin = new Intent(getContext(), LoginActivity.class);
                 startActivity(switchToLogin);
@@ -87,7 +85,10 @@ public class NavbarFragment extends Fragment{
     }
 
 
-
+    /**
+     * Navigates to any given activity
+     * @param <T> the .class of the activity being navigated to
+     */
     public class NavListener <T extends Activity> implements View.OnClickListener {
         private final Class<T> targetActivity;
 

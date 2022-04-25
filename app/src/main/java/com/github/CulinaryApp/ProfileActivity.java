@@ -51,9 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView bgImg;
     boolean changingProfPic, changingBgImg;
     private String bio, displayName;
-//    private Uri pfpURI, bgURI;
     private StorageReference pfpRef, bgpRef;
-    private boolean typing = false;
 
     private static final String FILENAME_ENCRYPTED_SHARED_PREFS = "secret_shared_prefs";
     private static final String KEY_SHAREDPREFS_DISPLAY_NAME = "userDisplayName";
@@ -77,10 +75,11 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         changingBgImg = false;
         changingProfPic = false;
+
         pfpRef = null;
         bgpRef = null;
 
-        //get the bio if already set by the user
+        //retrieves bio and display name from storage system
         bio =  getSharedPrefs(this).getString(KEY_SHAREDPREFS_BIO, VALUE_SHAREDPREFS_DEFAULT_BIO);
         //get the user display name
         displayName = getSharedPrefs(this).getString(KEY_SHAREDPREFS_DISPLAY_NAME, VALUE_SHAREDPREFS_DEFAULT_DISPLAY_NAME);
@@ -106,15 +105,14 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.editDispName).setOnClickListener(displayNameEditor);
         findViewById(R.id.howTheySee).setOnClickListener(displayProfileFull);
 
-        //buttons within preferences - potentially permanent removal of other preferences
         findViewById(R.id.updatePreferences).setOnClickListener(updatePreferenceSettings);
         loadAcctImgsFromFirebase();
     }
 
     /**
-     * Takes in an image and gets the bitmap to be displayed
+     * converts a VectorDrawable to a Bitmap object
      * @param img
-     * @return created bitMap
+     * @return Bitmap object created
      */
     private Bitmap getBitmapFromVectorDrawable(VectorDrawable img){
         return Bitmap.createBitmap(
@@ -124,8 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the bitmaps from storage to be used
-     * @return drawables
+     * This method deals with the fact that the default images on this page are VectorDrawables, but the images uploaded by the user are BitmapDrawables
+     * @return Array of bitmaps of images currently being displayed on the page
      */
     public Bitmap[] getBmps() {
         Drawable profDrawable = prof.getDrawable();
@@ -148,7 +146,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Loads the account iages from firebase
+     * acquires the user's profile image and background image from firebase
      */
     private void loadAcctImgsFromFirebase(){
         //Load Pfp and Bgp
@@ -168,39 +166,23 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * opens preferences activity
+     */
     View.OnClickListener updatePreferenceSettings = view-> navigateToUpdatePreferences();
 
     /**
-     * switches current view to update preferences activity
+     * opens the updatepreferences activity
      */
     public void navigateToUpdatePreferences(){
         Intent intentToGoToUpdatePreferences = new Intent(this, PreferencesActivity.class);
         startActivity(intentToGoToUpdatePreferences);
     }
 
-
-    View.OnClickListener activitySettingsChanger = view -> {
-        //track recipe history switch
-        androidx.appcompat.widget.SwitchCompat historySwitch = new androidx.appcompat.widget.SwitchCompat(this);
-        historySwitch.setText("Track my history");
-
-        showGenericDialog("Activity Settings", historySwitch);
-    };
-
     /**
-     * Below are the onclick listeners for the buttons
+     * Displays the user's profile as it should look to other users
      */
-    View.OnClickListener privacySettingsChanger = view -> {
-        //private acct switch
-        androidx.appcompat.widget.SwitchCompat privateSwitch = new androidx.appcompat.widget.SwitchCompat(this);
-        privateSwitch.setText("Private Account");
-
-        showGenericDialog("Privacy Settings", privateSwitch);
-    };
-
     View.OnClickListener displayProfileFull = view ->{
-
         FragmentManager manager = getSupportFragmentManager();
 
         ViewCompat.setTransitionName(bgImg, "bgImg");
@@ -213,23 +195,35 @@ public class ProfileActivity extends AppCompatActivity {
                 .commit();
     };
 
+    /**
+     * helper function type, used to allow me to set instance variables via parameter. totally unnecessary but cool
+     */
     private interface ValueSetter { void set(String value); }
 
     /**
-     * saves current images
-     * @param key
-     * @param value
-     * @param setter
+     * Runs the value saving method provided in the parameter, then puts it into sharedprefs, overwriting the current value
+     * @param key which value in sharedprefs to overwrite
+     * @param value the value being written
+     * @param setter the method that sets the instance variable so it can be used without needing to be loaded
      */
     private void save(String key, String value, ValueSetter setter){
         setter.set(value);
         getSharedPrefs(this).edit().putString(key, value).apply();
     }
 
+    /**
+     * opens a dialog to edit the user's display name and saves the result in sharedprefs and as an instance variable
+     */
     View.OnClickListener displayNameEditor = view -> getStringFromDialog("Edit Display Name", "New Display Name Here", LINES_DISPLAY_NAME, KEY_SHAREDPREFS_DISPLAY_NAME, (dialogInput) -> this.displayName = dialogInput);
 
+    /**
+     * opens a dialog to edit the user's bio and saves the result in sharedprefs and as an instance variable
+     */
     View.OnClickListener bioEditor = view -> getStringFromDialog("Edit Bio", "Your Bio Here", LINES_BIO, KEY_SHAREDPREFS_BIO, (output) -> this.bio = output);
 
+    /**
+     * Uses the ImagePicker library to accept a new profile picture for the user
+     */
     View.OnClickListener profImgChanger = view -> {
         changingProfPic = true;
         ImagePicker.with(ProfileActivity.this)
@@ -239,6 +233,9 @@ public class ProfileActivity extends AppCompatActivity {
                 .start();
     };
 
+    /**
+     * Uses the ImagePicker library to accept a new background picture for the user
+     */
     View.OnClickListener bgImgChanger = view -> {
         changingBgImg = true;
 
@@ -253,9 +250,7 @@ public class ProfileActivity extends AppCompatActivity {
     };
 
     /**
-     * Saves the current preferences to be retrieved next time the activity is opened
-     * @param context
-     * @return all the saved preferences
+     * Opens an encrypted sharedpreferences system to save data or load data
      */
     private static SharedPreferences getSharedPrefs(Context context){
         SharedPreferences sharedPreferences = null;
@@ -277,14 +272,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * Get the users profile name and bio
-     * @return
+     * @return the user's display name and bio
      */
     public String[] getProfileStrings(){
         return new String[] {displayName, bio};
     }
 
 
+    /**
+     * Opens a generic dialog input box and runs the method setter given to save the value returned from the dialog
+     * @param title Title of the dialog
+     * @param hint The disappearing text displayed in the EditText input before you click it
+     * @param lines Basically sets the size of the EditText
+     * @param valueBeingSaved Key for the value in sharedprefs
+     * @param setter the method that saves the value given by the user
+     */
     private void getStringFromDialog(String title, String hint, int lines, String valueBeingSaved, ValueSetter setter){
         AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
         textInputDialog.setTitle(title);
@@ -329,36 +331,14 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog dialog = textInputDialog.create();
         dialog.show();
 
-
-
-
     }
 
     /**
-     * Generic dialog options for the profile page, what is automatically set before the user updates
-     * @param title
-     * @param toAdd
+     * Converts a number of DP into a number of pixels, given the current screen size
+     * @param context
+     * @param densityPoints
+     * @return
      */
-    private void showGenericDialog(String title, View toAdd){
-        AlertDialog.Builder textInputDialog = new AlertDialog.Builder(this);
-        textInputDialog.setTitle(title);
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        int padding = getPixelsFromDp(this,32);
-        layout.setPadding(padding, padding, padding, padding);
-        layout.addView(toAdd);
-
-        textInputDialog.setView(layout);
-
-        textInputDialog.setPositiveButton("Done", (dialog, choice) -> dialog.dismiss());
-
-        textInputDialog.setNegativeButton("Cancel", (dialog, choice) -> dialog.cancel());
-
-        textInputDialog.show();
-    }
-
     public static int getPixelsFromDp(Context context, int densityPoints){
         final float DP_CONSTANT = 0.5f;
         float scale = context.getResources().getDisplayMetrics().density;
@@ -366,29 +346,25 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     /**
-     * this method temporarily changes what is loaded into the imageviews for avatar and bgimg
-     * this must be done bc the image is not updating with the firebase until onstart runs again
-     * That has to be circumvented somehow
-     * @param into
-     * @param imgUri
+     * Uses the bitmap of the image and loads it into the ImageView given
+     * @param into the ImageView receiving an image
+     * @param imgUri the Uri of the image online
      */
     private void loadImg(ImageView into, Uri imgUri){
         try {
             Bitmap bmp = BitmapFactory.decodeStream(new URL(imgUri.toString()).openConnection().getInputStream());
-
             runOnUiThread(() -> into.setImageBitmap(bmp));
-            //System.out.println("-------------------------------yo------------------------");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * this method does the same thing as load img, it just acquires the URI from firebase
-     * this happens this way bc the only way to get the uri from Firebase is to use .getDownloadUrl()
+     * Gets the URI of an image to use loadImg on
+     * this happens this way bc the only way to get the uri from Firebase is to use .getDownloadUrl(), which is async, so its callback method can only be set in this annoying way
      * this method is only used when initially loading the image from the website, otherwise, when the uri is already at hand, use the other loadimg
-     * @param reference
-     * @param into
+     * @param reference the storagereference of the image
+     * @param into the Imageview receiving the image
      */
     private void loadImg(StorageReference reference, ImageView into){
         reference.getDownloadUrl().addOnSuccessListener((uri) -> new Thread( () -> {
@@ -396,7 +372,13 @@ public class ProfileActivity extends AppCompatActivity {
         }).start());
     }
 
-
+    /**
+     * Sets a datapoint within Firebase for a given user
+     * @param data the Intent that contains the Uri of the image received from onActivityResult
+     * @param storageRef the reference on firebase to the user's image
+     * @param viewToUpdate the view that contains the image
+     * @param key the type of reference, either means bgimg or pfp
+     */
     private void updatePersonalizedData(Intent data, StorageReference storageRef, ImageView viewToUpdate, String key){
         if (viewToUpdate != null) {
             //Image Uri will not be null for RESULT_OK
@@ -420,6 +402,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Deals with the uri of the image returned from a user picking a new image
+     * @param requestCode used only by the super activity
+     * @param resultCode imagepicker indication of success or failure
+     * @param data the intent containing the data returned by imagepicker
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
