@@ -75,17 +75,16 @@ Allows you to edit your food preferences for your recommendations. See "modifyin
 
 
 ## Images
-![Screenshot_20220422-164035](https://user-images.githubusercontent.com/42895248/165155230-e1b6ab71-1ae0-45a7-b944-2f7c0d508edd.png)
+<!-- ![Screenshot_20220422-164035](https://user-images.githubusercontent.com/42895248/165155230-e1b6ab71-1ae0-45a7-b944-2f7c0d508edd.png)
 ![Screenshot_20220422-164120](https://user-images.githubusercontent.com/42895248/165155410-97f81b3f-89ff-4428-bd09-b88f97c1f8ab.png)
 ![Screenshot_20220422-164242](https://user-images.githubusercontent.com/42895248/165155420-9010c4c0-112f-4a91-bf06-0c0faca339f2.png)
-![Screenshot_20220422-164252](https://user-images.githubusercontent.com/42895248/165155432-0579072b-b162-4bce-8176-7bee04aa3510.png)
+![Screenshot_20220422-164252](https://user-images.githubusercontent.com/42895248/165155432-0579072b-b162-4bce-8176-7bee04aa3510.png) -->
 
 
-<!-- <img width="233" alt="LoginScreen" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164006.png">
-<img width="233" alt="categories" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164050.png">
-<img width="233" alt="recipes" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164120.png">
-<img width="233" alt="profile" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164252.png">
-<img width="233" alt="image_edit" src="https://github.com/SCCapstone/CulinaryApp/blob/main/wiki/website_screenshots/Screenshot_20220422-164242.png"> -->
+<img width="233" alt="LoginScreen" src="https://user-images.githubusercontent.com/42895248/165155230-e1b6ab71-1ae0-45a7-b944-2f7c0d508edd.png">
+<img width="233" alt="categories" src="https://user-images.githubusercontent.com/42895248/165155410-97f81b3f-89ff-4428-bd09-b88f97c1f8ab.png">
+<img width="233" alt="recipes" src="https://user-images.githubusercontent.com/42895248/165155420-9010c4c0-112f-4a91-bf06-0c0faca339f2.png">
+<img width="233" alt="profile" src="https://user-images.githubusercontent.com/42895248/165155432-0579072b-b162-4bce-8176-7bee04aa3510.png">
 
 ## About Us
 *I am Chef* was developed by the CulinaryApp team within the UofSC 2022 Capstone Project framework
