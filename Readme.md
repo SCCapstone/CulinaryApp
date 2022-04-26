@@ -24,6 +24,8 @@ To run a test one can either:
 1. Open the project in android studio and in the terminal type ``` .\gradlew test ```
 2. Open the project in android studio. Navigate to the test folder and open the desired test. Either run the whole test by clicking the green arrow icon next to the public class method, or run a specific test by clicking the green arrow next to the specific public void method (located underneath an "@Test" line).
 
+Tests are located in /app/src/androidTest/java/com/github/CulinaryApp and /app/src/test/java/com/github/CulinaryApp
+
 ## Testing Technology
 N/A
 
