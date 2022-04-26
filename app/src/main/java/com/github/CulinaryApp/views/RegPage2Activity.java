@@ -93,7 +93,6 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
         String LName = LastName.getText().toString().trim();
 
         switch(v.getId()){
-            //TODO pfp and background photo
             case R.id.userRegButton:
                 if(FName.isEmpty()){
                     FirstName.setError("Field can't be empty!");

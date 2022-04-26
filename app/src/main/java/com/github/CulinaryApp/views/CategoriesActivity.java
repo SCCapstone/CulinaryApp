@@ -552,4 +552,25 @@ public class CategoriesActivity extends AppCompatActivity {
         startActivity(switchToLogin);
     }
 
+    public static boolean categoriesTestEmpty() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Empty())).isEmpty();
+    }
+    public static boolean categoriesTestAthletic() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Athletic())).isEmpty();
+    }
+    public static boolean categoriesTestVegan() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Vegan())).isEmpty();
+    }
+    public static boolean categoriesTestVegetarian() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Vegetarian())).isEmpty();
+    }
+    public static boolean categoriesTestFlexitarian() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Flexitarian())).isEmpty();
+    }
+    public static boolean categoriesTestKetogenic() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Ketogenic())).isEmpty();
+    }
+    public static boolean categoriesTestMediterranean() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Mediterranean())).isEmpty();
+    }
 }
