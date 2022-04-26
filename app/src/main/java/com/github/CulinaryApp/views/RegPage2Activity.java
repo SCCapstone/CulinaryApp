@@ -86,6 +86,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    //Store and send preferences
     @Override
     public void onClick(View v) {
 
@@ -104,7 +105,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
                     LastName.requestFocus();
                     return;
                 }
-                else{
+                else{ //Update user settings
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = database.getReference("Users");
                     DatabaseReference hopperRef = ref.child(FirebaseAuth.getInstance().getUid());
@@ -155,7 +156,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
             case R.id.pfpButton:
                 uploadPfp = true;
                 ImagePicker.with(this)
-                        .crop()	    			//Crop image(Optional), Check Customization for more option
+                        .crop()	    			//Crop image
                         .compress(1024)			//Final image size will be less than 1 MB(Optional)
                         .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
@@ -164,7 +165,7 @@ public class RegPage2Activity extends AppCompatActivity implements View.OnClickL
             case R.id.backgroundPhotoButton:
                 uploadBgp = true;
                 ImagePicker.with(this)
-                        .crop(30,18f)	    			//Crop image(Optional), Check Customization for more option
+                        .crop(30,18f)	    			//Crop
                         .compress(1024)			//Final image size will be less than 1 MB(Optional)
                         .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
                         .start();
