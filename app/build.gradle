@@ -58,6 +58,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-database:20.0.3'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'androidx.test:runner:1.4.0'
 
 
     /* Lifecycle components */
@@ -140,6 +141,9 @@ dependencies {
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espressocore:3.0.2'
     testImplementation "androidx.test:core:1.4.0"
+
+
+
 
 
 }
