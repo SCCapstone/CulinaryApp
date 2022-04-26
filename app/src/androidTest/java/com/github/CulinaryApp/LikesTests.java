@@ -42,7 +42,7 @@ public class LikesTests {
     public ActivityScenarioRule<CategoriesActivity> rule = new ActivityScenarioRule<>(CategoriesActivity.class);
 
     @Test
-    public void likeSuccessTest(){
+    public void FavoritesNavigationSuccessTest(){
         rule.getScenario().moveToState(Lifecycle.State.RESUMED);
 
         ActivityScenario<CategoriesActivity> scene = ActivityScenario.launch(CategoriesActivity.class);
@@ -51,8 +51,22 @@ public class LikesTests {
             activity.findViewById(R.id.toolbarFavs).performClick();
         });
 
-        scene.getResult();
-        assertEquals(Lifecycle.State.DESTROYED, scene.getState());
+        //CREATED is called right as OnPause is called, meaning the activity was left
+        assertEquals(Lifecycle.State.STARTED, scene.getState());
+    }
+
+    @Test
+    public void ProfileNavigationSuccessTest(){
+        rule.getScenario().moveToState(Lifecycle.State.RESUMED);
+
+        ActivityScenario<CategoriesActivity> scene = ActivityScenario.launch(CategoriesActivity.class);
+
+        scene.onActivity( activity -> {
+            activity.findViewById(R.id.toolbarProfile).performClick();
+        });
+
+        //CREATED is called right as OnPause is called, meaning the activity was left
+        assertEquals(Lifecycle.State.STARTED, scene.getState());
     }
 
     /*@Test
