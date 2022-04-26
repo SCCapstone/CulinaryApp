@@ -35,6 +35,6 @@ public class APIClientTest {
 }
 
     private boolean attemptWasSuccessful(int status) {
-        return status > 199 || status < 300;
+        return status > 199 && status < 300;
     }
 }

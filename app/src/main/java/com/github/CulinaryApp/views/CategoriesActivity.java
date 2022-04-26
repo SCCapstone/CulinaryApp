@@ -388,20 +388,15 @@ public class CategoriesActivity extends AppCompatActivity {
         });
         return true;
     }
-    /*
-    This is where the dynamic page loading functionality will go
-    //need a way to diferentiate between users
-    Query userSuggestion = databaseReference.child("recipes").child(User ID definer).orderByChild("Suggested");
-    */
-
-    //TODO redirect to recipes pagesW
-    public void redirectToRecipe(View view){
-
-    }
 
 
     //Class for retrieving categories based on lifestyle preferences
     //This was done by RJ and I have no idea really what I'm doing so feel free to update as you see fit
+    /**
+     * converts arraylist of preferences to categories
+     * @param preferences
+     * @return Arraylist of categories
+     */
     public ArrayList<String> getCategories(ArrayList<String> preferences) throws JSONException {
 
         ArrayList<String> categories = new ArrayList<>();
@@ -445,7 +440,11 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
-    //Returns amount of array in use
+    /**
+     * Gives amount of array in use
+     * @param array
+     * @return int of objects in array
+     */
     public static int arrLength(Object[] array){
         int counter = 0;
         for (int i = 0; i < array.length; i ++) {
@@ -455,12 +454,18 @@ public class CategoriesActivity extends AppCompatActivity {
         return counter;
     }
 
+    /**
+     * Create recycler view and sets adapter
+     */
     public void loadScreen(RecyclerViewAdapterCategories recAdapter){
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(recAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
+    /**
+     * updates adapter
+     */
     public void updateRecAdapter(RecyclerViewAdapterCategories recAdapter){
         recAdapter.notifyDataSetChanged();
     }
@@ -469,6 +474,11 @@ public class CategoriesActivity extends AppCompatActivity {
         recAdapter.notifyItemInserted(arrLength(arrForLength)-1);
     }
 
+    /**
+     * Converts url to string
+     * @param URL_TO_OPEN
+     * @return string output of the JSON
+     */
     private String apiCall(String URL_TO_OPEN){
         try {
             HttpsURLConnection connect = (HttpsURLConnection) new URL(URL_TO_OPEN).openConnection();
@@ -485,6 +495,11 @@ public class CategoriesActivity extends AppCompatActivity {
         return "";
     }
 
+    /**
+     * Converts input stream to string
+     * @param response
+     * @return String of the JSON
+     */
     private String streamToString(InputStream response) {
         String JSON = "{}";
         try (Scanner scanner = new Scanner(response, StandardCharsets.UTF_8.name())) {
@@ -495,6 +510,11 @@ public class CategoriesActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * converts JSON object to arraylist
+     * @param JSON, type, names
+     * @return Arraylist of each element in the json object
+     */
     private ArrayList<String> JSONToArray(String JSON, String type, String names) throws JSONException {
         JSONObject obj = new JSONObject(JSON);
 
@@ -513,6 +533,11 @@ public class CategoriesActivity extends AppCompatActivity {
      * We want to filter those out and return the array
      * Start is for start of string value to look for (strIngredient or strMeasure)
      **/
+    /**
+     * converts a VectorDrawable to a Bitmap object
+     * @param meals_JSON, start
+     * @return Arraylist of elements from mealDB list
+     */
     private ArrayList<String> getListFromMealDB(String meals_JSON, String start){
         ArrayList<String> listOfElems = new ArrayList<String>();
         for(int i = 1; i <= 20; i++){
@@ -552,4 +577,25 @@ public class CategoriesActivity extends AppCompatActivity {
         startActivity(switchToLogin);
     }
 
+    public static boolean categoriesTestEmpty() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Empty())).isEmpty();
+    }
+    public static boolean categoriesTestAthletic() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Athletic())).isEmpty();
+    }
+    public static boolean categoriesTestVegan() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Vegan())).isEmpty();
+    }
+    public static boolean categoriesTestVegetarian() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Vegetarian())).isEmpty();
+    }
+    public static boolean categoriesTestFlexitarian() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Flexitarian())).isEmpty();
+    }
+    public static boolean categoriesTestKetogenic() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Ketogenic())).isEmpty();
+    }
+    public static boolean categoriesTestMediterranean() throws JSONException{
+        return !(Arrays.asList(LifestyleToCategories.Mediterranean())).isEmpty();
+    }
 }

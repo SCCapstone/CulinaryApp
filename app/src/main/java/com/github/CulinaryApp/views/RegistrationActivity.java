@@ -166,4 +166,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         boolean value = PatternsCompat.EMAIL_ADDRESS.matcher(email.trim()).matches();
         return value;
     }
+
+    public static boolean passwordsMatch(String pass1, String pass2){
+        return pass1.equals(pass2);
+    }
 }

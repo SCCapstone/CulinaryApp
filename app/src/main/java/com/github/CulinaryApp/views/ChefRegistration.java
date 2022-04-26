@@ -55,6 +55,7 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch(v.getId()){
+            //Registration clicked
             case R.id.chefReg:
 
                 String email = chefEmailT.getText().toString().trim();
@@ -64,6 +65,7 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                 String pass = passT.getText().toString().trim();
                 String confPass = chefConfPassT.getText().toString().trim();
 
+                //Checks to make sure email and passwords are set correctly
                 if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     chefEmailT.setError("Please enter a valid email address!");
                     chefEmailT.requestFocus();
@@ -104,7 +106,8 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                     chefConfPassT.requestFocus();
                     return;
                 }
-                else{
+                else{ //Emails and passwords set correct
+                    //Register account in firebase
                     mAuth.createUserWithEmailAndPassword(email, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -123,7 +126,6 @@ public class ChefRegistration extends AppCompatActivity implements View.OnClickL
                                                 if(task.isSuccessful()){
                                                     Toast.makeText(ChefRegistration.this, "Chef info uploaded", Toast.LENGTH_SHORT).show();
 
-                                                    //TODO Send chef to profile page or categories page (or reg page 2 but that's given)
                                                 }
                                                 else{
                                                     Toast.makeText(ChefRegistration.this, "Chef info failed to upload", Toast.LENGTH_LONG).show();
