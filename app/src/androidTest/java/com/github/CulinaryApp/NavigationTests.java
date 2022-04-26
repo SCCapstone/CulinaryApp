@@ -1,49 +1,37 @@
 package com.github.CulinaryApp;
 
-import android.app.Instrumentation;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
 import com.github.CulinaryApp.views.CategoriesActivity;
-import com.github.CulinaryApp.views.RecipeInstructionsActivity;
 
-import androidx.activity.result.ActivityResult;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.Lifecycle;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ActivityScenario;
 //import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.SmallTest;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.Result;
-import org.junit.runner.RunWith;
-
-import java.util.Objects;
 
 import static org.junit.Assert.*;
 
 
 //@RunWith(AndroidJUnit4.class)
 @SmallTest
-public class LikesTests {
+public class NavigationTests {
 
     @BeforeClass
     public static void setupClass(){
 //        throw new RuntimeException("no tests");
     }
 
+    
     @Rule
-    public ActivityScenarioRule<CategoriesActivity> rule = new ActivityScenarioRule<>(CategoriesActivity.class);
+    public ActivityScenarioRule<CategoriesActivity> categoryRule = new ActivityScenarioRule<>(CategoriesActivity.class);
+
 
     @Test
-    public void FavoritesNavigationSuccessTest(){
-        rule.getScenario().moveToState(Lifecycle.State.RESUMED);
+    public void CategoriesToFavoritesNavigationSuccessTest(){
+        categoryRule.getScenario().moveToState(Lifecycle.State.RESUMED);
 
         ActivityScenario<CategoriesActivity> scene = ActivityScenario.launch(CategoriesActivity.class);
 
@@ -53,11 +41,13 @@ public class LikesTests {
 
         //CREATED is called right as OnPause is called, meaning the activity was left
         assertEquals(Lifecycle.State.STARTED, scene.getState());
+
+        categoryRule.getScenario().close();
     }
 
     @Test
-    public void ProfileNavigationSuccessTest(){
-        rule.getScenario().moveToState(Lifecycle.State.RESUMED);
+    public void CategoriesToProfileNavigationSuccessTest(){
+        categoryRule.getScenario().moveToState(Lifecycle.State.RESUMED);
 
         ActivityScenario<CategoriesActivity> scene = ActivityScenario.launch(CategoriesActivity.class);
 
@@ -67,6 +57,8 @@ public class LikesTests {
 
         //CREATED is called right as OnPause is called, meaning the activity was left
         assertEquals(Lifecycle.State.STARTED, scene.getState());
+
+        categoryRule.getScenario().close();
     }
 
     /*@Test
